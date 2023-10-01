@@ -25,4 +25,4 @@ public class Tablero{
         Mostrar.setResizable(false);
         Mostrar.setVisible(true);
     }
-}
+} 
