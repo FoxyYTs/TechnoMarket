@@ -1,6 +1,7 @@
 import pandas as pd
 from pandas import ExcelWriter
 import os
+import baseDatos
 
 class Crud:
     def crear():
@@ -21,3 +22,16 @@ class Crud:
         print(pd.read_excel("TallerProgramacion/Karl.xlsx"))
         
     leer()
+    crear()
+    def registrar(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
+        c.execute("""INSERT INTO musica(id_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero)
+                  values(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero)""")
+
+
+    def mostrar():
+        for i 
+    
+
+    def actualizar():
+
+    def eliminar():
