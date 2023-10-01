@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas import ExcelWriter
 import os
-import baseDatos
+import sqlite3
 
 class Crud:
     def crear():
@@ -20,18 +20,22 @@ class Crud:
             df2.to_excel(writer,sheet_name="Clase Hijo")
     def leer():
         print(pd.read_excel("TallerProgramacion/Karl.xlsx"))
-        
     leer()
     crear()
-    def registrar(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
-        c.execute("""INSERT INTO musica(id_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero)
-                  values(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero)""")
-
-
+    def registrar_musica(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("INSERT INTO musica VALUES(?, ?, ?, ?, ?, ?,?)",
+                         (cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero))
+        conn.commit()
     def mostrar():
-        for i 
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute('SELECT * FROM musica')
+        for i in c:
+            print(i)
     
 
-    def actualizar():
+    #def actualizar():
 
-    def eliminar():
+    #def eliminar():

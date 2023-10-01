@@ -23,5 +23,4 @@ c.execute("""CREATE TABLE IF NOT EXISTS rock(
           FOREIGN KEY (musica) REFERENCES musica (id_musica)
 )""")
 
-
 conn.close()
