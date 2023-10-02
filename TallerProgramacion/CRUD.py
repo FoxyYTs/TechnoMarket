@@ -21,6 +21,19 @@ class Crud:
     def leer():
         print(pd.read_excel("TallerProgramacion/Karl.xlsx"))
     
+    def create_table_musica():
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("""CREATE TABLE IF NOT EXISTS musica (
+            id INT PRIMARY KEY,
+            titulo VARCHAR(45)NOT NULL,
+            artista_banda VARCHAR(45) NOT NULL,
+            duracion VARCHAR (45) NOT NULL,
+            ano_lanzamiento INT NOT NULL,
+            formato VARCHAR(5) NOT NULL,
+            genero VARCHAR(45) NOT NULL
+        )""")
+
     def registrar_rock(cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, musica):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
