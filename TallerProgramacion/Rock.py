@@ -49,7 +49,7 @@ class Rock(Musica):
         ]
         self.registrar_musica("Musica","?,?,?,?,?,?,?",datosM)
         datosR = [
-            (self.id_musica,self.numeroPuertas,self.descapotable,self.numeroLlantas,self.tipoAutomovil,self.propulsion)
+            (self.id_musica,self.subgenero,self.conciertos_dados,self.pais_origen,self.letra,self.musica)
         ]
         self.registrar_rock("Rock","?,?,?,?,?,?",datosR)
         print("Datos Agregados.")
