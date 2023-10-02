@@ -20,10 +20,15 @@ class Crud:
             df2.to_excel(writer,sheet_name="Clase Hijo")
     def leer():
         print(pd.read_excel("TallerProgramacion/Karl.xlsx"))
+    
+    def registrar_rock(cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, musica):
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
 
     def registrar_musica(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
+    
         c.execute("INSERT INTO musica VALUES(?, ?, ?, ?, ?, ?,?)",
                          (cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero))
         conn.commit()
@@ -32,8 +37,11 @@ class Crud:
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
         c.execute('SELECT * FROM musica WHERE titulo=?',(titulo))
-        print(c.fetchall())
+        print(c.fetchone())
+        musica=c.fetchone()
         conn.close
+        c.execute('SELECT * FROM rock WHERE musica=?',(musica.id))
+        print(c.fetchone())
     def actualizar(tabla, atributo, dato, id):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
@@ -46,6 +54,6 @@ class Crud:
         c.execute("SELECT*FROM rock WHERE id=?", (id))
         musica=c.fetchone()
         c.execute('DELETE from rock WHERE id=?' , (id))
-        c.execute('DELETE from rock WHERE id=?' , (musica))
+        c.execute('DELETE from rock WHERE musica=?' , (musica.id))
         conn.commit()
         conn.close()

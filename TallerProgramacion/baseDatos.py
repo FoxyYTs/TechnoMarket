@@ -19,6 +19,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS rock(
           conciertos_dados INT NOT NULL,
           pais_origen VARCHAR(45) NOT NULL,
           letra TEXT NOT NULL,
+          album VARCHAR(45),
           musica INT NOT NULL,
           FOREIGN KEY (musica) REFERENCES musica (id_musica)
 )""")
