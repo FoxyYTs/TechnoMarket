@@ -37,8 +37,8 @@ class Rock(Musica):
         """
             Crea la Tabla
         """
-        self.registrar_musica("Musica", "ColumnasMusica")
-        self.registrar_rock("Rock","ColumnasRock")
+        self.create_table_musica("Musica", "ColumnasMusica")
+        self.create_table_rock("Rock","ColumnasRock")
 
     def agregarDatos(self):
         """
@@ -59,7 +59,7 @@ class Rock(Musica):
             Elimina los datos dependiendo de su clave foranea
         """
         self.eliminar("Musica", self.id_musica)
-        self.eliminar("Rock", self.placa)
+        self.eliminar("Rock", self.id_musica)
         print("Datos eliminados.")
     
     def LeerDatos(self):
@@ -73,4 +73,75 @@ class Rock(Musica):
         print(f"8. Subgenero: {datosR[1]}\n9. la tocaron en conciertos: {datosR[2]}\n10. Pais de Origen: {datosR[3]}\n11. Letra: {datosR[4]}\n12. Musica: {datosR[5]}")
         print("============================")
                 
+    def ActualizarDatos(self, datoAct,datoCambio):
+        """
+            Actualiza los datos usando el numero de dato a cambiar y el dato dependiendo de su tipo.
+        """
+        if datoAct-1 == 1:
+            self.actualizar("Musica", datos[datoAct-1], datoCambio, self.id_musica)
+            self.actualizar("Rock", datos[datoAct-1], datoCambio, self.id_musica)
+        elif datoAct-1 == 2 or datoAct-1 == 4 or datoAct-1 == 5 or datoAct-1 == 6:
+            self.actualizar("Musica", datos[datoAct-1], datoCambio, self.id_musica)
+        elif datoAct-1 == 3:
+            self.actualizar("Musica", datos[datoAct-1], int(datoCambio), self.id_musica)
+        elif datoAct-1 == 7:
+            self.actualizar("Musica", datos[datoAct-1], float(datoCambio), self.id_musica)
+        elif datoAct-1 == 8 or datoAct-1 == 10:
+            self.actualizar("Rock", datos[datoAct-1], int(datoCambio), self.id_musica)
+        elif datoAct-1 == 9:
+            self.actualizar("Rock", datos[datoAct-1], bool(datoCambio), self.id_musica)
+        elif datoAct-1 == 11 or datoAct-1 == 12:
+            self.actualizar("Rock", datos[datoAct-1], datoCambio, self.id_musica)
+        print("Datos actualizados.")
+
+    def getId(self):
+        """Retorna la id de la Cancion"""
+        return self.id_musica
     
+    def getTitulo(self):
+        """Retorna el titulo de la cancion"""
+        return self.titulo
+    def getArtistaBanda(self):
+        """Retorna el artista o la banda"""
+        return self.artista_banda
+    def getDuracion(self):
+        """Retorna la duracion de la cancion"""
+        return self.duracion
+    def getAnoLanzamiento(self):
+        """Retorna el ano de lanzamiento de la cancion"""
+        return self.ano_lanzamiento
+    def getFormato(self):
+        """Retorna el formato de la cancion"""
+        return self.formato
+    def getGenero(self):
+        """Retorna el genero de la cancion"""
+        return self.genero
+
+    # SETTERS
+    def setId(self, id_musica):
+        """Asigna La ID de la cancion"""
+        self.id_musica = id_musica
+
+    def setTitulo(self, titulo):
+        """Asigna el Titulo de la Cancion"""
+        self.titulo = titulo
+    
+    def setArtistaBanda(self, artista_banda):
+        """Asigna el artista o banda"""
+        self.artista_banda = artista_banda
+
+    def setDuracion(self, duracion):
+        """Asigna la duracion de la cancion"""
+        self.duracion = duracion
+    
+    def setAnoLanzamiento(self, ano_lanzamiento):
+        """Asigna el ano de lanzamiento de la cancion"""
+        self.ano_lanzamiento = ano_lanzamiento
+
+    def setFormato(self, formato):
+        """Asigna el formato de la cancion"""
+        self.formato = formato
+
+    def setGenero(self, genero):
+        """Asigna el genero de la cancion"""
+        self.genero = genero
