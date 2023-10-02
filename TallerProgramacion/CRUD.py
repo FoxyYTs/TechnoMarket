@@ -20,22 +20,24 @@ class Crud:
             df2.to_excel(writer,sheet_name="Clase Hijo")
     def leer():
         print(pd.read_excel("TallerProgramacion/Karl.xlsx"))
-    leer()
-    crear()
+
     def registrar_musica(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
         c.execute("INSERT INTO musica VALUES(?, ?, ?, ?, ?, ?,?)",
                          (cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero))
         conn.commit()
-    def mostrar():
+        conn.close()
+    def mostrar_cancion(titulo):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
-        c.execute('SELECT * FROM musica')
-        for i in c:
-            print(i)
-    
-
-    #def actualizar():
-
+        c.execute('SELECT * FROM musica WHERE titulo=?',(titulo))
+        print(c.fetchall())
+        conn.close
+    def actualizar(tabla, atributo, dato, id):
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute('UPDATE tabla SET atributo=dato WHERE id=id',(tabla, atributo, dato, id))
+        conn.commit()
+        conn.close()
     #def eliminar():
