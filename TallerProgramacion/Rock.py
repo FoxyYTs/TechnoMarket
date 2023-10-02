@@ -40,4 +40,23 @@ class Rock(Musica):
         self.registrar_musica("Musica", "ColumnasMusica")
         self.registrar_rock("Rock","ColumnasRock")
 
+    def agregarDatos(self):
+        """
+            Inserta los datos a la base de datos ya creada
+        """
+        datosM = [
+            (self.id_musica,self.titulo, self.artista_banda, self.duracion, self.ano_lanzamiento, self.formato, self.genero)
+        ]
+        self.registrar_musica("Musica","?,?,?,?,?,?,?",datosM)
+        datosR = [
+            (self.id_musica,self.subgenero,self.conciertos_dados,self.pais_origen,self.letra,self.musica)
+        ]
+        self.registrar_rock("Rock","?,?,?,?,?,?",datosR)
+        print("Datos Agregados.")
+    
+    
+
+        
+
+
     
