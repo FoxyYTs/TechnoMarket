@@ -33,7 +33,25 @@ class Crud:
             formato VARCHAR(5) NOT NULL,
             genero VARCHAR(45) NOT NULL
         )""")
+        conn.commit()
+        conn.close()
 
+    def create_table_rock():
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("""CREATE TABLE IF NOT EXISTS rock(
+            id INT PRIMARY KEY,
+            subgenero VARCHAR(45) NOT NULL,
+            conciertos_dados INT NOT NULL,
+            pais_origen VARCHAR(45) NOT NULL,
+            letra TEXT NOT NULL,
+            album VARCHAR(45),
+            musica INT NOT NULL,
+            FOREIGN KEY (musica) REFERENCES musica (id_musica)
+        )""")
+        conn.commit()
+        conn.close()
+        
     def registrar_rock(cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, musica):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
