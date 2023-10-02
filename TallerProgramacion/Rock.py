@@ -32,4 +32,12 @@ class Rock(Musica):
         self.pais_origen = self.hojaHijo.loc[id, "pais_origen"]
         self.letra = self.hojaHijo.loc[id, "letra"]
         self.musica = self.hojaHijo.loc[id, "musica"]
-        
+
+    def IniciarTabla(self):
+        """
+            Crea la Tabla
+        """
+        self.registrar_musica("Musica", "ColumnasMusica")
+        self.registrar_rock("Rock","ColumnasRock")
+
+    

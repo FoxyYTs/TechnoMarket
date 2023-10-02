@@ -1,7 +1,7 @@
 import os
 import time
 
-from Musica import Musica
+from Musica import Musica,datos
 
 from CRUD import Crud as fc
 
