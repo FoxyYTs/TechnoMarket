@@ -40,4 +40,12 @@ class Crud:
         c.execute('UPDATE tabla SET atributo=dato WHERE id=id',(tabla, atributo, dato, id))
         conn.commit()
         conn.close()
-    #def eliminar():
+    def eliminar(id):
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("SELECT*FROM rock WHERE id=?", (id))
+        musica=c.fetchone()
+        c.execute('DELETE from rock WHERE id=?' , (id))
+        c.execute('DELETE from rock WHERE id=?' , (musica))
+        conn.commit()
+        conn.close()
