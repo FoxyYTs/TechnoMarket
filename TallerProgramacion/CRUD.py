@@ -56,7 +56,7 @@ class Crud:
         c.execute('UPDATE tabla SET atributo=dato WHERE id=id',(tabla, atributo, dato, id))
         conn.commit()
         conn.close()
-        
+
     def eliminar(id):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
@@ -64,5 +64,15 @@ class Crud:
         musica=c.fetchone()
         c.execute('DELETE from rock WHERE id=?' , (id))
         c.execute('DELETE from rock WHERE musica=?' , (musica.id))
+        conn.commit()
+        conn.close()
+
+    def mostrar_base_datos():
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("SELECT*FROM musica",)
+        print(c.fetchall())
+        c.execute("SELECT*FROM rock",)
+        print(c.fetchall())
         conn.commit()
         conn.close()
