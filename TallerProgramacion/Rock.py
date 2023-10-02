@@ -54,9 +54,23 @@ class Rock(Musica):
         self.registrar_rock("Rock","?,?,?,?,?,?",datosR)
         print("Datos Agregados.")
     
+    def EliminarDatos(self):
+        """
+            Elimina los datos dependiendo de su clave foranea
+        """
+        self.eliminar("Musica", self.id_musica)
+        self.eliminar("Rock", self.placa)
+        print("Datos eliminados.")
     
-
-        
-
-
+    def LeerDatos(self):
+        """
+            Muestra los registros de la base de datos
+        """
+        print("============================")
+        datosM = self.mostrar_base_datos("Musica", self.id_musica)
+        print(f"1. ID: {datosM[0]}\n2. Titulo: {datosM[1]}\n3. Artista: {datosM[2]}\n4. Duracion: {datosM[3]}\n5. Año Lanzamiento: {datosM[4]}\n6. Formato: {datosM[5]}\n7. Genero: {datosM[6]}")
+        datosR = self.mostrar_base_datos("Rock", self.placa)
+        print(f"8. Subgenero: {datosR[1]}\n9. la tocaron en conciertos: {datosR[2]}\n10. Pais de Origen: {datosR[3]}\n11. Letra: {datosR[4]}\n12. Musica: {datosR[5]}")
+        print("============================")
+                
     
