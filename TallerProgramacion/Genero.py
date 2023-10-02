@@ -1,4 +1,3 @@
-from Vehiculo import Vehiculo
 import openpyxl
 import pandas as pd
 datos=["Id","Nombre","Anio","Marca","Tipo","Combustible","Precio","NumeroPuertas","Descapotable","NumeroLlantas","TipoAutomovil","Propulsion"]
