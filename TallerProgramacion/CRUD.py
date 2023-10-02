@@ -24,15 +24,22 @@ class Crud:
     def registrar_rock(cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, musica):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
-
-    def registrar_musica(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero):
-        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
-        c=conn.cursor()
-    
-        c.execute("INSERT INTO musica VALUES(?, ?, ?, ?, ?, ?,?)",
-                         (cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero))
+        c.execute("INSERT INTO rock VALUES(?, ?, ?, ?, ?, ?,?)",
+                         (cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, musica))
         conn.commit()
         conn.close()
+
+    def registrar_musica(cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero,cont_rock, subgenero, conciertos_dados, pais_origen, letra, album):
+        conn=sqlite3.connect('TallerProgramacion/musicadb.db')
+        c=conn.cursor()
+        c.execute("INSERT INTO musica VALUES(?, ?, ?, ?, ?, ?,?)",
+                         (cont_musica, titulo, artista_banda, duracion, ano_lanzamiento, formato, genero))
+        
+        registrar_rock(cont_rock, subgenero, conciertos_dados, pais_origen, letra, album, cont_musica)
+
+        conn.commit()
+        conn.close()
+
     def mostrar_cancion(titulo):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
@@ -42,12 +49,14 @@ class Crud:
         conn.close
         c.execute('SELECT * FROM rock WHERE musica=?',(musica.id))
         print(c.fetchone())
+
     def actualizar(tabla, atributo, dato, id):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
         c.execute('UPDATE tabla SET atributo=dato WHERE id=id',(tabla, atributo, dato, id))
         conn.commit()
         conn.close()
+        
     def eliminar(id):
         conn=sqlite3.connect('TallerProgramacion/musicadb.db')
         c=conn.cursor()
