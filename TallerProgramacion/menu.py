@@ -5,13 +5,20 @@ from Rock import Rock,datos
 opcion = 1
 while (opcion != 5):
     selecto = True
-    key = input("Ingresa la llave foranea: ")
-    try:
-        cancion = Rock(id)
-    except:
-        print("ERROR FATAL")
+    while selecto:
+        key = input("Ingresa la llave foranea: ")
+        try:
+            cancion = Rock(key)
+        except:
+            print("ERROR FATAL")
+        else:
+            selecto = False
+            try:
+                cancion.IniciarTabla()
+            except:
+                continue
     os.system("cls")
-    opcion = int(input("Que opcion deseas realizar\n1) Crear Dato en la BD\n2) Mostrar Dato en la BD\n3) Actualizar Dato en la BD\n4) Eliminar Dato en la BD\n5) Salir"))
+    opcion = int(input("Que opcion deseas realizar\n1) Crear Dato en la BD\n2) Mostrar Dato en la BD\n3) Actualizar Dato en la BD\n4) Eliminar Dato en la BD\n5) Salir\nELECCION: "))
     if opcion == 1:
         cancion.agregarDatos()
     elif opcion == 2:

@@ -25,13 +25,13 @@ class Rock(Musica):
         Args:
             id (String) =  Identificacion de la musica
         """
-        super().__init__(id, self.hojaPadre.loc[id, "titulo"], self.hojaPadre.loc[id, "artista_banda"], self.hojaPadre.loc[id, "duracion"], int(self.hojaPadre.loc[id, "ano_lanzamiento"]),self.hojaPadre.loc[id, "formato"],(self.hojaPadre.loc[id, "genero"]))
+        super().__init__(id, self.Padre.loc[id, "titulo"], self.Padre.loc[id, "artista_banda"], self.Padre.loc[id, "duracion"], int(self.Padre.loc[id, "ano_lanzamiento"]),self.Padre.loc[id, "formato"],(self.Padre.loc[id, "genero"]))
         self.musica = id
-        self.subgenero = self.hojaHijo.loc[id, "subgenero"]
-        self.conciertos_dados = int(self.hojaHijo.loc[id, "conciertos_dados"])
-        self.pais_origen = self.hojaHijo.loc[id, "pais_origen"]
-        self.letra = self.hojaHijo.loc[id, "letra"]
-        self.musica = self.hojaHijo.loc[id, "musica"]
+        self.subgenero = self.Hijo.loc[id, "subgenero"]
+        self.conciertos_dados = int(self.Hijo.loc[id, "conciertos_dados"])
+        self.pais_origen = self.Hijo.loc[id, "pais_origen"]
+        self.letra = self.Hijo.loc[id, "letra"]
+        self.musica = self.Hijo.loc[id, "musica"]
 
     def IniciarTabla(self):
         """
