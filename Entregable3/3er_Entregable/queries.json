@@ -1,0 +1,9 @@
+{
+    "CrearTabla":"CREATE TABLE if not exists {} ( {} )",
+    "InsertarDatos":"INSERT INTO {} VALUES ( NULL, {} )",
+    "SeleccionarTodo": "SELECT * FROM {}",
+    "ActualizarDatos":"UPDATE {} SET {}='{}' WHERE {}={}",
+    "EliminarDatos":"DELETE FROM {} WHERE {}={}",
+    "Library":"idLibrary INTEGER primary key, libraryName VARCHAR(45) not null, city VARCHAR(30) not null",
+    "Book":"idBook INTEGER primary key, bookTitle VARCHAR(45) not null, authorName VARCHAR(45) not null, libraryId INT NOT NULL, FOREIGN KEY (libraryId) REFERENCES Libraries (idLibrary)"
+}
