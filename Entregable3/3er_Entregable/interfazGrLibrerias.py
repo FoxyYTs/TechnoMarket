@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox,ttk
 
 class interfazGrLibrerias:
-    def _int_(self):
+    def __init__(self):
         self.winPrincipal = tk.Tk()
         self.winPrincipal.title("Librerias")
         self.frameDatosLibrary= tk.Frame(self.winPrincipal)
