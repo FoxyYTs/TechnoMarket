@@ -1,0 +1,10 @@
+{
+    "createTable":"CREATE TABLE if not exists {} ( {} )",
+    "insertTable":"INSERT INTO {} VALUES ( NULL, {} )",
+    "VerDatos":"SELECT EXISTS(SELECT 1 FROM {} WHERE {} = {})",
+    "SeleccionarTodo": "SELECT * FROM {}",
+    "updateTable":"UPDATE {} SET {}='{}' WHERE {}={}",
+    "deleteTable":"DELETE FROM {} WHERE {}={}",
+    "Zoo":"ID INTEGER primary key, NOMBRE VARCHAR(30) not null, UBICACION VARCHAR(30)",
+    "Animal":"ID INTEGER primary key, NOMBRE VARCHAR(30) not null, ESPECIE VARCHAR(30) not null, ZOO_ID INTEGER, foreign key (ID) references Zoo(ZOO_ID)"
+}

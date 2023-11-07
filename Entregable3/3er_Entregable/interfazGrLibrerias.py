@@ -1,15 +1,11 @@
 import tkinter as tk
-from tkinter import messagebox,ttk
+class interfaz:
+    def __init__(self):
+        self.ventana = tk.Tk()
+        self.ventana.title("Libreria")
+        self.ventana.resizable(False, False)
 
-class interfazGrLibrerias:
-    def _int_(self):
-        self.winPrincipal = tk.Tk()
-        self.winPrincipal.title("Librerias")
-        self.frameDatosLibrary= tk.Frame(self.winPrincipal)
-        self.frameDatosLibrary.grid(row=0,column=0)
-        
-        self.campos()
-        self.winPrincipal.mainloop()
+        self.ventana.mainloop()
 
     def campos(self):
         self.varNombre=tk.StringVar()
@@ -24,4 +20,4 @@ class interfazGrLibrerias:
         self.cuadroCuidad=tk.Entry(self.frameDatosLibrary)
         self.cuadroCuidad.grid(row=1, column=1)
         
-aplicacion=interfazGrLibrerias()
+aplicacion = interfaz()
