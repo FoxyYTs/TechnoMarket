@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'CSS/styles.css'%}">
+</head>
+<body style="background-color: papayawhip;">
+    <nav>
+        <a href="login">
+            <button>LOGIN</button>
+        </a>
+        <a href="registro">
+            <button>REGISTRO</button>
+        </a>
+        <img src="{% static 'img/logoNoFonddo.png' %}" width="200">
+    </nav>
+    <header>
+        <img src="{% static 'img/char (4).png' %}" width="200">
+    </header>
+    <main>
+        <section>
+            <strong>HABILIDADES</strong>
+            <p>Cualquier maricada la verdad</p>
+            <strong>HERRAMIENTAS</strong>
+            <p>LA QUE ME CUELGA</p>
+        </section>
+        <section>
+            <img src="{% static 'img/mantilla.png' %}" width="200">
+            <strong>Nombre: </strong>
+            <p>Jose Andres</p>
+            <strong>Apellido: </strong>
+            <p>Daza Gallego</p>
+            <strong>Cedula: </strong>
+            <p>1022002153</p>
+            <strong>Correo: </strong>
+            <p>qfY2T@example.com</p>
+        </section>
+    </main>
+</body>
+</html>

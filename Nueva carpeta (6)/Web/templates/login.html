@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'CSS/styles.css'%}">
+</head>
+<body style="background-color: papayawhip;">
+    <nav>
+        <a href="/">
+            <button>LOGIN</button>
+        </a>
+        <img src="{% static 'img/logoNoFonddo.png' %}" width="200">
+    </nav>
+    <header id="pagLogin">
+        <img id="logoPoli" src="{% static 'img/char (4).png' %}" width="200">
+        <section>
+            <h4>Cuarto Entregable</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <strong>Usuario: </strong>
+                    <input type="text" name="usuario" required>
+                </div>
+                <div>
+                    <strong>Contraseña: </strong>
+                    <input type="text" name="clave" required>
+                </div>
+                <button type="submit">Iniciar Sesion</button>
+            </form>
+            <a href="/registro"><button>REGISTRO</button></a>
+        </section>
+        <p>{{error}}</p>
+    </header>
+    <main>
+        <section id="cuadroInfoP">
+            <strong>HABILIDADES</strong>
+            <p>Cualquier maricada la verdad</p>
+            <strong>HERRAMIENTAS</strong>
+            <p>LA QUE ME CUELGA</p>
+        </section>
+        <section id="infoPersonal">
+            <img src="{% static 'img/mantilla.png' %}" width="200">
+            <strong>Nombre: </strong>
+            <p>Jose Andres</p>
+            <strong>Apellido: </strong>
+            <p>Daza Gallego</p>
+            <strong>Cedula: </strong>
+            <p>1022002153</p>
+            <strong>Correo: </strong>
+            <p>qfY2T@example.com</p>
+        </section>
+    </main>
+</body>
+</html>
