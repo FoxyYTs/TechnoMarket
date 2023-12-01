@@ -8,3 +8,6 @@ def infoCategorias(request, categoria):
     return render(request, 'infoCategorias.html', {
         "categoria":categoria    
     })
+
+def consultaP(request):
+    return render(request, 'consultaP.html')

@@ -5,17 +5,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <link rel="stylesheet" href="{% static 'CSS/styles.css'%}">
+        <link rel="stylesheet" href="{% static 'CSS/styles.css '%}">
     </head>
     <body style="background-color: papayawhip;">
-        <nav>
+        <nav style="background-color: #997F56;">
             <a href="/">
                 <button>INICIO</button>
             </a>
-            <img src="{% static 'img/logoNoFonddo.png' %}" width="200">
+            <img src="{% static 'img/logoNoFonddo.png' %}" width="50">
         </nav>
         <main id="pagCategorias">
-            <section>
+            <section id="cuadroInfoP">
                 <h2>Categoria 1</h2>
                 <a href="{% url 'infoCategoria' categoria='Categoria1' %}"><button>Ver Mas</button></a>
                 <div id="categoria">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </section>
-            <section>
+            <section id="cuadroInfoP">
                 <h2>Categoria 2</h2>
                 <a href="{% url 'infoCategoria' categoria='Categoria2' %}"><button>Ver Mas</button></a>
                 <div id="categoria">

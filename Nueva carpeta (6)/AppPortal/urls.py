@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Web.views import pagInicio, pagLogin, pagRegistro
-from Producto.views import pagProductos, infoCategorias
+from Producto.views import pagProductos, infoCategorias, consultaP
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', pagInicio),
     path('login/', pagLogin),
     path('registro/', pagRegistro),
-    path('productos/',pagProductos),
-    path('infoCategorias/<str:categoria>/',infoCategorias, name="infoCategoria")
+    path('productos/', pagProductos),
+    path('infoCategorias/<str:categoria>/',infoCategorias, name="infoCategoria"),
+    path('consultaP/', consultaP)
 ]
