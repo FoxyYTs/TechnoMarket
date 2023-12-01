@@ -1,11 +1,76 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Una prueba bien chulas
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{% static 'CSS/styles.css '%}">
+    </head>
+    <body style="background-color: papayawhip;">
+        <nav style="background-color: #997F56;">
+            <a href="/">
+                <button>INICIO</button>
+            </a>
+            <img src="{% static 'img/logoNoFonddo.png' %}" width="50">
+        </nav>
+        <main id="pagCategorias">
+            <section id="cuadroInfoP">
+                <h2>Categoria 1</h2>
+                <a href="{% url 'infoCategoria' categoria='Categoria1' %}"><button>Ver Mas</button></a>
+                <div id="categoria">
+                    <div id="subCategoria">
+                        <img src="{% static 'img/emotion.png' %}" width="200">
+                        <div>
+                            <strong>Nombre</strong>
+                            <p>Emotion</p>
+                            <strong>Precio</strong>
+                            <p>$100</p>
+                            <strong>Categoria:</strong>
+                            <p>Categoria 1</p>
+                        </div>
+                    </div>
+                    <div id = "subCategoria">
+                        <img src="{% static 'img/f.png' %}" width="200">
+                        <div>
+                            <strong>Nombre</strong>
+                            <p>F</p>
+                            <strong>Precio</strong>
+                            <p>$100</p>
+                            <strong>Categoria:</strong>
+                            <p>Categoria 1</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="cuadroInfoP">
+                <h2>Categoria 2</h2>
+                <a href="{% url 'infoCategoria' categoria='Categoria2' %}"><button>Ver Mas</button></a>
+                <div id="categoria">
+                    <div id="subCategoria">
+                        <img src="{% static 'img/facepalm.png' %}" width="200">
+                        <div>
+                            <strong>Nombre</strong>
+                            <p>Emotion</p>
+                            <strong>Precio</strong>
+                            <p>$100</p>
+                            <strong>Categoria:</strong>
+                            <p>Categoria 1</p>
+                        </div>
+                    </div>
+                    <div id="subCategoria">
+                        <img src="{% static 'img/ianto.png' %}" width="200">
+                        <div>
+                            <strong>Nombre</strong>
+                            <p>Emotion</p>
+                            <strong>Precio</strong>
+                            <p>$100</p>
+                            <strong>Categoria:</strong>
+                            <p>Categoria 1</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
 </html>
