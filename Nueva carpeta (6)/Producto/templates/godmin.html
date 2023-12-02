@@ -12,7 +12,7 @@
         <a href="/">
             <button>LOGIN</button>
         </a>
-        <img src="{% static 'img/logoNoFonddo.png' %}" width="50">
+        <img src="{% static 'img/logoNoFondo.png' %}" width="100">
     </nav>
     <header id="pagLogin">
         <section>
@@ -29,7 +29,10 @@
                 </div>
                 <div id="#datosPersonal div">
                     <strong>Categoria: </strong>
-                    <input type="text" name="categoria" required>
+                    <select name="categoria" type="text">
+                        <option value="1">Aguacate</option>
+                        <option value="2">Tomate</option>
+                    </select>
                 </div>
                 <div id="#datosPersonal div">
                     <strong>Cantidad Producto: </strong>
