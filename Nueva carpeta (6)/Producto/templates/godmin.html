@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'CSS/styles.css '%}">
+</head>
+<body style="background-color: papayawhip;">
+    <nav>
+        <a href="/">
+            <button>LOGIN</button>
+        </a>
+        <img src="{% static 'img/logoNoFonddo.png' %}" width="50">
+    </nav>
+    <header id="pagLogin">
+        <section>
+            <h4>Cuarto Entregable</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div id="#datosPersonal div">
+                    <strong>Nombre Producto: </strong>
+                    <input type="text" name="nombrep" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>Descripcion Producto: </strong>
+                    <input type="text" name="descripcionp" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>Categoria: </strong>
+                    <input type="text" name="categoria" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>Cantidad Producto: </strong>
+                    <input type="number" name="cantidadp" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>URL Img1: </strong>
+                    <input type="text" name="imgp" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>URL Img2: </strong>
+                    <input type="text" name="imgp2" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>URL Img3: </strong>
+                    <input type="text" name="imgp3" required>
+                </div>
+                <div id="#datosPersonal div">
+                    <strong>Presio: </strong>
+                    <input type="number" name="valor" required>
+                </div>
+                <button type="submit">REGISTRO</button>
+            </form>
+            <a href="/login"><button>LOGIN</button></a>
+            <p>{{error}}</p>
+        </section>
+    </header>
+    <main>
+        <section id="cuadroInfoP">
+            <img id="infoPersonal img" src="{% static 'img/mantilla.png' %}" width="300">
+            <strong id="infoPersonal">Nombre: </strong>
+            <p>Jose Andres</p>
+            <strong id="infoPersonal">Apellido: </strong>
+            <p>Daza Gallego</p>
+            <strong id="infoPersonal">Cedula: </strong>
+            <p>1022002153</p>
+            <strong id="infoPersonal">Correo: </strong>
+            <p>jose_daza82222@elpoli.edu.co</p>
+        </section>
+    </main>
+</body>
+</html>

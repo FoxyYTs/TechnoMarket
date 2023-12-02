@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Web.views import pagInicio, pagLogin, pagRegistro
-from Producto.views import pagProductos, infoCategorias, consultaP
+from Producto.views import pagProductos, infoCategorias, consultaP, godmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('godmin/', godmin),
     path('', pagInicio),
     path('login/', pagLogin),
     path('registro/', pagRegistro),

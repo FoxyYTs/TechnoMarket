@@ -12,10 +12,22 @@
             <a href="/">
                 <button>INICIO</button>
             </a>
-            <img src="{% static 'img/logoNoFonddo.png' %}" width="200">
+            <img src="{% static 'img/logoNoFonddo.png' %}" width="50">
         </nav>
+        <header>
+            <h1>{{categoria}}</h1>
+        </header>
         <main id="pagCategorias">
             <h2>{{'categoria'}}</h2>
+
+            {% for i in arreglo %}
+                {% if i.categoria == categoria %}
+                    <img src="{% static '' %}{{i.img1_prod}}" alt="">
+                    <h1>{{i.nombre_prod}}</h1>
+                {%endif%}
+            {% endfor %}
+
+            <h2>Pedro</h2>
         </main>
     </body>
 </html>
