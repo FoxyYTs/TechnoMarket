@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox,ttk
 
 class interfazGrLibrerias:
-    def __init__(self):
+    def _int_(self):
         self.winPrincipal = tk.Tk()
         self.winPrincipal.title("Librerias")
         self.frameDatosLibrary= tk.Frame(self.winPrincipal)
@@ -24,4 +24,4 @@ class interfazGrLibrerias:
         self.cuadroCuidad=tk.Entry(self.frameDatosLibrary)
         self.cuadroCuidad.grid(row=1, column=1)
         
-aplicacion=interfazGrLibrerias()
+aplicacion = interfaz()
