@@ -9,8 +9,8 @@
     </head>
     <body style="background-color: papayawhip;">
         <nav>
-            <a href="/">
-                <button>INICIO</button>
+            <a href="/productos">
+                <button>ATRAS</button>
             </a>
             <img src="{% static 'img/logoNoFondo.png' %}" width="100">
         </nav>
@@ -35,6 +35,7 @@
                         <p>{{i.valor}}</p>
                         <strong id="infoPersonal">Categoria: </strong>
                         <p>{{i.categoria}}</p>
+                        <a href="{% url 'consultaP' id=i.ID %}"><button>LOGIN</button></a>
                     </section>
                 {% elif i.categoria == "Aguacate" and categoria == "1" %}
                     <section id="cuadroInfoP">
@@ -45,6 +46,7 @@
                         <p>{{i.valor}}</p>
                         <strong id="infoPersonal">Categoria: </strong>
                         <p>{{i.categoria}}</p>
+                        <a href="{% url 'consultaP' id=i.ID %}">"><button>LOGIN</button></a>
                     </section>
                 {% endif %}
             {% endfor %}

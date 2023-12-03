@@ -59,10 +59,23 @@ main {
 
 #datosPersonal{
     display: flex;
+    align-items: right;
     flex-direction: column;
 }
 
-#datosPersonal div{
+#datosPersonaldiv{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+}
+
+#product-images {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+}
+
+#proimg {
+    max-width: 30%;
+    height: auto;
 }

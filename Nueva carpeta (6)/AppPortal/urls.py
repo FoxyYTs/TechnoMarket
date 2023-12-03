@@ -27,5 +27,5 @@ urlpatterns = [
     path('registro/', pagRegistro),
     path('productos/', pagProductos),
     path('infoCategorias/<str:categoria>/',infoCategorias, name="infoCategoria"),
-    path('consultaP/', consultaP)
+    path('consultaP/<int:id>/', consultaP, name="consultaP")
 ]
