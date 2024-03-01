@@ -1,11 +1,10 @@
 
 package Quiz1_AyP4;
 
-public class Stack {
+public class Pila {
     private ListG top;
 
-    public Stack() {
-        top = null;
+    public Pila() {
     }
 
     public ListG getTop() {
@@ -24,13 +23,22 @@ public class Stack {
         if (top == null) {
             top = list;
         } else {
-            list.next = top;
+            list.setNext(top);
             top = list;
         }
     }
 
-    public void pop() {
-        top = top.next;
+    public ListG pop() {
+        if(isEmpty()){
+            throw new NoSuchElementException("La pila está vacía.");
+        }
+        ListG aux = top;
+        if (top.getNext() == null) {
+            top=null;
+        } else {
+            top = top.getNext();
+        }
+        return aux;
     }
 
     public ListG peek() {

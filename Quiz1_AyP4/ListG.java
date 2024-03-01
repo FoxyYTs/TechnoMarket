@@ -4,9 +4,9 @@ package Quiz1_AyP4;
 import java.util.Stack;
 
 public class ListG {
-    private Node head;
+    private Node head = null;
     private int length;
-    public ListG next = null;
+    private ListG next = null;
 
     public Node getHead() {
         return head;
@@ -27,6 +27,14 @@ public class ListG {
 
     public void setLength(int length) {
         this.length = length;
+    }
+
+    public ListG getNext() {
+        return next;
+    }
+
+    public void setNext(ListG next) {
+        this.next = next;
     }
 
     public boolean inspect(String list) {
@@ -60,25 +68,30 @@ public class ListG {
     public void insertListG(String list) {
         head = null;
         ListG currentList = new ListG();// Se trata de la ListG inicial, actual en recorrido
-        Stack stack = new Stack();// Se trata de una pila para las listas de ListG generales
+
+        Stack<ListG> stack = new Stack<>();// Se trata de una pila para las listas de ListG generales
         for (int i = 0; i < list.length(); i++) {
             switch (list.charAt(i)) {
                 case ',':
                     break;
                 case '(':
-                    ListG newList = new ListG();
-                    newList.insertListG(list.substring(i + 1, list.length()));// La función substring(i + 1,
-                                                                              // list.length()) entrega el resto de la
-                                                                              // cadena donde va el parentesis
-                    stack.push(newList);
-
-                    currentList.insertInList(stack.peek().getHead()); // Inserta la cabeza de la nueva lista en la lista
-                                                                      // actual
-                    i += newList.getLength(); // Avanza el índice para omitir la sublista procesada y el paréntesis
-                                              // de cierre
+                boolean isEmty=stack.peek()!=null;                   ListG newList = new ListG();
+                    newList.insertListG(list.substring(i + 1)); // Construye la nueva lista recursivamente
+                    stack.push(newList); // Apila la nueva lista
+                    if (!newList.isEmpty()) {
+                        currentList.insertInList(newList.getHead()); // Inserta la cabeza de la nueva lista en la lista
+                                                                     // actual
+                    }
+                    i += newList.getLength() + 1; // Avanza el índice para omitir la sublista procesada y el paréntesis
                     break;
                 case ')':
-                    stack.pop();
+                    if (!stack.isEmpty()) {
+                        ListG subList = stack.pop(); // Desapila la lista superior
+                        if (!subList.isEmpty()) {
+                            currentList.insertInList(subList.getHead()); // Inserta la cabeza de la lista superior en la
+                                                                         // lista actual
+                        }
+                    }
                     break;
                 default:
                     Node newNode = new Node();
@@ -88,6 +101,14 @@ public class ListG {
                     break;
             }
 
+        }
+    }
+
+    public void printList() {
+        Node pointer = head;
+        while (pointer != null) {
+            System.out.print(pointer.getTag() + " | " + pointer.getDato() + ", ");
+            pointer = pointer.next;
         }
     }
 }
