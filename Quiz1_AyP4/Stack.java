@@ -1,26 +1,39 @@
-public class Stack{
+
+package Quiz1_AyP4;
+
+public class Stack {
     private ListG top;
 
-    public Stack(){
-        top=null;    
+    public Stack() {
+        top = null;
     }
-    public ListG getTop(){
+
+    public ListG getTop() {
         return top;
     }
-    public void setTop(ListG top){
-        this.top=top;
+
+    public void setTop(ListG top) {
+        this.top = top;
     }
-    public boolean isEmpty(){
-        return top==null;
+
+    public boolean isEmpty() {
+        return top == null;
     }
-    public void push(ListG list){
-        list.next=top;
-        top=list;
+
+    public void push(ListG list) {
+        if (top == null) {
+            top = list;
+        } else {
+            list.next = top;
+            top = list;
+        }
     }
-    public ListG pop(){
-        top=top.next;
+
+    public void pop() {
+        top = top.next;
     }
-    public ListG peek(){
+
+    public ListG peek() {
         return top;
     }
 
