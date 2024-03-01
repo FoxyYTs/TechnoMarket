@@ -51,7 +51,9 @@ public class ListaG {
         }
         Nodo pointer = head;
         while(pointer != null){
-            System.out.print(pointer.getDato());
+            if (pointer.getDato() != ' '){
+                System.out.print(pointer.getDato());
+            }
             if (pointer.getsubList() != null){
                 pointer = pointer.getsubList();
                 System.out.print(pointer.getDato());
