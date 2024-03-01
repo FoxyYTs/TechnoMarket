@@ -3,14 +3,14 @@ import java.util.Stack;
 public class ListG {
     public void insertListG(String list) {
     head=null;
-    Lista currentList = new Lista();// Se trata de la lista inicial, actual en recorrido
-    Stack stack = new Stack();// Se trata de una pila para las listas generales
+    ListG currentList = new ListG();// Se trata de la ListG inicial, actual en recorrido
+    Stack stack = new Stack();// Se trata de una pila para las ListGs generales
     for (int i = 0; i < list.length(); i++) {
         switch (list.charAt(i)) {
             case ',':
                 break;
             case '(':
-                Lista newList = new Lista();
+                ListG newList = new ListG();
                 newList.insertListG(list.substring(i + 1, list.length()));// La función substring(i + 1,
                                                                           // list.length()) entrega el resto de la
                                                                           // cadena donde va el parentesis
