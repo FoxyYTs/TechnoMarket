@@ -15,8 +15,12 @@ def infoCategorias(request, categoria):
         "arreglo":array
     })
 
-def consultaP(request):
-    return render(request, 'consultaP.html')
+def consultaP(request, id):
+    array=Producto.objects.filter(ID=id).all()
+    return render(request, 'consultaP.html',{
+        "id":id,
+        "arreglo":array
+        })
 
 def godmin(request):
     mensajeError = ""
