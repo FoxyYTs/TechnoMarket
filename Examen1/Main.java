@@ -22,4 +22,10 @@ public class Main {
 
         list2.recListG();
     }
+    //(a;A,(b,c,(d,e,f),C))
+    //(a,A,(b,c,D,(d,e),f))
+    //A =(x,y,z)
+    //C =(n,m,L)
+    //L =(r,s,t)
+    //D =(g,h,i)
 }
