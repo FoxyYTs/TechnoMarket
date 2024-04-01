@@ -2,16 +2,16 @@
 package Quiz1_AyP4;
 
 public class Pila {
-    private ListG top;
+    private Node top;
 
     public Pila() {
     }
 
-    public ListG getTop() {
+    public Node getTop() {
         return top;
     }
 
-    public void setTop(ListG top) {
+    public void setTop(Node top) {
         this.top = top;
     }
 
@@ -19,30 +19,28 @@ public class Pila {
         return top == null;
     }
 
-    public void push(ListG list) {
+    public void push(Node dato) {
         if (top == null) {
-            top = list;
+            top = dato;
         } else {
-            list.setNext(top);
-            top = list;
+            dato.next = top;
+            top = dato;
         }
     }
 
-    public ListG pop() {
-        if(isEmpty()){
-            throw new NoSuchElementException("La pila está vacía.");
-        }
-        ListG aux = top;
-        if (top.getNext() == null) {
+    public Node pop() {
+        Node aux = top;
+        if (top.next == null) {
             top=null;
         } else {
-            top = top.getNext();
+            aux = top;
+            top = top.next;
         }
         return aux;
     }
 
-    public ListG peek() {
-        return top;
+    public Node peek() {
+        return top.getHead();
     }
 
 }
