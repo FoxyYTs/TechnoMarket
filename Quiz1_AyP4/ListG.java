@@ -1,12 +1,17 @@
 
 package Quiz1_AyP4;
 
-import java.util.Stack;
+import java.util.Scanner;
 
 public class ListG {
+    Scanner sc = new Scanner(System.in);
     private Node head = null;
     private int length;
-    private ListG next = null;
+    public ListG next = null;
+
+    public ListG() {
+
+    }
 
     public Node getHead() {
         return head;
@@ -27,14 +32,6 @@ public class ListG {
 
     public void setLength(int length) {
         this.length = length;
-    }
-
-    public ListG getNext() {
-        return next;
-    }
-
-    public void setNext(ListG next) {
-        this.next = next;
     }
 
     public boolean inspect(String list) {
@@ -66,38 +63,57 @@ public class ListG {
     }
 
     public void insertListG(String list) {
-        head = null;
+        Node x = new Node();
+        head = x;
+        Node pointer = x;
         ListG currentList = new ListG();// Se trata de la ListG inicial, actual en recorrido
-
-        Stack<ListG> stack = new Stack<>();// Se trata de una pila para las listas de ListG generales
+        Pila stack = new Pila();// Se trata de una pila para las listas de ListG generales
         for (int i = 0; i < list.length(); i++) {
             switch (list.charAt(i)) {
                 case ',':
+                    x = new Node();
+                    pointer.next = x;
+                    pointer = x;
+                    if (stack.peek() == null) {
+                        pointer.setHead(head);
+                    } else {
+                        pointer.setHead(stack.peek());
+                    }
                     break;
                 case '(':
-                boolean isEmty=stack.peek()!=null;                   ListG newList = new ListG();
-                    newList.insertListG(list.substring(i + 1)); // Construye la nueva lista recursivamente
-                    stack.push(newList); // Apila la nueva lista
-                    if (!newList.isEmpty()) {
-                        currentList.insertInList(newList.getHead()); // Inserta la cabeza de la nueva lista en la lista
-                                                                     // actual
-                    }
-                    i += newList.getLength() + 1; // Avanza el índice para omitir la sublista procesada y el paréntesis
+                    stack.push(pointer);
+                    x = new Node();
+                    pointer.setTag(1);
+                    pointer.setsubList(x);
+                    pointer = x;
                     break;
                 case ')':
-                    if (!stack.isEmpty()) {
-                        ListG subList = stack.pop(); // Desapila la lista superior
-                        if (!subList.isEmpty()) {
-                            currentList.insertInList(subList.getHead()); // Inserta la cabeza de la lista superior en la
-                                                                         // lista actual
-                        }
-                    }
+                    pointer = stack.pop();
                     break;
                 default:
                     Node newNode = new Node();
-                    newNode.setTag(0);
-                    newNode.setDato(list.charAt(i));
-                    currentList.insertInList(newNode);
+                    if (Character.isUpperCase(list.charAt(i))) {
+                        ListG nueva = new ListG();
+                        String lista = null;
+                        do {
+                            System.out.println(
+                                    "Insertar una lista, cadena de datos que corresponde a la lista " + list.charAt(i));
+                            lista = sc.nextLine();
+                            if (nueva.inspect(lista)) {
+                                nueva.insertListG(lista);
+                            } else {
+                                System.out.println("No se puede insertar la lista, revise nuevamente la cadena");
+                            }
+                        } while (nueva.inspect(lista) == false);
+                        newNode.setTag(1);
+                        newNode.setDato(list.charAt(i));
+                        currentList.insertInList(newNode);
+                    } else {
+                        System.out.println(list.charAt(i));
+                        newNode.setTag(0);
+                        newNode.setDato(list.charAt(i));
+                        currentList.insertInList(newNode);
+                    }
                     break;
             }
 
@@ -107,7 +123,21 @@ public class ListG {
     public void printList() {
         Node pointer = head;
         while (pointer != null) {
-            System.out.print(pointer.getTag() + " | " + pointer.getDato() + ", ");
+            if (Character.isUpperCase(pointer.getDato())) {
+                pointer = pointer.getHead();
+                while (pointer != null) {
+                    System.out.print(pointer.getTag() + " | " + pointer.getDato() + ", ");
+                    pointer = pointer.next;
+                }
+            } else if (pointer.getsubList() != null) {
+                pointer = pointer.getsubList();
+                while (pointer != null) {
+                    System.out.print(pointer.getTag() + " | " + pointer.getDato() + ", ");
+                    pointer = pointer.next;
+                }
+            } else {
+                System.out.print(pointer.getTag() + " | " + pointer.getDato() + ", ");
+            }
             pointer = pointer.next;
         }
     }
