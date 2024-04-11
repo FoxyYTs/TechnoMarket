@@ -1,0 +1,36 @@
+Pertenecia es busqueda. Buscamos si un elemento pertenece a un conjunto determinado 
+Unión, pasar a A a un conjunto nuevo C y luego comenzar a pasar a B comparando 
+Realizar las operaciones de  Crear las listas o conjuntos, Pertenecia, Unión, Interseccion, Diferencia Simétrica, 
+Contiene, Diferencia, Mostrar y ordenar.
+Hay grupos de trabajo y , se puede hacer ordenado o desordenado y hay cosas que se deben de acuerdo con lo que toque 
+pares desordenado
+impares ordenado
+Daza 13, Ana 14, Steven 15
+
+public void unionList(FuncionesConjuntos list, FuncionesConjuntos list2) {
+        FuncionesConjuntos union = new FuncionesConjuntos();
+        Nodo pointer1 = list.getHead(),pointer2 = list2.getHead();
+        while (pointer1 != null){
+            while(pointer2!=null){
+                union.insertInList(pointer2.getDato());
+                pointer2 = pointer2.getNext();
+            }
+            union.insertInList(pointer1.getDato());
+            pointer1 = pointer1.getNext();
+        }
+    }
+public void symmetDifferenceList(FuncionesConjuntos list, FuncionesConjuntos list2) {
+        FuncionesConjuntos symetric = new FuncionesConjuntos();
+        Nodo pointer1 = list.getHead(),pointer2 = list2.getHead();
+        while (pointer1 != null){
+            while(pointer2!=null){
+                if(pointer1.getDato()==pointer2.getDato()){
+                    symetric.insertInList(pointer1.getDato());
+                }
+                pointer2 = pointer2.getNext();
+            }
+            pointer1=pointer1.getNext();
+        }
+    }
+
+    Dado un conjunto de n edades con la ecuación característica equivalente a una parábola, graficar el comportamiento del conjunto
