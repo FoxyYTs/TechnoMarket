@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </select>
             </div>
-                    <button type="submit" class="btn btn-primary">Asignar</button>
+            <button type="submit" class="btn btn-primary">Asignar</button>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
