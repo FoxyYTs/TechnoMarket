@@ -39,13 +39,12 @@
     </nav>
     <!-- Mostrar todos los insumos -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Implementos y Sustancias</h1>
+        <h1 class="text-center mb-4">Implementos</h1>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>ID INSUMO</th>
+                    <th>ID IMPLEMENTO</th>
                     <th>NOMBRE</th>
-                    <th>TIPO</th>
                     <th>STOCK</th>
                     <th>UBICACION</th>
                     <th>UNIDAD DE MEDIDA</th>

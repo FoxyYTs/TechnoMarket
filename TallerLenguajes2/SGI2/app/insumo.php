@@ -125,7 +125,7 @@
                         <form action="insumo.php" method="post">
                             <div class="form-group">
                                 <label for="id_insumo"><i class="fas fa-barcode"></i> Código de Insumo:</label>
-                                <input type="text" class="form-control" placeholder="Ingrese el código de insumo" name="id_insumo" required>
+                                <input type="text" class="form-control" placeholder="Ingrese el código de insumo" name="id_implemento" required>
                             </div>
                             <button type="submit" class="btn btn-success btn-block"><i class="fas fa-search"></i>
                                 Buscar</button>
