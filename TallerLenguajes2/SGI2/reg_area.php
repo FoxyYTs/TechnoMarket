@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
     $stmt = $conectar->prepare($sql);
     //bind
-    $stmt->bind_param("s", $nombre_med);
+    $stmt->bind_param("s", $nombre_area);
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         header("Location: gestion_Tmaestras.php");
