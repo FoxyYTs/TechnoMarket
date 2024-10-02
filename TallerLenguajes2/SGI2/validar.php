@@ -19,15 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total = mysqli_num_rows($resultado);
     if ($total > 0) {
         echo "<br>Usuario y clave correctos";
-        //Redirigir el usuario al inicio del sistema
-        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=principal.php'>";
-        $_SESSION['user'] = $username;  // Guardar el usuario en la sesión
+        $_SESSION['user'] = $usuario;  // Guardar el usuario en la sesión
         header("Location: principal.php");  // Redirigir a la página protegida
         exit();
     } else {
         echo '<div class="alert alert-warning" role="alert">Usuario y clave incorrectos</div>';
         //Redirigir el usuario al inicio de sesion en caso de error
-        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=index.html'>";
+        header("Location: index.php");
     }
 }
 ?>
