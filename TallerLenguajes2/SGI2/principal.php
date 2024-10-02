@@ -57,8 +57,7 @@ if (!isset($_SESSION['user'])) {
             JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk";
             ?>
             <h1 class="display-4">Bienvenido al SIG LAB MANAGER</h1>
-            <p class="lead">Estamos trabajando en este proyecto, actualmente puedes testear el apartado "Buscar Insumo"
-                donde encontrarás una tabla con todos los insumos y podrás buscar uno específico.</p>
+            <p class="lead">WORK IN PROGRESS</p>
             <hr class="my-4">
             <p class="mb-0">¡Explora y disfruta de las funcionalidades del sistema!</p>
         </div>
