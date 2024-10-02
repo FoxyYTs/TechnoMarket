@@ -13,15 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger datos del formulario
     $nombre_per= $_POST["nombre_permiso"];
     $desc_per= $_POST["descripcion_permiso"];
+    $archivo = $_POST["archivo"];
 
     // Conectar a la base de datos
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
-    $sql = "INSERT INTO permisos (nombre_permiso,descripcion_permiso) VALUES (?, ?)";
+    $sql = "INSERT INTO permisos (nombre_permiso,descripcion_permiso,archivo) VALUES (?, ?, ?)";
     // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
     $stmt = $conectar->prepare($sql);
     //bind
-    $stmt->bind_param("ss", $nombre_per, $desc_per);
+    $stmt->bind_param("sss", $nombre_per, $desc_per, $archivo);
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         header("Location: gestion_Tmaestras.php");
@@ -82,6 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="descripcion_permiso">Descripcion del permiso:</label>
                 <input type="text" class="form-control" name="descripcion_permiso" required>
+            </div>
+            <div class="form-group">
+                <label for="archivo">Archivo:</label>
+                <input type="text" class="form-control" name="archivo" required>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
