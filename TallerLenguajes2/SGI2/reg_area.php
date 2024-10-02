@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Formulario de registro -->
         <div class="container mt-5">
         <h2 class="mb-4">Registro de nueva área</h2>
-        <form action="reg_permisos.php" method="POST">
+        <form action="reg_area.php" method="POST">
             <div class="form-group">
                 <label for="nombre_area">Nombre del área:</label>
                 <input type="text" class="form-control" name="nombre_area" required>
