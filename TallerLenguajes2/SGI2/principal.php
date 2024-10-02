@@ -35,18 +35,10 @@ if (!isset($_SESSION['user'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="insumos.php">INSUMOS</a><!--Estamos en esta ventana-->
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="buscar_insumo.html">BUSCAR INSUMO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registro_insumo.php">REGISTRO INSUMO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">GESTIONAR ROLES</a>
-                </li>
+                <?php
+                require 'funciones.php';
+                menu($_SESSION['user']);
+                ?>
             </ul>
         </div>
     </nav>
