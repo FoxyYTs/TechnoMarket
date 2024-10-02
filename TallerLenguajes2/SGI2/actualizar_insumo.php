@@ -88,7 +88,7 @@ if (!isset($_SESSION['user'])) {
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">Actualizar implemento</h1>
-        <form action="actualizar_implemento.php?id_implemento=<?php echo $id_implemento; ?>" method="POST">
+        <form action="actualizar_insumo.php?id_implemento=<?php echo $id_implemento; ?>" method="POST">
             <div class="form-group">
                 <label for="foto">Enlace a foto de implemento:</label>
                 <div class="input-group">
