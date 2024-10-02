@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Recoger datos del formulario
-    $id_insumo = $_GET["id_insumo"];
+    $id_implemento = $_GET["id_implemento"];
 
     // Conectar a la base de datos
     include_once("db.php");
@@ -15,24 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     // Eliminar el registro
-    $sql_delete = "DELETE FROM insumo WHERE id_insumo = ?";
+    $sql_delete = "DELETE FROM implemento WHERE id_implemento = ?";
     $stmt = $conectar->prepare($sql_delete);
-    $stmt->bind_param("i", $id_insumo);
+    $stmt->bind_param("i", $id_implemento);
 
     if ($stmt->execute()) {
         // Mensaje de éxito
         echo '<script>';
         echo 'setTimeout(function() {';
-        echo 'alert("Insumo eliminado correctamente");';
-        echo 'window.location.href = "insumos.php";'; // Redirigir a insumos.php después de 1 segundo
+        echo 'alert("implemento eliminado correctamente");';
+        echo 'window.location.href = "implementos.php";'; // Redirigir a implementos.php después de 1 segundo
         echo '}, 1000);'; // Tiempo en milisegundos (1 segundo)
         echo '</script>';
     } else {
         // Mensaje de error
         echo '<script>';
         echo 'setTimeout(function() {';
-        echo 'alert("Error al eliminar insumo: ' . $stmt->error . '");';
-        echo 'window.location.href = "insumos.php";'; // Redirigir a insumos.php después de 1 segundo
+        echo 'alert("Error al eliminar implemento: ' . $stmt->error . '");';
+        echo 'window.location.href = "implementos.php";'; // Redirigir a implementos.php después de 1 segundo
         echo '}, 1000);'; // Tiempo en milisegundos (1 segundo)
         echo '</script>';
     }

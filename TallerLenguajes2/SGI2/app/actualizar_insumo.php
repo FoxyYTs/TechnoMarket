@@ -67,13 +67,13 @@ if (isset($_GET['id_implemento'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" href="implementos.php">implementoS</a>
+                    <a class="nav-link" href="insumos.php">INSUMOS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="buscar_implemento.html">BUSCAR implemento</a>
+                    <a class="nav-link" href="buscar_insumo.html">BUSCAR INSUMO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="registro_implemento.php">REGISTRO implemento</a>
+                    <a class="nav-link" href="registro_insumo.php">REGISTRO IMPLEMENTO</a>
                 </li>
             </ul>
         </div>
@@ -118,6 +118,15 @@ if (isset($_GET['id_implemento'])) {
                         }
                         ?>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="foto">Enlace a guía de uso:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-link"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="guia_uso" value="<?php echo $implemento['guia_uso_lab']; ?>" required>
                 </div>
             </div>
             <div class="form-group">
