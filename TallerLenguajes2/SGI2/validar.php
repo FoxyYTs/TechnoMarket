@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total = mysqli_num_rows($resultado);
     if ($total > 0) {
         $_SESSION['user'] = $usuario;  // Guardar el usuario en la sesión
-        header("Location: index.html");  // Redirigir a la página protegida
+        header("Location: principal.php");  // Redirigir a la página protegida
         exit();
         echo "<br>Usuario y clave correctos";
     } else {
         //Redirigir el usuario al inicio de sesion en caso de error
-        header("Location: principal.php");
+        header("Location: index.html");
         echo '<div class="alert alert-warning" role="alert">Usuario y clave incorrectos</div>';
     }
         
