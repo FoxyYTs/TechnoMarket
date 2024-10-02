@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Formulario de registro -->
         <div class="container mt-5">
         <h2 class="mb-4">Registro de nuevo rol</h2>
-        <form action="reg_permisos.php" method="POST">
+        <form action="reg_roles.php" method="POST">
             <div class="form-group">
                 <label for="nombre_rol">Nombre del rol:</label>
                 <input type="text" class="form-control" name="nombre_rol" required>
