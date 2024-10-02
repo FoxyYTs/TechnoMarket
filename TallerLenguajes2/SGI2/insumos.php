@@ -67,7 +67,7 @@
                             <td>{$row['id_implemento']}</td>
                             <td><a href='implemento.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
                             <td>{$row['stock_implemento']}</td>
-                            <td>{$row['id_ubicacion']}</td>
+                            <td>{$row['ubicacion_fk']}</td>
                             <td>{$row['nombre_medida']}</td>";
                 ?>
                         <td>
