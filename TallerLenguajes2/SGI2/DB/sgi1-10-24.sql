@@ -34,7 +34,7 @@ CREATE TABLE `acceso` (
   `email` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
   `request_password` enum('0','1') NOT NULL DEFAULT '0',
-  `token_password` varchar(200) NOT NULL,
+  `token_password` varchar(200),
   `roles_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -45,7 +45,7 @@ CREATE TABLE `acceso` (
 INSERT INTO `acceso` (`user`, `email`, `pass`, `request_password`, `token_password`, `roles_fk`) VALUES
 ('AnaSoto', 'ana_soto82222@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', NULL),
 ('correo', 'correo@correo.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', NULL),
-('JoseDaza', 'jose_daza82222@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '1', '43b88fdbb587092d2a8c6d7bb7d8533e', NULL),
+('JoseDaza', 'jose_daza82222@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '1', '', NULL),
 ('LuzDelly', 'luzdelly@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', NULL),
 ('Prueba', 'prueba@chingona.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', NULL),
 ('Prueba2', 'chiquillo200401@gmail.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', NULL),
