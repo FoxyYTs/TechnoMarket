@@ -56,6 +56,7 @@ if (!isset($_SESSION['user'])) {
                     <th>STOCK</th>
                     <th>UBICACION</th>
                     <th>UNIDAD DE MEDIDA</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +75,10 @@ if (!isset($_SESSION['user'])) {
                             <td>{$row['ubicacion_fk']}</td>
                             <td>{$row['nombre_medida']}</td>";
                 ?>
+                        <td>
+                            <a href="actualizar_insumo.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
+                            <a href="eliminar_insumo.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                        </td>
                 <?php
                     }
                 } else {
