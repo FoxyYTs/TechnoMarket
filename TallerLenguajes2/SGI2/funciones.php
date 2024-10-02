@@ -115,4 +115,13 @@
         $stmt->close();
         return $resultado;
     }
+    function menu($user) {
+        include_once("db.php");
+        $conectar=conn();
+        $sql = "SELECT acceso.user, roles.nombre_rol, permisos.nombre_permiso FROM
+            acceso
+            JOIN roles ON acceso.roles_fk=roles.id_rol
+            JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
+            JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk";
+
 ?>
