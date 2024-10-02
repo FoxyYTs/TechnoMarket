@@ -104,27 +104,19 @@
     </nav>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Registro de Insumo</h2>
-        <form action="registro_por_tipo.php" method="POST">
+        <h2 class="mb-4">Registro de Implemento</h2>
+        <form action="validar_reg_implemento.php" method="POST">
             <div class="form-group">
-                <label for="nombre_insumo">Nombre del Insumo:</label>
-                <input type="text" class="form-control" name="nombre_insumo" required>
-            </div>
-            <div class="form-group">
-                <label for="tipo_insumo">Tipo de Insumo:</label>
-                <select class="form-control" name="tipo_insumo" required>
-                    <option selected disabled>Seleccionar Tipo</option>
-                    <option value="SUSTANCIA">SUSTANCIA</option>
-                    <option value="IMPLEMENTO">IMPLEMENTO</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="foto">Enlace a Foto del Insumo:</label>
-                <input type="text" class="form-control" name="foto" required>
+                <label for="nombre_implemento">Nombre del implemento:</label>
+                <input type="text" class="form-control" name="nombre_implemento" required>
             </div>
             <div class="form-group">
                 <label for="stock">Stock:</label>
-                <input type="number" class="form-control" name="stock" required>
+                <input type="number" class="form-control" name="stock_implemento" required>
+            </div>
+            <div class="form-group">
+                <label for="foto">Enlace a Foto del implemento:</label>
+                <input type="text" class="form-control" name="foto" required>
             </div>
             <div class="form-group">
                 <label for="ubicacion">Ubicación:</label>
@@ -157,10 +149,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="ficha_tecnica">Enlace a ficha técnica:</label>
+                <label for="ficha_tecnica">Ficha_tecnica:</label>
                 <input type="text" class="form-control" name="ficha_tecnica" required>
             </div>
-            <button type="submit" class="btn btn-primary">Siguiente</button>
+            <div class="form-group">
+                <label for="guia_uso_lab">Guia de Uso:</label>
+                <input type="text" class="form-control" name="guia_uso_lab" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
