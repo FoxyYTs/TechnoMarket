@@ -124,6 +124,7 @@ if (isset($_GET['user'])) {
                                 </select>
                                 <input type="hidden" name="user" value="<?php echo $row['user']; ?>">
                                 <button type="submit" class="btn btn-primary"><a href="gestionar_roles.php?user=<?php echo $row['user']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Asignar</a></button>
+                            </form>
                         </td>
                 <?php
                     }
