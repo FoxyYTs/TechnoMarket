@@ -191,14 +191,15 @@ CREATE TABLE `permisos` (
   `id_permisos` int(11) NOT NULL,
   `nombre_permiso` varchar(45) DEFAULT NULL,
   `descripcion_permiso` varchar(100) DEFAULT NULL
+  `archivo` varchar(45) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `permisos`
 --
 
-INSERT INTO `permisos` (`id_permisos`, `nombre_permiso`, `descripcion_permiso`) VALUES
-(0, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios'),
+INSERT INTO `permisos` (`id_permisos`, `nombre_permiso`, `descripcion_permiso`, `archivo`) VALUES
+(0, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios', 'gestionar_roles.php'),
 (1, 'Editar_Insumo', 'Puede Editar un insumo'),
 (2, 'Agregar_Insumo', 'Puede Registrar Nuevos Implementos'),
 (3, 'Eliminar_Insumo', 'Puede Eliminar Implementos');
