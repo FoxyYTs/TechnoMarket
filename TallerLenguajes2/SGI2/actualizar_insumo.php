@@ -20,7 +20,7 @@ if (isset($_GET['id_implemento'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Obtener los datos del formulario
         $foto = $_POST["foto"];
-        $stock = $_POST["stock_implemento"];
+        $stock = $_POST["stock"];
         $ubicacion = $_POST["ubicacion"];
         $guia_uso = $_POST["guia_uso"];
         $medida = $_POST["und_medida"];
