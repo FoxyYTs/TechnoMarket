@@ -22,7 +22,7 @@ if (isset($_GET['id_implemento'])) {
         $foto = $_POST["foto"];
         $stock = $_POST["stock_implemento"];
         $ubicacion = $_POST["ubicacion"];
-        $guia_uso= $_POST["guia_uso"];
+        $guia_uso = $_POST["guia_uso"];
         $medida = $_POST["und_medida"];
 
         // Preparar la sentencia SQL para actualizar el implemento
@@ -45,6 +45,15 @@ if (isset($_GET['id_implemento'])) {
     exit();
 }
 ?>
+<?php
+session_start();
+
+// Verifica si hay una sesión iniciada
+if (!isset($_SESSION['user'])) {
+    // Redirige a la página de inicio de sesión si no hay sesión
+    header("Location: validar.php");
+    exit();
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,25 +69,20 @@ if (isset($_GET['id_implemento'])) {
 <body>
     <!-- Menú de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="principal.html">LAB MANAGER</a>
+        <a class="navbar-brand active" href="principal.php">LAB MANAGER</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" href="insumos.php">INSUMOS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="buscar_insumo.html">BUSCAR INSUMO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registro_insumo.php">REGISTRO IMPLEMENTO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">GESTIONAR ROLES</a>
-                </li>
+                <?php
+                require 'funciones.php';
+                menu($_SESSION['user']);
+                ?>
             </ul>
+            <span class="navbar-text">
+                <?php echo $_SESSION['user']; ?>
+            </span>
         </div>
     </nav>
 

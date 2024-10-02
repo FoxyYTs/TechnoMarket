@@ -29,7 +29,7 @@ if (!isset($_SESSION['user'])) {
 <body>
     <!-- Menú de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand active" href="principal.php"><?php echo $_SESSION['user']; ?></a>
+        <a class="navbar-brand active" href="principal.php">LAB MANAGER</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,6 +40,9 @@ if (!isset($_SESSION['user'])) {
                 menu($_SESSION['user']);
                 ?>
             </ul>
+            <span class="navbar-text">
+                <?php echo $_SESSION['user']; ?>
+            </span>
         </div>
     </nav>
     <!-- Contenido principal -->
