@@ -8,5 +8,4 @@ function conn(){
     $conectar = mysqli_connect($hostname,$usuariodb,$password,$dbname);
     return $conectar;
 }
-
 ?>
