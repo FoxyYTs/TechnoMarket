@@ -14,7 +14,7 @@
             // Conectar a la base de datos
             include_once("db.php");
             $conectar = conn(); //conexion a la base de datos
-            $sql = "INSERT INTO implemento (nombre_implemento,stock_implemento,foto,ubicacion_fk,und_medida_fk,ficha_tecnica,guia_uso_lab) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO implemento (nombre_implemento,stock_implemento,foto,ubicacion_fk,und_medida_fk,ficha_tecnica,guia_uso_lab) VALUES (?, ?, ?, ?, ?, ?, ?)";
             // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
             $stmt = $conectar->prepare($sql);
             //bind
