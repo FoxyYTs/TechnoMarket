@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2024 a las 06:32:34
+-- Tiempo de generación: 02-10-2024 a las 06:59:26
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -519,14 +519,105 @@ ALTER TABLE `unidad_medida`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `area`
+--
+ALTER TABLE `area`
+  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `guia`
+--
+ALTER TABLE `guia`
+  MODIFY `id_guia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  MODIFY `id_implemento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT de la tabla `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `permiso_rol`
 --
 ALTER TABLE `permiso_rol`
   MODIFY `id_permiso_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT de la tabla `practica`
+--
+ALTER TABLE `practica`
+  MODIFY `id_practica` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `reg_entrada`
+--
+ALTER TABLE `reg_entrada`
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `reg_salida`
+--
+ALTER TABLE `reg_salida`
+  MODIFY `id_salida` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `acceso`
+--
+ALTER TABLE `acceso`
+  ADD CONSTRAINT `fk_ACCESO_ROLES` FOREIGN KEY (`roles_fk`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `guia`
+--
+ALTER TABLE `guia`
+  ADD CONSTRAINT `fk_GUIA_MATERIA` FOREIGN KEY (`materia_fk`) REFERENCES `materia` (`id_materia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  ADD CONSTRAINT `medida_implemento` FOREIGN KEY (`und_medida_fk`) REFERENCES `unidad_medida` (`id_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `ubicacion_implemento` FOREIGN KEY (`ubicacion_fk`) REFERENCES `ubicacion` (`id_ubicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  ADD CONSTRAINT `fk_MANTENIMIENTO_IMPLEMENTO` FOREIGN KEY (`implemento_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD CONSTRAINT `fk_MATERIA_AREA` FOREIGN KEY (`area_fk`) REFERENCES `area` (`id_area`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `permiso_rol`
@@ -534,6 +625,33 @@ ALTER TABLE `permiso_rol`
 ALTER TABLE `permiso_rol`
   ADD CONSTRAINT `fk_permiso_rol_permisos` FOREIGN KEY (`permiso_fk`) REFERENCES `permisos` (`id_permisos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_permiso_rol_roles` FOREIGN KEY (`rol_fk`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `practica`
+--
+ALTER TABLE `practica`
+  ADD CONSTRAINT `fk_PRACTICA_GUIA` FOREIGN KEY (`guia_fk`) REFERENCES `guia` (`id_guia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_PRACTICA_implemento` FOREIGN KEY (`implemento_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `reg_entrada`
+--
+ALTER TABLE `reg_entrada`
+  ADD CONSTRAINT `fk_REG_ENTRADA_PROVEEDOR` FOREIGN KEY (`proveedor_fk`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_REG_ENTRADA_implemento` FOREIGN KEY (`implemento_entra_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `reg_salida`
+--
+ALTER TABLE `reg_salida`
+  ADD CONSTRAINT `fk_REG_SALIDA_implemento` FOREIGN KEY (`implemento_sale_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `transaccion`
+--
+ALTER TABLE `transaccion`
+  ADD CONSTRAINT `fk_TRANSACCION_ACCESO` FOREIGN KEY (`user_fk`) REFERENCES `acceso` (`user`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_TRANSACCION_implemento` FOREIGN KEY (`implemento_transa_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
