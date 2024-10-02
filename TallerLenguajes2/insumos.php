@@ -54,32 +54,27 @@
             <tbody>
                 <?php
                 include_once("db.php");
-                $sql = "SELECT insumo.id_insumo,insumo.nombre_insumo,UPPER(insumo.tipo_insumo) AS tipo_insumo,insumo.stock_insumo,ubicacion.id_ubicacion,unidad_medida.nombre_medida FROM insumo
-        JOIN ubicacion ON ubicacion.id_ubicacion=insumo.ubicacion_fk
-        JOIN unidad_medida ON unidad_medida.id_medida=insumo.und_medida_fk
-        ORDER BY insumo.id_insumo ASC";
-
+                $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida=implemento.und_medida_fk ORDER BY id_implemento ASC";
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>{$row['id_insumo']}</td>
-                            <td><a href='insumo.php?id_insumo={$row['id_insumo']}&tipo_insumo={$row['tipo_insumo']}'>{$row['nombre_insumo']}</a></td>
-                            <td>{$row['tipo_insumo']}</td>
-                            <td>{$row['stock_insumo']}</td>
+                            <td>{$row['id_implemento']}</td>
+                            <td><a href='implemento.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
+                            <td>{$row['stock_implemento']}</td>
                             <td>{$row['id_ubicacion']}</td>
                             <td>{$row['nombre_medida']}</td>";
                 ?>
                         <td>
-                            <a href="actualizar_insumo.php?id_insumo=<?php echo $row['id_insumo']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
-                            <a href="eliminar_insumo.php?id_insumo=<?php echo $row['id_insumo']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                            <a href="actualizar_implemento.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
+                            <a href="eliminar_implemento.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>
                 <?php
                     }
                 } else {
-                    echo "<tr><td colspan='9' class='text-center'>No hay insumos registrados</td></tr>";
+                    echo "<tr><td colspan='9' class='text-center'>No hay implementos registrados</td></tr>";
                 }
                 ?>
             </tbody>
