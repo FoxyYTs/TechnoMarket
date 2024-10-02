@@ -39,7 +39,7 @@ if (isset($_GET['user'])) {
 
         // Ejecutar la sentencia SQL
         if ($stmt_update->execute()) {
-            echo '<script>alert("Rol asignado correctamente"); window.location.href = "gestionar_insumos.php";</script>';
+            echo '<script>alert("Rol asignado correctamente"); window.location.href = "gestionar_roles.php";</script>';
         } else {
             echo '<script>alert("Error al asignar rol: ' . $stmt_update->error . '");</script>';
         }
