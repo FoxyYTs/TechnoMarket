@@ -23,16 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Mensaje de éxito
         echo '<script>';
         echo 'setTimeout(function() {';
-        echo 'alert("implemento eliminado correctamente");';
-        echo 'window.location.href = "implementos.php";'; // Redirigir a implementos.php después de 1 segundo
+        echo 'alert("Implemento eliminado correctamente");';
+        echo 'window.location.href = "insumos.php";'; // Redirigir a insumos.php después de 1 segundo
         echo '}, 1000);'; // Tiempo en milisegundos (1 segundo)
         echo '</script>';
     } else {
         // Mensaje de error
         echo '<script>';
         echo 'setTimeout(function() {';
-        echo 'alert("Error al eliminar implemento: ' . $stmt->error . '");';
-        echo 'window.location.href = "implementos.php";'; // Redirigir a implementos.php después de 1 segundo
+        echo 'alert("Error al eliminar Implemento: ' . $stmt->error . '");';
+        echo 'window.location.href = "insumos.php";'; // Redirigir a insumos.php después de 1 segundo
         echo '}, 1000);'; // Tiempo en milisegundos (1 segundo)
         echo '</script>';
     }
