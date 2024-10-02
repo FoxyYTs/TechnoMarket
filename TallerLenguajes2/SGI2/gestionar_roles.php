@@ -94,6 +94,7 @@ if (isset($_GET['user'])) {
             <thead>
                 <tr>
                     <th>Usuario</th>
+                    <th>Rol</th>
                     <th>Asignar rol</th>
                 </tr>
             </thead>
@@ -105,24 +106,25 @@ if (isset($_GET['user'])) {
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
                 if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row_user = $result->fetch_assoc()) {
                         echo "<tr>
-                            <td>{$row['user']}</td>";
+                            <td>{$row_user['user']}</td>
+                            <td>{$row_user['roles_fk']}</td>";
                 ?>
                         <td>
-                            <form action="gestionar_roles.php?user=<?php echo $row['user']; ?>" method="POST">
+                            <form action="gestionar_roles.php?user=<?php echo $row_user['user']; ?>" method="POST">
                                 <select name="rol" class="form-control" required>
                                     <option value="">Seleccione un rol</option>
                                     <?php
                                     $sql_roles = "SELECT * FROM roles ORDER BY id_rol ASC";
-                                    $result_roles = mysqli_query($conectar, $sql_roles) or trigger_error("Error:", mysqli_error($conectar));
+                                    $result_roles = mysqli_query($conectar, $sql_roles) or trigger_error("Error:", mysqli_error($conectar));                                    
                                     while ($row = mysqli_fetch_array($result_roles)) {
-                                        $selected = ($row['id_rol'] == $implemento['roles_fk']) ? 'selected' : '';
+                                        $selected = ($row['id_rol'] == $row_user['roles_fk']) ? 'selected' : '';
                                         echo "<option value='" . $row['id_rol'] . "' $selected>" . $row['nombre_rol'] . "</option>";
                                     }
                                     ?>
                                 </select>
-                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Asignar</a></button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Asignar</button>
                             </form>
                         </td>
                 <?php
