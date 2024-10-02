@@ -108,6 +108,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="registro_insumo.php">REGISTRO INSUMO</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">GESTIONAR ROLES</a>
+                </li>
             </ul>
         </div>
     </nav>
