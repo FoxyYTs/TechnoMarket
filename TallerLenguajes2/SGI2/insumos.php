@@ -71,8 +71,8 @@
                             <td>{$row['nombre_medida']}</td>";
                 ?>
                         <td>
-                            <a href="actualizar_implemento.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
-                            <a href="eliminar_implemento.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                            <a href="actualizar_insumo.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
+                            <a href="eliminar_insumo.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>
                 <?php
                     }
