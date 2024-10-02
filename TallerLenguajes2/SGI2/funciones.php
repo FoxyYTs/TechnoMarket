@@ -130,15 +130,11 @@
         mysqli_stmt_execute($stmt);
         $resultado = mysqli_stmt_get_result($stmt);
         if ($resultado->num_rows > 0) {
-            echo '<div class="collapse navbar-collapse" id="navbarNav">';
-            echo '<ul class="nav nav-tabs">';
             while ($row = $resultado->fetch_assoc()) {
                 echo '<li class="nav-item">';
                 echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
                 echo '</li>';
             }
-            echo '</ul>';
-            echo '</div>';
         }       
     }
 
