@@ -118,10 +118,24 @@
     function menu($user) {
         include_once("db.php");
         $conectar=conn();
-        $sql = "SELECT acceso.user, roles.nombre_rol, permisos.nombre_permiso FROM
-            acceso
-            JOIN roles ON acceso.roles_fk=roles.id_rol
-            JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
-            JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk";
+        $sql = "SELECT acceso.user AS nombre_usuario, roles.nombre_rol, permisos.nombre_permiso, permisos.archivo
+        FROM acceso
+        JOIN roles ON acceso.roles_fk = roles.id_rol
+        JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
+        JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
+        WHERE acceso.user = ?";
+
+        $stmt = mysqli_prepare($conectar, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $user);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                echo '<li class="nav-item">';
+                echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
+                echo '</li>';
+            }
+        }       
+    }
 
 ?>
