@@ -8,6 +8,51 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 ?>
+
+<?php
+include_once("db.php");
+
+// Verificar si se ha recibido el ID del implemento en la URL
+if (isset($_GET['user'])) {
+    $user = $_GET['user'];
+
+    // Conectar a la base de datos
+    $conectar = conn();
+
+    // Obtener los datos actuales del implemento
+    $sql = "SELECT * FROM acceso WHERE user = ?";
+    $stmt = $conectar->prepare($sql);
+    $stmt->bind_param("s", $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $implemento = $result->fetch_assoc();
+
+    // Verificar si se ha recibido el formulario
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtener los datos del formulario
+        $rol_fk = $_POST["rol"];
+
+        // Preparar la sentencia SQL para actualizar el implemento
+        $sql_update = "UPDATE acceso SET roles_fk = ? WHERE user = ?";
+        $stmt_update = $conectar->prepare($sql_update);
+        $stmt_update->bind_param("i", $rol_fk);
+
+        // Ejecutar la sentencia SQL
+        if ($stmt_update->execute()) {
+            echo '<script>alert("Rol asignado correctamente"); window.location.href = "gestionar_insumos.php";</script>';
+        } else {
+            echo '<script>alert("Error al asignar rol: ' . $stmt_update->error . '");</script>';
+        }
+        $stmt_update->close();
+    }
+    $stmt->close();
+    $conectar->close();
+} else {
+    echo '<script>alert("No se ha recibido un ID de implemento válido"); window.location.href = "gestionar_insumos.php";</script>';
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,12 +113,25 @@ if (!isset($_SESSION['user'])) {
                             <td>{$row['user']}</td>";
                 ?>
                         <td>
-                            <a href="actualizar_insumo.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
+                            <form action="gestionar_roles.php" method="post">
+                                <select name="rol" class="form-control" required>
+                                    <option value="">Seleccione un rol</option>
+                                    <?php
+                                    $sql_roles = "SELECT * FROM roles ORDER BY id_rol ASC";
+                                    $result_roles = mysqli_query($conectar, $sql_roles) or trigger_error("Error:", mysqli_error($conectar));
+                                    while ($row = mysqli_fetch_array($result_roles)) {
+                                        $selected = ($row['id_rol'] == $implemento['roles_fk']) ? 'selected' : '';
+                                        echo "<option value='" . $row['id_rol'] . "' $selected>" . $row['nombre_rol'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <input type="hidden" name="user" value="<?php echo $row['user']; ?>">
+                            <a href="gestionar_roles.php?user=<?php echo $row['user']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Actualizar</a>
                         </td>
                 <?php
                     }
                 } else {
-                    echo "<tr><td colspan='9' class='text-center'>No hay implementos registrados</td></tr>";
+                    echo "<tr><td colspan='9' class='text-center'>No hay usuarios registrados</td></tr>";
                 }
                 ?>
             </tbody>
