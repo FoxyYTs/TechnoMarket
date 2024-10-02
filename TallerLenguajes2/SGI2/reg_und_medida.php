@@ -12,22 +12,22 @@ if (!isset($_SESSION['user'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger datos del formulario
     $id_med= $_POST["id_medida"];
-    $desc_ub= $_POST["descripcion_ubicacion"];
+    $nombre_med= $_POST["nombre_medida"];
 
     // Conectar a la base de datos
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
-    $sql = "INSERT INTO ubicacion (id_ubicacion,descripcion_ubicacion) VALUES (?, ?)";
+    $sql = "INSERT INTO unidad_medida (id_medida,nombre_medida) VALUES (?, ?)";
     // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
     $stmt = $conectar->prepare($sql);
     //bind
-    $stmt->bind_param("ss", $id_ub, $desc_ub);
+    $stmt->bind_param("is", $id_med, $nombre_med);
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         header("Location: gestion_Tmaestras.php");
         echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
     } else {
-        header("Location: reg_ubicacion.php");
+        header("Location: reg_und_medida.php");
         echo '<div class="alert alert-warning" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
     }
     $stmt->close();
