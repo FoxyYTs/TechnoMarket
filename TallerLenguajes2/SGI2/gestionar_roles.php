@@ -11,6 +11,8 @@ if (!isset($_SESSION['user'])) {
 
 <?php
 include_once("db.php");
+// Conectar a la base de datos
+$conectar = conn();
 
 // Verificar si se ha recibido el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt_update->close();
 }
-$stmt->close();
 $conectar->close();
 ?>
 
