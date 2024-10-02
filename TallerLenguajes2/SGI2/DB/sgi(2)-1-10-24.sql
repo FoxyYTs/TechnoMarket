@@ -198,7 +198,7 @@ CREATE TABLE `permisos` (
 --
 
 INSERT INTO `permisos` (`id_permisos`, `nombre_permiso`, `descripcion_permiso`) VALUES
-(0, 'gestion_rol', 'Puede Gestionar los Roles de los otros usuarios'),
+(0, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios'),
 (1, 'Editar_Insumo', 'Puede Editar un insumo'),
 (2, 'Agregar_Insumo', 'Puede Registrar Nuevos Implementos'),
 (3, 'Eliminar_Insumo', 'Puede Eliminar Implementos');
