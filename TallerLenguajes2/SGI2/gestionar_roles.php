@@ -12,42 +12,27 @@ if (!isset($_SESSION['user'])) {
 <?php
 include_once("db.php");
 
-// Verificar si se ha recibido el ID del implemento en la URL
-if (isset($_GET['user'])) {
-    $user = $_GET['user'];
+// Verificar si se ha recibido el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtener los datos del formulario
+    $user = $_POST["user"];
+    $rol_fk = $_POST["rol"];
 
-    // Conectar a la base de datos
-    $conectar = conn();
+    // Preparar la sentencia SQL para actualizar el implemento
+    $sql_update = "UPDATE acceso SET roles_fk = ? WHERE user = ?";
+    $stmt_update = $conectar->prepare($sql_update);
+    $stmt_update->bind_param("is", $rol_fk, $user);
 
-    // Obtener los datos actuales del implemento
-    $sql = "SELECT * FROM acceso WHERE user = ?";
-    $stmt = $conectar->prepare($sql);
-    $stmt->bind_param("s", $user);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $implemento = $result->fetch_assoc();
-
-    // Verificar si se ha recibido el formulario
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obtener los datos del formulario
-        $rol_fk = $_POST["rol"];
-
-        // Preparar la sentencia SQL para actualizar el implemento
-        $sql_update = "UPDATE acceso SET roles_fk = ? WHERE user = ?";
-        $stmt_update = $conectar->prepare($sql_update);
-        $stmt_update->bind_param("i", $rol_fk);
-
-        // Ejecutar la sentencia SQL
-        if ($stmt_update->execute()) {
-            echo '<script>alert("Rol asignado correctamente"); window.location.href = "gestionar_insumos.php";</script>';
-        } else {
-            echo '<script>alert("Error al asignar rol: ' . $stmt_update->error . '");</script>';
-        }
-        $stmt_update->close();
+    // Ejecutar la sentencia SQL
+    if ($stmt_update->execute()) {
+        echo '<script>alert("Rol asignado correctamente"); window.location.href = "gestionar_insumos.php";</script>';
+    } else {
+        echo '<script>alert("Error al asignar rol: ' . $stmt_update->error . '");</script>';
     }
-    $stmt->close();
-    $conectar->close();
+    $stmt_update->close();
 }
+$stmt->close();
+$conectar->close();
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +95,7 @@ if (isset($_GET['user'])) {
                             <td>{$row['user']}</td>";
                 ?>
                         <td>
-                            <form action="gestionar_roles.php" method="post">
+                            <form action="gestionar_roles.php" method="POST">
                                 <select name="rol" class="form-control" required>
                                     <option value="">Seleccione un rol</option>
                                     <?php
@@ -123,7 +108,7 @@ if (isset($_GET['user'])) {
                                     ?>
                                 </select>
                                 <input type="hidden" name="user" value="<?php echo $row['user']; ?>">
-                                <button type="submit" class="btn btn-primary"><a href="gestionar_roles.php?user=<?php echo $row['user']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Asignar</a></button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Asignar</a></button>
                             </form>
                         </td>
                 <?php
