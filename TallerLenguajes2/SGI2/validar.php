@@ -30,6 +30,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=index.html'>";
     }
 }
-mysqli_stmt_close($stmt);
-mysqli_close($conectar);
 ?>
