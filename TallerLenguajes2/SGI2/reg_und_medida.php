@@ -11,24 +11,23 @@ if (!isset($_SESSION['user'])) {
 //Validacion y registro de Implemento
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger datos del formulario
-    $id_med= $_POST["id_medida"];
     $nombre_med= $_POST["nombre_medida"];
 
     // Conectar a la base de datos
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
-    $sql = "INSERT INTO unidad_medida (id_medida,nombre_medida) VALUES (?, ?)";
+    $sql = "INSERT INTO unidad_medida (nombre_medida) VALUES (?)";
     // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
     $stmt = $conectar->prepare($sql);
     //bind
-    $stmt->bind_param("is", $id_med, $nombre_med);
+    $stmt->bind_param("s", $nombre_med);
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         header("Location: gestion_Tmaestras.php");
-        echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
+        echo '<div class="alert alert-success" role="alert">Unidad de medida registrada correctamente</div>';
     } else {
         header("Location: reg_und_medida.php");
-        echo '<div class="alert alert-warning" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
+        echo '<div class="alert alert-warning" role="alert"> Error al registrar la unidad de medida: </div>' . $stmt->error;
     }
     $stmt->close();
     $conectar->close();
@@ -74,15 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Formulario de registro -->
      
     <div class="container mt-5">
-        <h2 class="mb-4">Registro de nueva ubicación</h2>
-        <form action="reg_ubicacion.php" method="POST">
+        <h2 class="mb-4">Registro de nueva unidad de medida</h2>
+        <form action="reg_und_medida.php" method="POST">
             <div class="form-group">
-                <label for="id_ubicacion">Código de la ubicacion:</label>
-                <input type="text" class="form-control" name="id_ubicacion" required>
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Descripcion de ubicación:</label>
-                <input type="text" class="form-control" name="descripcion_ubicacion" required>
+                <label for="nombre_medida">Nombre de medida:</label>
+                <input type="text" class="form-control" name="nombre_medida" required>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>

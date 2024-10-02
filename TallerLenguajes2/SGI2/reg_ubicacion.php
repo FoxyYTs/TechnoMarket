@@ -25,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         header("Location: gestion_Tmaestras.php");
-        echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
+        echo '<div class="alert alert-success" role="alert">Ubicacion registrada correctamente</div>';
     } else {
         header("Location: reg_ubicacion.php");
-        echo '<div class="alert alert-warning" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
+        echo '<div class="alert alert-warning" role="alert"> Error al registrar la ubicacion: </div>' . $stmt->error;
     }
     $stmt->close();
     $conectar->close();
@@ -72,7 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
     <!-- Formulario de registro -->
-     
     <div class="container mt-5">
         <h2 class="mb-4">Registro de nueva ubicación</h2>
         <form action="reg_ubicacion.php" method="POST">
