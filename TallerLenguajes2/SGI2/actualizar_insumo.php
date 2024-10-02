@@ -32,7 +32,7 @@ if (isset($_GET['id_implemento'])) {
 
         // Ejecutar la sentencia SQL
         if ($stmt_update->execute()) {
-            echo '<script>alert("implemento actualizado correctamente"); window.location.href = "implementos.php";</script>';
+            echo '<script>alert("implemento actualizado correctamente"); window.location.href = "gestionar_insumos.php";</script>';
         } else {
             echo '<script>alert("Error al actualizar implemento: ' . $stmt_update->error . '");</script>';
         }
@@ -41,7 +41,7 @@ if (isset($_GET['id_implemento'])) {
     $stmt->close();
     $conectar->close();
 } else {
-    echo '<script>alert("No se ha recibido un ID de implemento válido"); window.location.href = "implementos.php";</script>';
+    echo '<script>alert("No se ha recibido un ID de implemento válido"); window.location.href = "gestionar_insumos.php";</script>';
     exit();
 }
 ?>
