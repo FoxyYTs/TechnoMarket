@@ -18,14 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resultado = mysqli_stmt_get_result($stmt) or mysqli_error($conectar);
     $total = mysqli_num_rows($resultado);
     if ($total > 0) {
-        echo "<br>Usuario y clave correctos";
         $_SESSION['user'] = $usuario;  // Guardar el usuario en la sesión
         header("Location: principal.php");  // Redirigir a la página protegida
         exit();
+        echo "<br>Usuario y clave correctos";
     } else {
-        echo '<div class="alert alert-warning" role="alert">Usuario y clave incorrectos</div>';
         //Redirigir el usuario al inicio de sesion en caso de error
         header("Location: index.php");
+        echo '<div class="alert alert-warning" role="alert">Usuario y clave incorrectos</div>';
     }
+        
 }
 ?>
