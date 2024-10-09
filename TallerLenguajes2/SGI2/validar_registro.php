@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (preg_match($expRegCorreo, $correo)) {
         if ($clave != $claveconf) {
             echo '<div class="alert alert-warning" role="alert">Las claves no coinciden</div>';
-            echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registrarse.html'>";
+            echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=registrarse.html'>"; // Espera 5 segundos antes de redirigir
         } else {
             if (preg_match($expRegPass, $clave)) {
                 #Encriptación de contraseña
@@ -41,25 +41,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Ejecutar la sentencia SQL
                     if ($stmt->execute()) {
                         echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente</div>';
-                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=index.html'>";
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=index.html'>";
                     } else {
                         echo '<div class="alert alert-warning" role="alert"> Error en registro: </div>' . $stmt->error;
-                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registrarse.html'>";
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=registrarse.html'>";
                     }
                     $stmt->close();
                     $conectar->close();
                 }else{
                     echo '<div class="alert alert-warning" role="alert">El correo ya existe</div>';
-                    echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registrarse.html'>";
+                    echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=registrarse.html'>";
                 }
             } else {
                 echo '<div class="alert alert-warning" role="alert">La contraseña no cumple con los requisitos</div>';
-                echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registrarse.html'>";
+                echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=registrarse.html'>";
             }
         }
     } else {
         echo '<div class="alert alert-warning" role="alert">El correo no es válido</div>';
-        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registrarse.html'>";
+        echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=registrarse.html'>";
     }
 }
 ?>
