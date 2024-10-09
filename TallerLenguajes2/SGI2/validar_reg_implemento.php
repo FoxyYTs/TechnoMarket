@@ -21,11 +21,12 @@
             $stmt->bind_param("sississ", $nombre, $stock, $foto, $ubicacion, $und_medida, $ficha_tecnica, $guia);
             // Ejecutar la sentencia SQL
             if ($stmt->execute()) {
+                
                 echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
-                echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registro_insumo.php'>";
+                echo 'Location: registro_insumo.php';
             } else {
-                echo '<div class="alert alert-warning" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
-                echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=registro_insumo.php'>";
+                echo '<div class="alert alert-danger" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
+                echo 'Location: registro_insumo.php';  
             }
             $stmt->close();
             $conectar->close();

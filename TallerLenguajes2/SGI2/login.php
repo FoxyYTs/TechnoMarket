@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         //Redirigir el usuario al inicio de sesion en caso de error
         header("Location: index.html");
-        echo '<div class="alert alert-warning" role="alert">Usuario y clave incorrectos</div>';
+        echo '<div class="alert alert-danger" role="alert">Usuario y clave incorrectos</div>';
     }
         
 }
