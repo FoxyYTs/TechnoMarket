@@ -146,7 +146,7 @@ function menu($user)
         }
         echo '<ul class="nav justify-content-end">
                 <li class="nav-item">';
-        echo $row['nombre_usuario'];
+        echo $resultado->fetch_assoc()['nombre_usuario'];
         echo'   </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Cerrar sesión</a>
