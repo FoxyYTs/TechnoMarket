@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Destruir todas las variables de sesión
+$_SESSION = [];
+session_unset(); 
+
+// Destruir la sesión completamente
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
