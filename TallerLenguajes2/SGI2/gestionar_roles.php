@@ -4,7 +4,7 @@ session_start();
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
-    header("Location: validar.php");
+    header("Location: login.php");
     exit();
 }
 ?>
