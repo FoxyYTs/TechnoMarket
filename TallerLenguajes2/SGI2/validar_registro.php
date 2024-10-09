@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (preg_match($expRegCorreo, $correo)) {
         if ($clave != $claveconf) {
             echo '<div class="alert alert-danger" role="alert">Las claves no coinciden</div>';
-            echo 'registrarse.html';
+            header("Location: registrarse.html");
         } else {
             if (preg_match($expRegPass, $clave)) {
                 #Encriptación de contraseña
@@ -41,25 +41,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Ejecutar la sentencia SQL
                     if ($stmt->execute()) {
                         echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente</div>';
-                        echo'Location: index.html';
+                        header("Location: index.html");
                     } else {
                         echo '<div class="alert alert-danger" role="alert"> Error en registro: </div>' . $stmt->error;
-                        echo 'Location: registrarse.html';
+                        header("Location: registrarse.html");
                     }
                     $stmt->close();
                     $conectar->close();
                 }else{
                     echo '<div class="alert alert-warning" role="alert">El correo ya existe</div>';
-                    echo 'Location: registrarse.html';
+                    header("Location: registrarse.html");
                 }
             } else {
                 echo '<div class="alert alert-warning" role="alert">La contraseña no cumple con los requisitos</div>';
-                echo 'Location: registrarse.html';
-            }
+                header("Location: registrarse.html");
         }
     } else {
         echo '<div class="alert alert-warning" role="alert">El correo no es válido</div>';
-        echo 'Location: registrarse.html';
+        header("Location: registrarse.html");
     }
 }
 ?>
