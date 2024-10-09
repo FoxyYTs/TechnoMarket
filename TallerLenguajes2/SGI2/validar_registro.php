@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once("db.php");
     if (preg_match($expRegCorreo, $correo)) {
         if ($clave != $claveconf) {
-            echo '<div class="alert alert-danger" role="alert">Las claves no coinciden</div>';
             header("Location: registrarse.html");
+            echo '<div class="alert alert-danger" role="alert">Las claves no coinciden</div>';
         } else {
             if (preg_match($expRegPass, $clave)) {
                 #Encriptación de contraseña
@@ -40,25 +40,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->bind_param("sss", $usuario, $pass, $correo);
                     // Ejecutar la sentencia SQL
                     if ($stmt->execute()) {
-                        echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente</div>';
                         header("Location: index.html");
+                        echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente</div>';
+                        
                     } else {
-                        echo '<div class="alert alert-danger" role="alert"> Error en registro: </div>' . $stmt->error;
                         header("Location: registrarse.html");
+                        echo '<div class="alert alert-danger" role="alert"> Error en registro: </div>' . $stmt->error;
                     }
                     $stmt->close();
                     $conectar->close();
                 }else{
-                    echo '<div class="alert alert-warning" role="alert">El correo ya existe</div>';
                     header("Location: registrarse.html");
+                    echo '<div class="alert alert-warning" role="alert">El correo ya existe</div>';
+                    
                 }
             } else {
-                echo '<div class="alert alert-warning" role="alert">La contraseña no cumple con los requisitos</div>';
                 header("Location: registrarse.html");
+                echo '<div class="alert alert-warning" role="alert">La contraseña no cumple con los requisitos</div>';
+                
+            }
         }
     } else {
-        echo '<div class="alert alert-warning" role="alert">El correo no es válido</div>';
         header("Location: registrarse.html");
+        echo '<div class="alert alert-warning" role="alert">El correo no es válido</div>';
+        
     }
 }
 ?>
