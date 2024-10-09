@@ -69,7 +69,7 @@ if (!isset($_SESSION['user'])) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>
                             <td>{$row['id_implemento']}</td>
-                            <td><a href='implemento.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
+                            <td><a href='insumo.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
                             <td>{$row['stock_implemento']}</td>
                             <td>{$row['ubicacion_fk']}</td>
                             <td>{$row['nombre_medida']}</td>";
