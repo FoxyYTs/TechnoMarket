@@ -1,5 +1,8 @@
 <?php
 session_start();
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Evitar el almacenamiento en caché
+header("Pragma: no-cache");
+header("Expires: 0");
 
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
