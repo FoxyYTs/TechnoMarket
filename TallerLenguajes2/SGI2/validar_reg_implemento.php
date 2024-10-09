@@ -23,10 +23,10 @@
             if ($stmt->execute()) {
                 
                 echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
-                echo 'Location: registro_insumo.php';
+                header("Location: registro_insumo.php"); 
             } else {
                 echo '<div class="alert alert-danger" role="alert"> Error al registrar implemento: </div>' . $stmt->error;
-                echo 'Location: registro_insumo.php';  
+                header("Location: registro_insumo.php");  
             }
             $stmt->close();
             $conectar->close();
