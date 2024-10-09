@@ -150,7 +150,8 @@ function menu($user)
         echo'   </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Cerrar sesión</a>
-                </li>';
+                </li>
+            </ul>';
     }
 }
 ?>
