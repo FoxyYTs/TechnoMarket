@@ -114,9 +114,6 @@ if (!isset($_SESSION['user'])) {
                 menu($_SESSION['user']);
                 ?>
             </ul>
-            <span class="navbar-text">
-                <?php echo $_SESSION['user']; ?>
-            </span>
         </div>
     </nav>
     <div class="container mt-4">
