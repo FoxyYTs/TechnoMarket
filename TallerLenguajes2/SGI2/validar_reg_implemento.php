@@ -21,7 +21,6 @@
             $stmt->bind_param("sississ", $nombre, $stock, $foto, $ubicacion, $und_medida, $ficha_tecnica, $guia);
             // Ejecutar la sentencia SQL
             if ($stmt->execute()) {
-                
                 echo '<div class="alert alert-success" role="alert">Implemento registrado correctamente</div>';
                 header("Location: registro_insumo.php"); 
             } else {

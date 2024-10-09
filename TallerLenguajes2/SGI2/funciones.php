@@ -139,15 +139,18 @@ function menu($user)
     mysqli_stmt_execute($stmt);
     $resultado = mysqli_stmt_get_result($stmt);
     if ($resultado->num_rows > 0) {
+        $nombre_usuario = ''; // Para guardar el nombre del usuario solo una vez
+
         while ($row = $resultado->fetch_assoc()) {
+            if (empty($nombre_usuario)) {
+                $nombre_usuario = $row['nombre_usuario']; // Guardar el nombre de usuario solo una vez
+            }
             echo '<li class="nav-item">';
             echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
             echo '</li>';
         }
-        echo '<ul class="nav justify-content-end">
-                <li class="nav-item">';
-        echo $resultado->fetch_assoc()['nombre_usuario'];
-        echo'   </li>
+        echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
+        echo '  </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Cerrar sesión</a>
                 </li>
