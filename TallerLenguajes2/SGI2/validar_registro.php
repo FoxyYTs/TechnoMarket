@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->bind_param("sss", $usuario, $pass, $correo);
                     // Ejecutar la sentencia SQL
                     if ($stmt->execute()) {
-                        header("Location: index.html");
+                        header("Location: index.php");
                         echo '<div class="alert alert-success" role="alert">Usuario registrado correctamente</div>';
                         
                     } else {

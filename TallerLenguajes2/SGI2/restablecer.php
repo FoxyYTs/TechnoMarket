@@ -4,7 +4,7 @@
     $conectar=conn();
     
     if(empty($_GET["user"]) || empty($_GET["token"])){
-        header("Location: index.html");
+        header("Location: index.php");
     }
     $user = mysqli_real_escape_string($conectar, $_GET["user"]);
     $token = mysqli_real_escape_string($conectar, $_GET["token"]);

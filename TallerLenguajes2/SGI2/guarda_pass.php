@@ -7,7 +7,7 @@
     $arr = array('"',"/");
 
     if(empty($_POST["user"]) || empty($_POST["token"]) || empty($_POST["password"]) || empty($_POST["password2"])){
-        header("Location: index.html");
+        header("Location: index.php");
         exit;
     }
     $user = str_replace($arr, '', $_POST["user"]);
@@ -19,7 +19,7 @@
         $clave = encriptar($pass);
         if(actualizarPass($clave,$user, $token)){
             echo "Contraseña cambiada";
-            header("Location: index.html");
+            header("Location: index.php");
         }else{
             echo "Error al cambiar contraseña";
             header("Location: recuperar.html");
