@@ -46,6 +46,7 @@ if (isset($_GET['id_implemento'])) {
 }
 ?>
 <?php
+include "funciones.php";
 session_start();
 header("Cache-Control: no-cache, no-store, must-revalidate"); // Evitar el almacenamiento en caché
 header("Pragma: no-cache");
@@ -56,7 +57,9 @@ if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
     header("Location: login.php");
     exit();
-} ?>
+}
+tiempoCierreSesion();
+?>
 <!DOCTYPE html>
 <html lang="en">
 

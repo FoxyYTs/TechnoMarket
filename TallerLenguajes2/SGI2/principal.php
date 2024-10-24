@@ -1,4 +1,5 @@
 <?php
+include "funciones.php";
 session_start();
 header("Cache-Control: no-cache, no-store, must-revalidate"); // Evitar el almacenamiento en caché
 header("Pragma: no-cache");
@@ -10,6 +11,7 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
+tiempoCierreSesion();
 ?>
 <!DOCTYPE html>
 <html lang="en">

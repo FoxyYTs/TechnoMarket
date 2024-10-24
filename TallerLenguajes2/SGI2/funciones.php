@@ -157,4 +157,25 @@ function menu($user)
             </ul>';
     }
 }
+function tiempoCierreSesion(){
+
+    // Establecer la zona horaria de tu país
+    date_default_timezone_set('America/Bogota'); // Cambia esto a la zona horaria de tu país
+
+    // Obtener la hora actual en formato de 24 horas
+    $hora_actual = date("H:i");
+
+    // Definir la hora en la que se cerrará la sesión
+    $hora_cierre = "22:00"; // Por ejemplo, cerrar sesión a las 11:00 p.m.
+
+    if ($hora_actual >= $hora_cierre) {
+        session_unset();
+        session_destroy();
+        header("Location: login.php"); // Redirigir al login
+        exit();
+    }
+
+    // Actualizar la actividad del usuario
+    $_SESSION['LAST_ACTIVITY'] = time();
+}
 ?>
