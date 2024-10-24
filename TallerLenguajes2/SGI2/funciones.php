@@ -163,7 +163,7 @@ function tiempoCierreSesion(){
 
     $hora_actual = date("H:i");
 
-    $hora_cierre = "19:10"; 
+    $hora_cierre = "19:46"; 
 
     if ($hora_actual >= $hora_cierre) {
         session_unset();
