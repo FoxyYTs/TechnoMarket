@@ -39,7 +39,7 @@ function getValor($campo, $campoWhere, $valor)
     $total = mysqli_num_rows($resultado);
 
     if ($total > 0) {
-        return $resultado->fetch_assoc()[$campo];;
+        return $resultado->fetch_assoc()[$campo];
     } else {
         return false;
     }
