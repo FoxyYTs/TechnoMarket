@@ -1,5 +1,6 @@
 <?php
 include_once("db.php");
+require 'funciones.php';
 
 // Verificar si se ha recibido el ID del implemento en la URL
 if (isset($_GET['id_implemento'])) {
@@ -44,9 +45,6 @@ if (isset($_GET['id_implemento'])) {
     echo '<script>alert("No se ha recibido un ID de implemento válido"); window.location.href = "gestionar_insumos.php";</script>';
     exit();
 }
-?>
-<?php
-include "funciones.php";
 session_start();
 header("Cache-Control: no-cache, no-store, must-revalidate"); // Evitar el almacenamiento en caché
 header("Pragma: no-cache");
@@ -82,7 +80,6 @@ tiempoCierreSesion();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
                 <?php
-                require 'funciones.php';
                 menu($_SESSION['user']);
                 ?>
             </ul>

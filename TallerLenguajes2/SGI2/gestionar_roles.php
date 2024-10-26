@@ -1,5 +1,5 @@
 <?php
-include "funciones.php";
+require 'funciones.php';
 session_start();
 
 // Verifica si hay una sesión iniciada
@@ -80,7 +80,6 @@ if (isset($_GET['user'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
                 <?php
-                require 'funciones.php';
                 menu($_SESSION['user']);
                 ?>
             </ul>

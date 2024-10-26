@@ -1,4 +1,5 @@
 <?php
+require 'funciones.php';
 session_start();
 
 // Verifica si hay una sesión iniciada
@@ -7,6 +8,7 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
+tiempoCierreSesion();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +112,6 @@ if (!isset($_SESSION['user'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
                 <?php
-                require 'funciones.php';
                 menu($_SESSION['user']);
                 ?>
             </ul>

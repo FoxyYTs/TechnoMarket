@@ -1,6 +1,5 @@
 <?php
     require 'funciones.php';
-
     $correo = $_POST["correo"];
     echo $correo;
     include_once("db.php");

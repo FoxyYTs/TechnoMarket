@@ -1,8 +1,6 @@
 <?php
-include "funciones.php";
+require 'funciones.php';
 session_start();
-
-
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
@@ -39,7 +37,6 @@ tiempoCierreSesion();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-tabs">
                 <?php
-                require 'funciones.php';
                 menu($_SESSION['user']);
                 ?>
             </ul>
