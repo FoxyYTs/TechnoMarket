@@ -44,57 +44,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="text-center mb-4">Informe</h1>
         <table class="table table-bordered table-striped">
             <thead>
-                <?php
-                $encabezado = 0;
-                while ($encabezado < count($tabla)) {
-                    echo "<tr><td>" . $tabla[$col] . "</td></tr>";
-                    $encabezado++;
-                }
-                ?>
+                <tr>
+                    <?php
+                    $encabezado = 0;
+                    while ($encabezado < count($tabla)) {
+                        echo "<th>" . $tabla[$encabezado] . "</th>";
+                        $encabezado++;
+                    }
+                    ?>
+                </tr>
             </thead>
             <tbody>
                 <?php
                 include_once("db.php");
-                $sql = $consulta;
-                $conectar = conn(); //crear la conexión a la b.d.
-                $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                $conectar = conn();
+                $result = mysqli_query($conectar, $consulta) or trigger_error("Error:", mysqli_error($conectar));
 
-                if ($informeTipo == "1") {
-                    if ($result && $result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            foreach ($row as $col) {
-                                echo "<td>" . htmlspecialchars($col) . "</td>";
-                            }
-                            // Si el stock es menor o igual al stock mínimo
-                            if ($row["stock_implemento"] <= $row["stock_minimo"]) {
-                                echo "<td style='background-color: red; color: white;'>
-                                <i class='fas fa-exclamation-circle' style='color: white;'></i> Bajo stock
-                                </td>";
-                            } else {
-                                echo "<td style='background-color: green; color: white;'>
-                                <i class='fas fa-check-circle' style='color: white;'></i> En stock
-                                </td>";
-                            }
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        foreach ($row as $col) {
+                            echo "<td>" . htmlspecialchars($col) . "</td>";
                         }
-                    } else {
-                        echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
-                    }
-                }else{
-                    if ($result && $result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            foreach ($row as $col) {
-                                echo "<td>" . htmlspecialchars($col) . "</td>";
-                            }
-                            echo "</tr>";
+                        // Verificación de stock y color
+                        if ($informeTipo == "1") {
+                            $color = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "red" : "green";
+                            $icon = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "exclamation-circle" : "check-circle";
+                            $message = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "Bajo stock" : "En stock";
+
+                            echo "<td style='background-color: $color; color: white;'>
+                        <i class='fas fa-$icon' style='color: white;'></i> $message
+                      </td>";
                         }
-                    } else {
-                        echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
+                        echo "</tr>";
                     }
+                } else {
+                    echo "<tr><td colspan='" . (count($tabla) + 1) . "'>No hay resultados disponibles.</td></tr>";
                 }
                 ?>
             </tbody>
+
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
