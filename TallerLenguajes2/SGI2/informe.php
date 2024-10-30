@@ -54,10 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 include_once("db.php");
                 $sql = "SHOW COLUMNS FROM $tabla";
                 $conectar = conn(); //crear la conexión a la b.d.
-                $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                $resultTabla = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
                 if ($result) {
-                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                    while ($fila = mysqli_fetch_assoc($resultTabla)) {
                         $valor = $diccionario[$fila['Field']];
                         echo "<tr><td>" . $valor . "</td></tr>";
                     }
@@ -73,19 +73,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
-                if ($result->num_rows > 0) {
+                if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                            <td>{$row['id_implemento']}</td>
-                            <td><a href='insumo.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
-                            <td>{$row['stock_implemento']}</td>
-                            <td>{$row['ubicacion_fk']}</td>
-                            <td>{$row['nombre_medida']}</td>";
-                ?>
-                <?php
+                        echo "<tr>";
+                        foreach ($row as $col) {
+                            echo "<td>" . htmlspecialchars($col) . "</td>";
+                        }
+                        echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9' class='text-center'>No hay implementos registrados</td></tr>";
+                    echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
                 }
                 ?>
             </tbody>
