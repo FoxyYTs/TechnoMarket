@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $informeTipo = $_POST["informeTipo"];
     if ($informeTipo == "2") {
         $dato = $_POST["nombreInsumo"];
-        $tabla = array("#", "Id Práctica", "Título");
+        $tabla = array("Id Práctica", "Título");
     } else if ($informeTipo == "3") {
         $dato = $_POST["nombreGuia"];
-        $tabla = array("#", "Cantidad", "Nombre del implemento");
+        $tabla = array("Cantidad", "Nombre del implemento");
     } else {
         $dato = 0;
         $tabla = array("Nombre", "Stock", "Stock Minimo", "Estado");
@@ -59,16 +59,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
-                if ($result && $result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        foreach ($row as $col) {
-                            echo "<td>" . htmlspecialchars($col) . "</td>";
+                if ($informeTipo == "1") {
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            foreach ($row as $col) {
+                                echo "<td>" . htmlspecialchars($col) . "</td>";
+                            }
+                            // Si el stock es menor o igual al stock mínimo
+                            if ($row["stock_implemento"] <= $row["stock_minimo"]) {
+                                echo "<td style='background-color: red; color: white;'>
+                                <i class='fas fa-exclamation-circle' style='color: white;'></i> Bajo stock
+                                </td>";
+                            } else {
+                                echo "<td style='background-color: green; color: white;'>
+                                <i class='fas fa-check-circle' style='color: white;'></i> En stock
+                                </td>";
+                            }
                         }
-                        echo "</tr>";
+                    } else {
+                        echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
+                }else{
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            foreach ($row as $col) {
+                                echo "<td>" . htmlspecialchars($col) . "</td>";
+                            }
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3'>No hay resultados disponibles.</td></tr>";
+                    }
                 }
                 ?>
             </tbody>
