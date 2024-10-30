@@ -173,23 +173,25 @@ function tiempoCierreSesion(){
     }
     $_SESSION['LAST_ACTIVITY'] = time();
 }
+
 function busquedaInformes($busqueda,$dato){
     switch ($busqueda) {
-        case '1':
+        case '1':#Inventario
             return "SELECT nombre_implemento, stock_implemento, stock_minimo FROM implemento";
             break;
-        case '2':
+        case '2':#Practicas donde se usa determinado insumo
             return "SELECT p.id_practica, g.nombre_guia
             FROM practica p
             JOIN guia g ON p.guia_fk = g.id_guia
             JOIN implemento i ON p.implemento_fk = i.id_implemento
-            WHERE i.nombre_implemento LIKE '$dato'";
+            WHERE i.nombre_implemento LIKE '$dato%'";
             break;
-        case '3':
+        case '3':#Implementos de determinada guia
             return "SELECT i.nombre_implemento
-            FROM practica p
-            JOIN implemento i ON p.implemento_fk = i.id_implemento
-            WHERE p.id_practica LIKE '$dato'";
+            FROM implemento AS i
+            JOIN practica AS ip ON i.id_implemento = ip.implemento_fk
+            JOIN guia AS g ON g.id_guia = ip.guia_fk
+            WHERE g.nombre_guia LIKE '$dato%'";
             break;
         default:
             return 0;

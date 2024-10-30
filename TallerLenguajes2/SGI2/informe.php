@@ -10,25 +10,19 @@ if (!isset($_SESSION['user'])) {
 }
 tiempoCierreSesion();
 
-$diccionario = [
-    "nombre_guia" => "Título",
-    "nombre_implemento" => "Nombre",
-    "stock_implemento" => "Stock Actual",
-    "stock_minimo" => "Stock Minimo",
-];
 // Verificar si el formulario se envió
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibir el tipo de informe
     $informeTipo = $_POST["informeTipo"];
-    if ($informeTipo=="2") {
-        $dato=$_POST["nombreInsumo"];
-        $tabla = "practica";
+    if ($informeTipo == "2") {
+        $dato = $_POST["nombreInsumo"];
+        $tabla = array("#", "Id Práctica", "Título");
     } else if ($informeTipo == "3") {
-        $dato=$_POST["nombreGuia"];
-        $tabla = "practica";
-    }else{
-        $dato=0;
-        $tabla="implemento";
+        $dato = $_POST["nombreGuia"];
+        $tabla = array("#", "Cantidad", "Nombre del implemento");
+    } else {
+        $dato = 0;
+        $tabla = array("Nombre", "Stock", "Stock Minimo", "Estado");
     }
     $consulta = busquedaInformes($informeTipo, $dato);
 }
@@ -51,18 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <table class="table table-bordered table-striped">
             <thead>
                 <?php
-                include_once("db.php");
-                $sql = "SHOW COLUMNS FROM '$tabla'";
-                $conectar = conn(); //crear la conexión a la b.d.
-                $resultTabla = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
-
-                if ($result) {
-                    while ($fila = mysqli_fetch_assoc($resultTabla)) {
-                        $valor = $diccionario[$fila['Field']];
-                        echo "<tr><td>" . $valor . "</td></tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='9' class='text-center'>Sin resultados</td></tr>";
+                $encabezado = 0;
+                while ($encabezado < count($tabla)) {
+                    echo "<tr><td>" . $tabla[$col] . "</td></tr>";
+                    $encabezado++;
                 }
                 ?>
             </thead>
