@@ -20,10 +20,10 @@ $diccionario = [
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibir el tipo de informe
     $informeTipo = $_POST["informeTipo"];
-    if ($informeTipo == 2) {
+    if ($informeTipo=="2") {
         $dato=$_POST["nombreInsumo"];
         $tabla = "practica";
-    } else if ($informeTipo == 3) {
+    } else if ($informeTipo == "3") {
         $dato=$_POST["nombreGuia"];
         $tabla = "practica";
     }else{
