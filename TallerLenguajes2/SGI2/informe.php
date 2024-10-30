@@ -16,6 +16,19 @@ $diccionario = [
     "stock_implemento" => "Stock Actual",
     "stock_minimo" => "Stock Minimo",
 ]
+// Verificar si el formulario se envió
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recibir el tipo de informe
+    $informeTipo = $_POST["informeTipo"];
+    if ($informeTipo == 2) {
+        $dato=$_POST["nombreInsumo"];
+    } else if ($informeTipo == 3) {
+        $dato=$_POST["nombreGuia"];
+    }else{
+        $dato=0;
+    }
+    busquedaInformes($informeTipo, $dato);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
