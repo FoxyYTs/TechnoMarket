@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <tbody>
                 <?php
                 include_once("db.php");
-                $sql = busquedaInformes($busqueda, $dato);
+                $sql = $consulta;
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
