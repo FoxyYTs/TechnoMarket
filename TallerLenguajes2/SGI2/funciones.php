@@ -183,13 +183,13 @@ function busquedaInformes($busqueda,$dato){
             FROM practica p
             JOIN guia g ON p.guia_fk = g.id_guia
             JOIN implemento i ON p.implemento_fk = i.id_implemento
-            WHERE i.nombre_implemento = '$dato'";
+            WHERE i.nombre_implemento LIKE '$dato'";
             break;
         case '3':
             return "SELECT i.nombre_implemento
             FROM practica p
             JOIN implemento i ON p.implemento_fk = i.id_implemento
-            WHERE p.id_practica = '$dato'";
+            WHERE p.id_practica LIKE '$dato'";
             break;
         default:
             return 0;
