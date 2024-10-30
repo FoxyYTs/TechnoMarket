@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <thead>
                 <?php
                 include_once("db.php");
-                $sql = "SHOW COLUMNS FROM $tabla";
+                $sql = "SHOW COLUMNS FROM '$tabla'";
                 $conectar = conn(); //crear la conexión a la b.d.
                 $resultTabla = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
 
