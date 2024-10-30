@@ -1,0 +1,156 @@
+
+-- Base de datos: `sgi`
+--
+CREATE DATABASE IF NOT EXISTS `sgi` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `sgi`;
+
+
+
+CREATE TABLE `area` (
+  `id_area` int(11) NOT NULL,
+  `nombre_area` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `guia` (
+  `id_guia` int(11) NOT NULL,
+  `nombre_guia` varchar(45) DEFAULT NULL,
+  `pdf_guia` varchar(100) DEFAULT NULL,
+  `materia_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Estructura de tabla para la tabla `implemento`
+--
+
+CREATE TABLE `implemento` (
+  `id_implemento` int(11) NOT NULL,
+  `nombre_implemento` varchar(45) NOT NULL,
+  `stock_implemento` int(11) NOT NULL,
+  `ficha_tecnica` varchar(100) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `guia_uso_lab` varchar(100) DEFAULT NULL,
+  `ubicacion_fk` varchar(5) NOT NULL,
+  `und_medida_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `materia` (
+  `id_materia` int(11) NOT NULL,
+  `nombre_materia` varchar(45) DEFAULT NULL,
+  `area_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `practica` (
+  `id_practica` int(11) NOT NULL,
+  `implemento_fk` int(11) NOT NULL,
+  `guia_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `ubicacion` (
+  `id_ubicacion` varchar(5) NOT NULL,
+  `descripcion_ubicacion` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `unidad_medida` (
+  `id_medida` int(11) NOT NULL,
+  `nombre_medida` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-
+ALTER TABLE `area`
+  ADD PRIMARY KEY (`id_area`);
+
+-
+ALTER TABLE `guia`
+  ADD PRIMARY KEY (`id_guia`),
+  ADD KEY `fk_GUIA_MATERIA` (`materia_fk`);
+
+--
+-- Indices de la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  ADD PRIMARY KEY (`id_implemento`),
+  ADD KEY `ubicacion_implemento` (`ubicacion_fk`),
+  ADD KEY `medida_implemento` (`und_medida_fk`);
+
+-- Indices de la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD PRIMARY KEY (`id_materia`),
+  ADD KEY `fk_MATERIA_AREA` (`area_fk`);
+
+-- Indices de la tabla `practica`
+--
+ALTER TABLE `practica`
+  ADD PRIMARY KEY (`id_practica`),
+  ADD KEY `fk_PRACTICA_implemento` (`implemento_fk`),
+  ADD KEY `fk_PRACTICA_GUIA` (`guia_fk`);
+
+-- Indices de la tabla `unidad_medida`
+--
+ALTER TABLE `unidad_medida`
+  ADD PRIMARY KEY (`id_medida`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `area`
+--
+ALTER TABLE `area`
+  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `guia`
+--
+ALTER TABLE `guia`
+  MODIFY `id_guia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  MODIFY `id_implemento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT de la tabla `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+ALTER TABLE `practica`
+  MODIFY `id_practica` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `unidad_medida`
+--
+ALTER TABLE `unidad_medida`
+  MODIFY `id_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+ALTER TABLE `guia`
+  ADD CONSTRAINT `fk_GUIA_MATERIA` FOREIGN KEY (`materia_fk`) REFERENCES `materia` (`id_materia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `implemento`
+--
+ALTER TABLE `implemento`
+  ADD CONSTRAINT `medida_implemento` FOREIGN KEY (`und_medida_fk`) REFERENCES `unidad_medida` (`id_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `ubicacion_implemento` FOREIGN KEY (`ubicacion_fk`) REFERENCES `ubicacion` (`id_ubicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Filtros para la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD CONSTRAINT `fk_MATERIA_AREA` FOREIGN KEY (`area_fk`) REFERENCES `area` (`id_area`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `practica`
+  ADD CONSTRAINT `fk_PRACTICA_GUIA` FOREIGN KEY (`guia_fk`) REFERENCES `guia` (`id_guia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_PRACTICA_implemento` FOREIGN KEY (`implemento_fk`) REFERENCES `implemento` (`id_implemento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
