@@ -173,4 +173,28 @@ function tiempoCierreSesion(){
     }
     $_SESSION['LAST_ACTIVITY'] = time();
 }
+function busquedaInformes($busqueda,$dato){
+    switch ($busqueda) {
+        case '1':
+            return "SELECT nombre, stock, stock_minimo FROM implementos";
+            break;
+        case '2':
+            return "SELECT p.nombre_practica FROM practicas AS p
+            JOIN insumo_practica AS ip ON p.id_practica = ip.id_practica
+            JOIN insumos AS i ON i.id_insumo = ip.id_insumo
+            WHERE i.nombre = '$dato'";
+            break;
+        case '3':
+            return "SELECT i.nombre
+            FROM insumos AS i
+            JOIN insumo_practica AS ip ON i.id_insumo = ip.id_insumo
+            JOIN practicas AS p ON p.id_practica = ip.id_practica
+            WHERE p.nombre_practica = '$dato';";
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
 ?>
