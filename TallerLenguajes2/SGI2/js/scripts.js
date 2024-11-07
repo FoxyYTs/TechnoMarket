@@ -24,7 +24,3 @@ $(document).ready(function() {
         allowClear: true                 // Habilita limpiar la selección
     });
 });
-
-$(document).ready(function() {
-    $('.select2').select2();
-});
