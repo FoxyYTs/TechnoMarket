@@ -38,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
             // Ejecutar la sentencia SQL
             if ($stmt->execute()) {
-                header("Location: gestion_Tmaestras.php");
+                header("Location: movimientos.php");
                 echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
             } else {
-                header("Location: reg_permisos.php");
+                header("Location: movimientos.php");
                 echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
             }
             $stmt->close();
@@ -58,10 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
         // Ejecutar la sentencia SQL
         if ($stmt->execute()) {
-            header("Location: gestion_Tmaestras.php");
+            header("Location: movimientos.php");
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
         } else {
-            header("Location: reg_permisos.php");
+            header("Location: movimientos.php");
             echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
         }
         $stmt->close();
