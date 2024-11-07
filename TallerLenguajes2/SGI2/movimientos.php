@@ -169,50 +169,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Registro de Implemento</h2>
+        <h2 class="mb-4 text-center">Registro de Movimientos</h2>
         <form action="movimientos.php" method="POST">
-            <div class="form-group">
-                <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                <select class="form-control" name="tipo_movimiento" required>
-                    <option selected disabled>Seleccionar Ubicación</option>
-                    <option value="PRESTAMO">Prestamo</option>
-                    <option value="DEVOLUCION">Devolución</option>
-                </select>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="tipo_movimiento" class="form-label">Tipo de Transacción:</label>
+                    <select class="form-select" name="tipo_movimiento" required>
+                        <option selected disabled>Seleccionar tipo</option>
+                        <option value="PRESTAMO">Préstamo</option>
+                        <option value="DEVOLUCION">Devolución</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="implemento" class="form-label">Implemento:</label>
+                    <select class="form-select select2" name="implemento" required>
+                        <option selected disabled>Seleccionar Implemento</option>
+                        <?php
+                        include_once("db.php");
+                        $sql = "SELECT id_implemento, nombre_implemento FROM implemento ORDER BY nombre ASC";
+                        $conectar = conn();
+                        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['id_implemento'] . "'>" . $row['nombre_implemento'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="implemento">Implemento:</label>
-                <select class="select2" name="implemento" required>
-                    <option selected disabled>Seleccionar Unidad de Medida</option>
-                    <?php
-                    include_once("db.php");
-                    $sql = "SELECT id_implemento, nombre_implemento FROM implemento ORDER BY nombre ASC";
-                    $conectar = conn(); //crear la conexión a la b.d.
-                    $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo "<option value='" . $row['id_implemento'] . "'>" . $row['nombre_implemento'] . "</option>";
-                    }
-                    ?>
-                </select>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="cantidad" class="form-label">Cantidad:</label>
+                    <input type="number" class="form-control" name="cantidad" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="id_recibe" class="form-label">ID de quien recibe:</label>
+                    <input type="text" class="form-control" name="id_recibe" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" class="form-control" name="cantidad" required>
-            </div>
-            <div class="form-group">
-                <label for="id_recibe">Identificación de quien recibe:</label>
-                <input type="text" class="form-control" name="id_recibe" required>
-            </div>
-            <div class="form-group">
-                <label for="nombre_recibe">Nombre de quien recibe:</label>
+
+            <div class="mb-3">
+                <label for="nombre_recibe" class="form-label">Nombre de quien recibe:</label>
                 <input type="text" class="form-control" name="nombre_recibe" required>
             </div>
-            <div class="form-group">
-                <label for="fecha_hora">Fecha y hora:</label>
-                <input type="datetime" class="form-control" name="fecha_hora" required>
+
+            <div class="mb-3">
+                <label for="fecha_hora" class="form-label">Fecha y hora:</label>
+                <input type="datetime-local" class="form-control" name="fecha_hora" required>
             </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
         </form>
     </div>
+
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
