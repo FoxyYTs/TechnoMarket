@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option selected disabled>Seleccionar Implemento</option>
                     <?php
                     include_once("db.php");
-                    $sql = "SELECT id_implemento, nombre_implemento FROM implemento ORDER BY nombre ASC";
+                    $sql = "SELECT * FROM implemento";
                     $conectar = conn(); //crear la conexión a la b.d.
                     $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
                     while ($row = mysqli_fetch_array($result)) {
