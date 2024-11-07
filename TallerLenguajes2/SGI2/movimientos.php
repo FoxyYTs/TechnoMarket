@@ -1,7 +1,6 @@
 <?php
 require 'funciones.php';
 session_start();
-$_SESSION['user']=$user;
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
@@ -12,28 +11,61 @@ tiempoCierreSesion();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger datos del formulario
-    $nombre_per= $_POST["nombre_permiso"];
-    $desc_per= $_POST["descripcion_permiso"];
-    $archivo = $_POST["archivo"];
+    $tipoT = $_POST["tipo_movimiento"];
+    $implemento_fk = $_POST["implemento"];
+    $cantidad = $_POST["cantidad"];
+    $id_recibe = $_POST["id_recibe"];
+    $nombre_recibe = $_POST["nombre_recibe"];
+    $fecha_hora = $_POST["fecha_hora"];
+    $user = $_SESSION['user'];
 
-    // Conectar a la base de datos
-    include_once("db.php");
-    $conectar = conn(); //conexion a la base de datos
-    $sql = "INSERT INTO permisos (nombre_permiso,descripcion_permiso,archivo) VALUES (?, ?, ?)";
-    // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
-    $stmt = $conectar->prepare($sql);
-    //bind
-    $stmt->bind_param("sss", $nombre_per, $desc_per, $archivo);
-    // Ejecutar la sentencia SQL
-    if ($stmt->execute()) {
-        header("Location: gestion_Tmaestras.php");
-        echo '<div class="alert alert-success" role="alert">Nuevo permiso creado correctamente</div>';
+    if ($tipoT == "PRESTAMO") {
+        include_once("db.php");
+        $sql = "SELECT id_implemento, stock_implemento FROM implemento";
+        $conectar = conn(); //crear la conexión a la b.d.
+        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+        if ($cantidad > $row['stock_implemento']) {
+            echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
+        } else {
+            // Conectar a la base de datos
+            include_once("db.php");
+            $conectar = conn(); //conexion a la base de datos
+            $sql = "INSERT INTO transaccion (tipo_transaccion, implemento_transa_fk, cantidad, id_recibe, nombre_recibe, fecha_hora, user_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+            $stmt = $conectar->prepare($sql);
+            //bind
+            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+            // Ejecutar la sentencia SQL
+            if ($stmt->execute()) {
+                header("Location: gestion_Tmaestras.php");
+                echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+            } else {
+                header("Location: reg_permisos.php");
+                echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
+            }
+            $stmt->close();
+            $conectar->close();
+        }
     } else {
-        header("Location: reg_permisos.php");
-        echo '<div class="alert alert-warning" role="alert"> Error al crear nuevo permiso: </div>' . $stmt->error;
+        // Conectar a la base de datos
+        include_once("db.php");
+        $conectar = conn(); //conexion a la base de datos
+        $sql = "INSERT INTO transaccion (tipo_transaccion, implemento_transa_fk, cantidad, id_recibe, nombre_recibe, fecha_hora, user_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+        $stmt = $conectar->prepare($sql);
+        //bind
+        $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+        // Ejecutar la sentencia SQL
+        if ($stmt->execute()) {
+            header("Location: gestion_Tmaestras.php");
+            echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+        } else {
+            header("Location: reg_permisos.php");
+            echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
+        }
+        $stmt->close();
+        $conectar->close();
     }
-    $stmt->close();
-    $conectar->close();
 }
 ?>
 <!DOCTYPE html>
@@ -138,17 +170,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="container mt-5">
         <h2 class="mb-4">Registro de Implemento</h2>
-        <form action="transasiones.php" method="POST">
+        <form action="movimientos.php" method="POST">
             <div class="form-group">
-                <label for="tipo_transasion">Tipo de Transaccion:</label>
-                <select class="form-control" name="ubicacion" required>
+                <label for="tipo_movimiento">Tipo de Transaccion:</label>
+                <select class="form-control" name="tipo_movimiento" required>
                     <option selected disabled>Seleccionar Ubicación</option>
-                    <option value="0">Prestamo</option>
-                    <option value="1">Devolución</option>
+                    <option value="PRESTAMO">Prestamo</option>
+                    <option value="DEVOLUCION">Devolución</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="ubicacion">Implemento:</label>
+                <label for="implemento">Implemento:</label>
                 <select class="select2" name="implemento" required>
                     <option selected disabled>Seleccionar Unidad de Medida</option>
                     <?php

@@ -4,7 +4,7 @@ function generarPDF() {
     const doc = new jsPDF();
 
     // Agrega un título opcional
-    doc.text("Informe de Inventario", 14, 20);
+    doc.text("Informe", 14, 20);
 
     // Genera el PDF a partir de la tabla
     doc.autoTable({
@@ -15,7 +15,7 @@ function generarPDF() {
     });
 
     // Guarda o muestra el PDF
-    doc.save('informe_inventario.pdf');
+    doc.save('informe.pdf');
 }
 
 $(document).ready(function() {
