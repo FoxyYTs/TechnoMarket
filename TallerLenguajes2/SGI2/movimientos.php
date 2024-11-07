@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT id_implemento, stock_implemento FROM implemento";
         $conectar = conn(); //crear la conexión a la b.d.
         $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+        $row = mysqli_fetch_array($result);
         if ($cantidad > $row['stock_implemento']) {
             echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
         } else {
