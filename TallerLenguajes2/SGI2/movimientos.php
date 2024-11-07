@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="fecha_hora">Fecha y hora:</label>
-                <input type="datetime" class="form-control" name="fecha_hora" required>
+                <input type="datetime-local" class="form-control" name="fecha_hora" required>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
