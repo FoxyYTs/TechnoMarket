@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container mt-5">
         <h1 class="text-center mb-4">Informe</h1>
         <button onclick="generarPDF()" class="btn btn-primary mt-3">Generar PDF</button>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-light">
             <thead>
                 <tr>
                     <?php
