@@ -57,6 +57,7 @@ tiempoCierreSesion();
                     <th>STOCK</th>
                     <th>UBICACION</th>
                     <th>UNIDAD DE MEDIDA</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,6 +76,10 @@ tiempoCierreSesion();
                             <td>{$row['ubicacion_fk']}</td>
                             <td>{$row['nombre_medida']}</td>";
                 ?>
+                        <td>
+                            <a href="registrar_entrada.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus-fill"></i>Nueva Entrada</a>
+                            <a href="registrar_salida.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="bi bi-cart-dash-fill"></i>Salida</a>
+                        </td>
                 <?php
                     }
                 } else {

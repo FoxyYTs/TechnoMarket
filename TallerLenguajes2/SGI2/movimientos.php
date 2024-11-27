@@ -36,8 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conectar->prepare($sql);
             //bind
             $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+            $sql2 = "UPDATE implemento (stock_implemento) VALUES (?) WHERE id_implemento = ?";
+            // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+            $stmt = $conectar->prepare($sql);
+            $stmt2 = $conectar->prepare($sql2);
+            //bind
+            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+            $cant = $row['stock_implemento']-$cantidad;
+            $stmt2->bind_param("ii", $cant, $implemento_fk);
             // Ejecutar la sentencia SQL
-            if ($stmt->execute()) {
+            if ($stmt->execute() && $stmt2->execute()) {
                 header("Location: movimientos.php");
                 echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
             } else {
@@ -51,11 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Conectar a la base de datos
         include_once("db.php");
         $conectar = conn(); //conexion a la base de datos
-        $sql = "INSERT INTO transaccion (tipo_transaccion, implemento_transa_fk, cantidad, id_recibe, nombre_recibe, fecha_hora, user_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE transaccion (tipo_transaccion, cantidad, user_fk) VALUES (?, ?, ?)";
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
         //bind
-        $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+        $stmt->bind_param("sis", $tipoT, $cantidad, $user);
         // Ejecutar la sentencia SQL
         if ($stmt->execute()) {
             header("Location: movimientos.php");
@@ -215,6 +223,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
+    </div>
+    <div class="container mt-5">
+        <h2 class="mb-4">Listado de movimientos</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de movimiento</th>
+                    <th>Implemento</th>
+                    <th>Cantidad</th>
+                    <th>Fecha y hora</th>
+                    <th>Nombre de quien recibe</th>
+                    <th>Usuario que entrega</th>
+                    <th>Registrar devolución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include_once("db.php");
+                $sql = "SELECT tipo_transaccion,i.nombre_implemento,cantidad,fecha_hora,nombre_recibe,user_fk FROM `transaccion`JOIN implemento AS i ON implemento_transa_fk=id_implemento";
+                $conectar = conn(); //crear la conexión a la b.d.
+                $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['tipo_transaccion'] . "</td>";
+                    echo "<td>" . $row['nombre_implemento'] . "</td>";
+                    echo "<td>" . $row['cantidad'] . "</td>";
+                    echo "<td>" . $row['fecha_hora'] . "</td>";
+                    echo "<td>" . $row['nombre_recibe'] . "</td>";
+                    echo "<td>" . $row['user_fk'] . "</td>";
+                }
+                ?>
+                <td>
+                    <form action="devolucion.php" method="POST">
+                        <input name="cantidad" type="number" class="form-control" required>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+            </tbody>
+        </table>
     </div>
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

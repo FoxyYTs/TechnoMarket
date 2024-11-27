@@ -193,6 +193,7 @@ function busquedaInformes($busqueda,$dato){
             JOIN guia AS g ON g.id_guia = ip.guia_fk
             WHERE g.nombre_guia LIKE '$dato%'";
             break;
+        case '4':#Movimientos
         default:
             return 0;
             break;

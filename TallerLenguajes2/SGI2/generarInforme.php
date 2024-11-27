@@ -55,6 +55,7 @@ tiempoCierreSesion();
                     <option value="1">Inventario de Insumos</option>
                     <option value="2">Prácticas de un Insumo</option>
                     <option value="3">Insumos de una Práctica</option>
+                    <option value="4">Movimientos - Prestamos y Devoluciones</option>
                 </select>
             </div>
 

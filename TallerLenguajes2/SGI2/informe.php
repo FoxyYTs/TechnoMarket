@@ -20,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($informeTipo == "3") {
         $dato = $_POST["nombreGuia"];
         $tabla = array("Cantidad", "Nombre del implemento");
+    } else if ($informeTipo == "4") {
+        $dato = 0;
+        $tabla = array("Fecha","Estado","Nombre Implemento", "Cantidad", "Usuario Prestador", "Usuario Recibe");
     } else {
         $dato = 0;
         $tabla = array("Nombre", "Stock", "Stock Minimo", "Estado");
