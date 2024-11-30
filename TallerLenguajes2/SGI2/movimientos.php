@@ -13,11 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger datos del formulario
     $tipoT = $_POST["tipo_movimiento"];
     $implemento_fk = $_POST["implemento"];
-    $cantidad = $_POST["cantidad"];
+    $cantidadP = $_POST["cantidadP"];
     $id_recibe = $_POST["id_recibe"];
     $nombre_recibe = $_POST["nombre_recibe"];
     $fecha_hora = $_POST["fecha_hora"];
     $user = $_SESSION['user'];
+
+    $cantidadD = $_POST["cantidadD"];
 
     if ($tipoT == "PRESTAMO") {
         include_once("db.php");
@@ -25,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conectar = conn(); //crear la conexión a la b.d.
         $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
         $row = mysqli_fetch_array($result);
-        if ($cantidad > $row['stock_implemento']) {
+        if ($cantidadP > $row['stock_implemento']) {
             echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
         } else {
             // Conectar a la base de datos
@@ -35,14 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
             $stmt = $conectar->prepare($sql);
             //bind
-            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
+            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $user);
             $sql2 = "UPDATE implemento (stock_implemento) VALUES (?) WHERE id_implemento = ?";
             // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
             $stmt = $conectar->prepare($sql);
             $stmt2 = $conectar->prepare($sql2);
             //bind
-            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $user);
-            $cant = $row['stock_implemento']-$cantidad;
+            $cant = $row['stock_implemento']-$cantidadP;
             $stmt2->bind_param("ii", $cant, $implemento_fk);
             // Ejecutar la sentencia SQL
             if ($stmt->execute() && $stmt2->execute()) {
@@ -62,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE transaccion (tipo_transaccion, cantidad, user_fk) VALUES (?, ?, ?)";
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
+        $tipo="";
+        if ($cantidad>0) {
         //bind
         $stmt->bind_param("sis", $tipoT, $cantidad, $user);
         // Ejecutar la sentencia SQL
@@ -199,8 +202,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $sql = "SELECT * FROM implemento";
                     $conectar = conn(); //crear la conexión a la b.d.
                     $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo "<option value='" . $row['id_implemento'] . "'>" . $row['nombre_implemento'] . "</option>";
+                    while ($rowI = mysqli_fetch_array($result)) {
+                        echo "<option value='" . $rowI['id_implemento'] . "'>" . $rowI['nombre_implemento'] . "</option>";
                     }
                     ?>
                 </select>
@@ -255,8 +258,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
                 <td>
-                    <form action="devolucion.php" method="POST">
-                        <input name="cantidad" type="number" class="form-control" required>
+                    <form action="movimientos.php?user=<?php echo $row['tipo_transaccion']; ?>" method="POST">
+                        <input name="cantidadD" type="number" class="form-control" required>
                         <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
             </tbody>
         </table>
