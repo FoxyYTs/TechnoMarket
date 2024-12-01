@@ -64,16 +64,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
         $tipo="";
-        if ($cantidad>0) {
-        //bind
-        $stmt->bind_param("sis", $tipoT, $cantidad, $user);
-        // Ejecutar la sentencia SQL
-        if ($stmt->execute()) {
-            header("Location: movimientos.php");
-            echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+        if ($cantidadD==$cantidadP) {
+            //bind
+            $stmt->bind_param("sis", $tipoT, $cantidadD, $user);
+            // Ejecutar la sentencia SQL
+            if ($stmt->execute()) {
+                header("Location: movimientos.php");
+                echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+            } else {
+                header("Location: movimientos.php");
+                echo '<div class="alert alert-warning" role="alert">Error al registrar movimiento </div>' . $stmt->error;
+            }
         } else {
-            header("Location: movimientos.php");
-            echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
+            
         }
         $stmt->close();
         $conectar->close();
