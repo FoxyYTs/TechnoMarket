@@ -103,8 +103,8 @@ tiempoCierreSesion();
 </head>
 
 <body>
-   <!-- Menú de navegación -->
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Menú de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand active" href="principal.php">LAB MANAGER</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -127,9 +127,9 @@ tiempoCierreSesion();
                     <div class="card-body">
                         <form action="insumo.php" method="post">
                             <div class="form-group">
-                                <label for="id_insumo"><i class="fas fa-barcode"></i> Código de Insumo:</label>
+                                <label for="id_insumo"><i class="fas fa-barcode"></i> Código o nombre de Insumo:</label>
                                 <input type="text" class="form-control" placeholder="Ingrese el código de insumo"
-                                    name="id_implemento" required>
+                                    name="implemento" required>
                             </div>
                             <button type="submit" class="btn btn-success btn-block"><i class="fas fa-search"></i>
                                 Buscar</button>
@@ -137,6 +137,49 @@ tiempoCierreSesion();
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Mostrar todos los insumos -->
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Implementos</h1>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID IMPLEMENTO</th>
+                        <th>NOMBRE</th>
+                        <th>STOCK</th>
+                        <th>UBICACION</th>
+                        <th>UNIDAD DE MEDIDA</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    include_once("db.php");
+                    $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida=implemento.und_medida_fk ORDER BY id_implemento ASC";
+                    $conectar = conn(); //crear la conexión a la b.d.
+                    $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>
+                            <td>{$row['id_implemento']}</td>
+                            <td><a href='insumo.php?id_implemento={$row['id_implemento']}'>{$row['nombre_implemento']}</a></td>
+                            <td>{$row['stock_implemento']}</td>
+                            <td>{$row['ubicacion_fk']}</td>
+                            <td>{$row['nombre_medida']}</td>";
+                    ?>
+                            <td>
+                                <a href="registrar_entrada.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus-fill"></i>Nueva Entrada</a>
+                                <a href="registrar_salida.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="bi bi-cart-dash-fill"></i>Salida</a>
+                            </td>
+                    <?php
+                        }
+                    } else {
+                        echo "<tr><td colspan='9' class='text-center'>No hay implementos registrados</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

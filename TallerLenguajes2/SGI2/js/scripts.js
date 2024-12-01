@@ -18,9 +18,24 @@ function generarPDF() {
     doc.save('informe.pdf');
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.select2').select2({
         placeholder: "Busca una opción", // Texto de sugerencia en el campo
         allowClear: true                 // Habilita limpiar la selección
     });
 });
+
+
+document.getElementById('search-input').addEventListener('keyup', function () {
+    const query = this.value; // Captura el texto ingresado
+
+    // Realiza la solicitud AJAX
+    fetch(`buscar_implementos.php?q=${query}`)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('implementos-body').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+

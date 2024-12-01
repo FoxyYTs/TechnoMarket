@@ -9,6 +9,31 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 tiempoCierreSesion();
+
+$q = $_GET['q']; // Captura el término de búsqueda
+$conectar = conn();
+
+$sql = "SELECT nombre_implemento, tipo, cantidad 
+        FROM implemento 
+        WHERE nombre_implemento LIKE ? OR tipo LIKE ?";
+$stmt = $conectar->prepare($sql);
+$search = "%" . $q . "%";
+$stmt->bind_param('ss', $search, $search);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . htmlspecialchars($row['nombre_implemento']) . "</td>
+                <td>" . htmlspecialchars($row['tipo']) . "</td>
+                <td>" . htmlspecialchars($row['cantidad']) . "</td>
+              </tr>";
+    }
+} else {
+    echo "<tr><td colspan='3'>No se encontraron resultados</td></tr>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +74,7 @@ tiempoCierreSesion();
     <!-- Mostrar todos los insumos -->
     <div class="container mt-5">
         <h1 class="text-center mb-4">Implementos</h1>
-        <table class="table table-bordered table-striped">
+        <table class="table table-hover table-striped mt-3">
             <thead>
                 <tr>
                     <th>ID IMPLEMENTO</th>
@@ -60,7 +85,7 @@ tiempoCierreSesion();
                     <th>ACCIONES</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="table-body">
                 <?php
                 include_once("db.php");
                 $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida=implemento.und_medida_fk ORDER BY id_implemento ASC";
