@@ -212,8 +212,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <div class="form-group">
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" class="form-control" name="cantidad" required>
+                <label for="cantidadP">Cantidad:</label>
+                <input type="number" class="form-control" name="cantidadP" required>
             </div>
             <div class="form-group">
                 <label for="id_recibe">Identificación de quien recibe:</label>
