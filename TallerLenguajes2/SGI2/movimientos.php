@@ -19,13 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_hora = $_POST["fecha_hora"];
     $user = $_SESSION['user'];
 
-    $cantidadD = $_POST["cantidadD"];
-
     if ($tipoT == "PRESTAMO") {
         include_once("db.php");
-        $sql = "SELECT id_implemento, stock_implemento FROM implemento";
+        $sqlI = "SELECT id_implemento, stock_implemento FROM implemento";
         $conectar = conn(); //crear la conexión a la b.d.
-        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+        $result = mysqli_query($conectar, $sqlI) or trigger_error("Error:", mysqli_error($conectar));
         $row = mysqli_fetch_array($result);
         if ($cantidadP > $row['stock_implemento']) {
             echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
@@ -38,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conectar->prepare($sql);
             //bind
             $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $user);
-            $sql2 = "UPDATE implemento (stock_implemento) VALUES (?) WHERE id_implemento = ?";
+            $sql2 = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
             // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
             $stmt = $conectar->prepare($sql);
             $stmt2 = $conectar->prepare($sql2);
@@ -57,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conectar->close();
         }
     } else {
+        $cantidadD = $_POST["cantidadD"];
         // Conectar a la base de datos
         include_once("db.php");
         $conectar = conn(); //conexion a la base de datos
@@ -64,16 +63,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
         $tipo="";
-        if ($cantidad>0) {
-        //bind
-        $stmt->bind_param("sis", $tipoT, $cantidad, $user);
-        // Ejecutar la sentencia SQL
-        if ($stmt->execute()) {
-            header("Location: movimientos.php");
-            echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+        if ($cantidadD==$cantidadP) {
+            //bind
+            $stmt->bind_param("sis", $tipoT, $cantidadD, $user);
+            // Ejecutar la sentencia SQL
+            if ($stmt->execute()) {
+                header("Location: movimientos.php");
+                echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+            } else {
+                header("Location: movimientos.php");
+                echo '<div class="alert alert-warning" role="alert">Error al registrar movimiento </div>' . $stmt->error;
+            }
         } else {
-            header("Location: movimientos.php");
-            echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
+            
         }
         $stmt->close();
         $conectar->close();
@@ -209,8 +211,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
             <div class="form-group">
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" class="form-control" name="cantidad" required>
+                <label for="cantidadP">Cantidad:</label>
+                <input type="number" class="form-control" name="cantidadP" required>
             </div>
             <div class="form-group">
                 <label for="id_recibe">Identificación de quien recibe:</label>
