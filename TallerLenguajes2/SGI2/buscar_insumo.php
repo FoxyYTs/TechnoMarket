@@ -152,7 +152,7 @@ tiempoCierreSesion();
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-body">
                     <?php
                     include_once("db.php");
                     $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida=implemento.und_medida_fk ORDER BY id_implemento ASC";
