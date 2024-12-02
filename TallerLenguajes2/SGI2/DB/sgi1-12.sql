@@ -200,15 +200,17 @@ CREATE TABLE `permisos` (
 --
 
 INSERT INTO `permisos` (`id_permisos`, `nombre_permiso`, `descripcion_permiso`, `archivo`) VALUES
-(0, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios', 'gestionar_roles.php'),
-(1, 'GESTIONAR IMPLEMENTOS', 'Puede Editar y Eliminar los Insumos', 'gestionar_insumos.php'),
-(2, 'AGREGAR IMPLEMENTOS', 'Puede Registrar Nuevos Implementos', 'registro_insumo.php'),
-(4, 'INICIO', 'Puede Ver el menu Inicio', 'principal.php'),
-(5, 'IMPLEMENTOS', 'Puede ver la lista de insumos', 'insumos.php'),
-(6, 'BUSCAR IMPLEMENTOS', 'Puede buscar insumos', 'buscar_insumo.php'),
-(7, 'GESTIONAR TABLAS MAESTRAS', 'Puede gestionar las tablas maestras', 'gestion_Tmaestras.php'),
-(12, 'GENERAR INFORME', 'asda', 'generarInforme.php'),
-(13, 'GESTIONAR MOVIMIENTOS', NULL, 'movimientos.php');
+(0, 'INICIO', 'Puede Ver el menu Inicio', 'principal.php'),
+(1, 'BUSCAR IMPLEMENTOS', 'Puede buscar insumos', 'buscar_insumo.php'),
+(2, 'GENERAR INFORME', 'Puede generar informes sobre datos del programa', 'generarInforme.php'),
+(3, 'AGREGAR IMPLEMENTOS', 'Puede Registrar Nuevos Implementos', 'registro_insumo.php'),
+
+(4, 'IMPLEMENTOS', 'Puede ver la lista de insumos', 'insumos.php'),
+
+(5, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios', 'gestionar_roles.php'),
+(6, 'GESTIONAR IMPLEMENTOS', 'Puede Editar y Eliminar los Insumos', 'gestionar_insumos.php'),
+(7, 'GESTIONAR MOVIMIENTOS', 'Puede gestionar los movimientos en las tablas de prestamos', 'movimientos.php'),
+(8, 'GESTIONAR TABLAS MAESTRAS', 'Puede gestionar las tablas maestras', 'gestion_Tmaestras.php');
 
 -- --------------------------------------------------------
 
@@ -227,26 +229,26 @@ CREATE TABLE `permiso_rol` (
 --
 
 INSERT INTO `permiso_rol` (`id_permiso_rol`, `permiso_fk`, `rol_fk`) VALUES
-(1, 0, 0),
-(2, 0, 1),
-(3, 1, 0),
-(4, 1, 1),
-(5, 2, 0),
-(6, 2, 1),
-(9, 4, 0),
-(10, 4, 1),
-(11, 4, 2),
-(12, 5, 0),
-(13, 5, 1),
-(14, 5, 2),
-(15, 6, 0),
-(16, 6, 1),
-(17, 6, 2),
-(18, 7, 0),
-(19, 12, 0),
-(21, 13, 0),
-(22, 12, 1),
-(23, 13, 1);
+(0, 0, 0),
+(1, 1, 0),
+(2, 2, 0),
+(3, 3, 0),
+(4, 4, 0),
+(5, 5, 0),
+(6, 6, 0),
+(7, 7, 0),
+(8, 8, 0),
+(9, 0, 1),
+(10, 1, 1),
+(11, 2, 1),
+(12, 3, 1),
+(13, 4, 1),
+(14, 5, 1),
+(15, 6, 1),
+(16, 7, 1),
+(17, 0, 2),
+(18, 1, 2),
+(19, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -577,13 +579,13 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id_permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_permisos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso_rol`
 --
 ALTER TABLE `permiso_rol`
-  MODIFY `id_permiso_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_permiso_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `practica`
