@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2024 a las 01:45:01
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 02-12-2024 a las 03:23:25
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `acceso` (
   `request_password` enum('0','1') NOT NULL DEFAULT '0',
   `token_password` varchar(200) NOT NULL,
   `roles_fk` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `acceso`
@@ -46,10 +46,9 @@ INSERT INTO `acceso` (`user`, `email`, `pass`, `request_password`, `token_passwo
 ('AnaSoto', 'ana_soto82222@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 0),
 ('JoseDaza', 'jose_daza82222@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 0),
 ('LuzDelly', 'luzdelly@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 1),
-('ViviMar', 'vivi_martinez@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 1),
 ('Prueba', 'prueba@chingona.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 2),
-('Prueba2', 'chiquillo200401@gmail.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 2);
-
+('Prueba2', 'chiquillo200401@gmail.com', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 2),
+('ViviMar', 'vivi_martinez@elpoli.edu.co', '7y01y3ey64y91y12ay151y187y216y242y273y307y331y363y39by42by451y482y51ey54ey570y60by633y66cy693y72by759y78cy81dy849y876y90cy93', '0', '', 1);
 
 -- --------------------------------------------------------
 
@@ -60,7 +59,7 @@ INSERT INTO `acceso` (`user`, `email`, `pass`, `request_password`, `token_passwo
 CREATE TABLE `area` (
   `id_area` int(11) NOT NULL,
   `nombre_area` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `area`
@@ -82,7 +81,7 @@ CREATE TABLE `guia` (
   `nombre_guia` varchar(45) DEFAULT NULL,
   `pdf_guia` varchar(100) DEFAULT NULL,
   `materia_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `guia`
@@ -116,20 +115,20 @@ CREATE TABLE `implemento` (
   `guia_uso_lab` varchar(100) DEFAULT NULL,
   `ubicacion_fk` varchar(5) NOT NULL,
   `und_medida_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `implemento`
 --
 
 INSERT INTO `implemento` (`id_implemento`, `nombre_implemento`, `stock_implemento`, `stock_minimo`, `ficha_tecnica`, `foto`, `guia_uso_lab`, `ubicacion_fk`, `und_medida_fk`) VALUES
-(1, 'Erlenmeyer en vidrio de 200ml', 9, 10, 'https://articulo.mercadolibre.com.co/MCO-836416066-erlenmeyer-en-vidrio-de-200-ml-schott-_JM', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYOVWAl6FRJtduL0chUokEcL1sJ8jB7jevKay2w9YsqSr4D1JKh2DHjXRu4Qwng6AA', 'Soporta quimicos y temperaturas altas', 'E2', 7),
-(2, 'Erlenmeyer En Vidrio De 2000', 3, 0, 'https://articulo.mercadolibre.com.co/MCO-1419241749-erlenmeyer-frasco-de-676fl-oz-vidrio-de-borosili', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYOVWAl6FRJtduL0chUokEcL1sJ8jB7jevKay2w9YsqSr4D1JKh2DHjXRu4Qwng6AA', 'Soporta quimicos y temperaturas altas', 'E2', 7),
+(1, 'Erlenmeyer en vidrio de 200ml', 9, 10, 'https://articulo.mercadolibre.com.co/MCO-836416066-erlenmeyer-en-vidrio-de-200-ml-schott-_JM', 'https://http2.mlstatic.com/D_NQ_NP_2X_855129-MCO53898477949_022023-F.webp', 'Soporta quimicos y temperaturas altas', 'E2', 7),
+(2, 'Erlenmeyer En Vidrio De 2000', 3, 0, 'https://articulo.mercadolibre.com.co/MCO-1419241749-erlenmeyer-frasco-de-676fl-oz-vidrio-de-borosili', 'https://http2.mlstatic.com/D_NQ_NP_2X_855129-MCO53898477949_022023-F.webp', 'Soporta quimicos y temperaturas altas', 'E2', 7),
 (3, 'Generador de Van der Graaf', 2, 0, 'https://www.phywe.com/es/fisica/electricidad-y-magnetismo/la-electrostatica-y-el-campo-electrico/gen', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw048rwvs_lNX1FeUOhmQ_2uNh44FG9KrHaw&s', 'Conecta y espera a que cargue', 'Ofi', 7),
-(4, 'fuentes de alimentacion de laboratorio dc', 6, 0, 'https://elektroautomatik.com/es/productos/fuentes-de-alimentacion-de-laboratorio-dc/', 'https://static2.efcomponentes.com.ar/6017-thickbox_default/fuente-de-laboratorio-regulable-32v-5a-3-canales-uni-t-utp330', 'Conectar las bananas a los puertos, usar las perillas para controlar el voltaje', 'GE', 7),
-(5, 'Multimetro', 8, 0, 'https://www.fluke.com/es-cr/producto/comprobacion-electrica/multimetros-digitales/fluke-115', 'https://dam-assets.fluke.com/s3fs-public/styles/product_slideshow_main/public/flukeig/products/images/dmm/jpeg/115_300dp', 'Girar su perilla para seleccionar lo que se quiera medir, al medir los Amperaje tener en cuenta dond', 'GE', 7),
+(4, 'fuentes de alimentacion de laboratorio dc', 6, 0, 'https://elektroautomatik.com/es/productos/fuentes-de-alimentacion-de-laboratorio-dc/', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEVXsQJmCQbNlCLDSwx2XTWEl3gIvTUFdMGw&s', 'Conectar las bananas a los puertos, usar las perillas para controlar el voltaje', 'GE', 7),
+(5, 'Multimetro', 8, 0, 'https://www.fluke.com/es-cr/producto/comprobacion-electrica/multimetros-digitales/fluke-115', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNthxPFkHxjUh3Wcusc38uLImEEZmpDssZhg&s', 'Girar su perilla para seleccionar lo que se quiera medir, al medir los Amperaje tener en cuenta dond', 'GE', 7),
 (6, 'Soporte universal', 17, 0, 'https://fichastecnicas.pchmayoreo.com/CM4365B.pdf', 'https://www.tplaboratorioquimico.com/wp-content/uploads/2015/01/soporte_universal_laboratorio.jpg', 'Material pesado', 'Ofi', 7),
-(7, 'Balanza de triple brazo', 6, 0, 'https://www.fishersci.es/shop/products/ohaus-triple-beam-mechanical-balance/11869630', 'https://ftecnologica.udistrital.edu.co/laboratorios/ciencias-basicas/sites/lab-ciencias-basicas/files/imagen-principal-e', 'Poner el elemento a pesar en la placa y deslizar poco a poco hasta que se equilibre', 'GE', 7),
+(7, 'Balanza de triple brazo', 6, 0, 'https://www.fishersci.es/shop/products/ohaus-triple-beam-mechanical-balance/11869630', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB778OlnwJw6tlBuPKARlOvK33tS6VxQ6x7g&s', 'Poner el elemento a pesar en la placa y deslizar poco a poco hasta que se equilibre', 'GE', 7),
 (8, 'Destilador de agua', 1, 0, 'https://www.dentaltix.com/es/sites/default/files/ficha-tecnica-destilador-de-agua.pdf', 'https://www.medicaecuador.com/wp-content/uploads/2021/07/Destilador.png', 'Usarlo dentro de la camara de gases', 'F2', 7),
 (9, 'Agitadores magnéticos', 2, 0, 'https://www.pce-iberica.es/medidor-detalles-tecnicos/instrumento-de-medida-laboratorio/agitador-labo', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXPXKzugtUZSBbcyiwxe_a3FmW-l9gliucag&s', 'la pastilla va dentro del recipiente', 'E2', 7),
 (10, 'Aro metálico de 12 cm con nuez', 5, 0, 'https://labcevallos.com/aro-metalico-12-5-cm-con-nuez/13890', 'https://36580daefdd0e4c6740b-4fe617358557d0f7b1aac6516479e176.ssl.cf1.rackcdn.com/products/13890.9303.jpg', 'asegurarse de que este bien fijo al soporte universar', 'E2', 7),
@@ -156,7 +155,7 @@ CREATE TABLE `mantenimiento` (
   `observaciones` varchar(100) DEFAULT NULL,
   `fecha_mantenimiento` date DEFAULT NULL,
   `implemento_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -168,7 +167,7 @@ CREATE TABLE `materia` (
   `id_materia` int(11) NOT NULL,
   `nombre_materia` varchar(45) DEFAULT NULL,
   `area_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `materia`
@@ -193,7 +192,7 @@ CREATE TABLE `permisos` (
   `nombre_permiso` varchar(45) DEFAULT NULL,
   `descripcion_permiso` varchar(100) DEFAULT NULL,
   `archivo` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `permisos`
@@ -204,9 +203,7 @@ INSERT INTO `permisos` (`id_permisos`, `nombre_permiso`, `descripcion_permiso`, 
 (1, 'BUSCAR IMPLEMENTOS', 'Puede buscar insumos', 'buscar_insumo.php'),
 (2, 'AGREGAR IMPLEMENTOS', 'Puede Registrar Nuevos Implementos', 'registro_insumo.php'),
 (3, 'GENERAR INFORME', 'Puede generar informes sobre datos del programa', 'generarInforme.php'),
-
 (4, 'IMPLEMENTOS', 'Puede ver la lista de insumos', 'insumos.php'),
-
 (5, 'GESTIONAR ROLES', 'Puede Gestionar los Roles de los otros usuarios', 'gestionar_roles.php'),
 (6, 'GESTIONAR IMPLEMENTOS', 'Puede Editar y Eliminar los Insumos', 'gestionar_insumos.php'),
 (7, 'GESTIONAR MOVIMIENTOS', 'Puede gestionar los movimientos en las tablas de prestamos', 'movimientos.php'),
@@ -222,7 +219,7 @@ CREATE TABLE `permiso_rol` (
   `id_permiso_rol` int(11) NOT NULL,
   `permiso_fk` int(11) NOT NULL,
   `rol_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `permiso_rol`
@@ -259,7 +256,7 @@ CREATE TABLE `practica` (
   `id_practica` int(11) NOT NULL,
   `implemento_fk` int(11) NOT NULL,
   `guia_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `practica`
@@ -278,7 +275,7 @@ CREATE TABLE `proveedor` (
   `id_proveedor` int(11) NOT NULL,
   `nombre_proveedor` varchar(45) DEFAULT NULL,
   `tel_proveedor` varchar(12) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `proveedor`
@@ -309,7 +306,7 @@ CREATE TABLE `reg_entrada` (
   `observaciones` varchar(80) DEFAULT NULL,
   `proveedor_fk` int(11) NOT NULL,
   `implemento_entra_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -323,7 +320,7 @@ CREATE TABLE `reg_salida` (
   `fecha_salida` date DEFAULT NULL,
   `observaciones` varchar(80) DEFAULT NULL,
   `implemento_sale_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -334,7 +331,7 @@ CREATE TABLE `reg_salida` (
 CREATE TABLE `roles` (
   `id_rol` int(11) NOT NULL,
   `nombre_rol` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -360,7 +357,7 @@ CREATE TABLE `transaccion` (
   `nombre_recibe` varchar(45) DEFAULT NULL,
   `implemento_transa_fk` int(11) NOT NULL,
   `user_fk` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `transaccion`
@@ -381,7 +378,7 @@ INSERT INTO `transaccion` (`id_transaccion`, `id_recibe`, `fecha_hora`, `tipo_tr
 CREATE TABLE `ubicacion` (
   `id_ubicacion` varchar(5) NOT NULL,
   `descripcion_ubicacion` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ubicacion`
@@ -411,7 +408,7 @@ INSERT INTO `ubicacion` (`id_ubicacion`, `descripcion_ubicacion`) VALUES
 CREATE TABLE `unidad_medida` (
   `id_medida` int(11) NOT NULL,
   `nombre_medida` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `unidad_medida`
