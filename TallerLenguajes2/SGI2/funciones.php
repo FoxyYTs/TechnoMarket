@@ -279,6 +279,20 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         if ($stmt->execute()) {
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
             // Actualizar el stock del implemento
+
+            $sql_pres_dev = "SELECT cantidad FROM transaccion WHERE id_transaccion = ?";
+            $stmt = $conectar->prepare($sql_pres_dev);
+            $stmt->bind_param("i", $id_prestamo);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $row = $resultado->fetch_assoc();
+            $canPrest = $row['cantidad'];
+            $cantidad_actual = $canPrest-$cantidad;
+            $sql_prestamo = "UPDATE transaccion SET cantidad = ? WHERE id_transaccion = ?";
+            $stmt = $conectar->prepare($sql_prestamo);
+            $stmt->bind_param("ii", $cantidad_actual, $id_prestamo);
+            $stmt->execute();
+
             $nuevo_stock = $stock + $cantidad;
             $sql_stock = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
             $stmt = $conectar->prepare($sql_stock);

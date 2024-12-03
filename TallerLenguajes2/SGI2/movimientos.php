@@ -11,9 +11,8 @@ if (!isset($_SESSION['user'])) {
 tiempoCierreSesion();
 // Validar tipo de transacción
 
-if (isset($_GET['tipoT']) || isset($_GET['id_transaccion'])) {
-    $tipoT = $_GET['tipoT'];
-    $id_transaccion = $_GET['id_transaccion'];
+$tipoT = isset($_GET['tipoT']) ? $_GET['tipoT'] : null;
+$id_transaccion = isset($_GET['id_transaccion']) ? $_GET['id_transaccion'] : null;
 
     $user = $_SESSION['user'];
 
@@ -41,7 +40,6 @@ if (isset($_GET['tipoT']) || isset($_GET['id_transaccion'])) {
             devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -268,7 +266,7 @@ if (isset($_GET['tipoT']) || isset($_GET['id_transaccion'])) {
             <tbody>
                 <?php
                 include_once("db.php");
-                $sql = "SELECT *, i.nombre_implemento FROM `transaccion`JOIN implemento AS i ON implemento_transa_fk=id_implemento WHERE tipo_transaccion='PRESTAMO'";
+                $sql = "SELECT *, i.nombre_implemento FROM `transaccion`JOIN implemento AS i ON implemento_transa_fk=id_implemento WHERE tipo_transaccion='PRESTAMO' AND cantidad>0";
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
                 while ($row = mysqli_fetch_array($result)) {
