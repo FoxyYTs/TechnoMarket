@@ -217,11 +217,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="cantidadP">Cantidad:</label>
                         <input type="number" class="form-control" name="cantidadP" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none" id="id_recibe">
                         <label for="id_recibe">Identificación de quien recibe:</label>
                         <input type="text" class="form-control" name="id_recibe" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none" id="nombre_recibe">
                         <label for="nombre_recibe">Nombre de quien recibe:</label>
                         <input type="text" class="form-control" name="nombre_recibe" required>
                     </div>
@@ -230,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="datetime-local" class="form-control" name="fecha_hora" required>
                     </div>
                     <!-- Campo adicional para Entrada -->
-                    <div class="form-group-none" id="entrada">
+                    <div class="form-group d-none" id="entrada">
                         <label for="proovedor" class="form-label">Nombre del Proveedor</label>
                         <select class="select" name="proveedor" required>
                             <option selected disabled>Seleccionar Proveedor</option>
@@ -246,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <!-- Campo adicional para Entrada y Salida -->
-                    <div class="form-group-none" id="entrada_salida">
+                    <div class="form-group d-none" id="entrada_salida">
                         <label for="Observaciones" class="form-label">Observaciones</label>
                         <input type="text" class="form-control" name="observaciones" required>
                     </div>
@@ -300,11 +300,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const tipo_movimiento = document.getElementById("tipo_movimiento").value;
             document.getElementById("entrada").classList.add("d-none");
             document.getElementById("entrada_salida").classList.add("d-none");
+            document.getElementById("nombre_recibe").classList.add("d-none");
+            document.getElementById("id_recibe").classList.add("d-none");
 
             if (tipo_movimiento === "ENTRADA") {
                 document.getElementById("entrada").classList.remove("d-none");
             } else if (tipo_movimiento === "ENTRADA" || tipo_movimiento === "SALIDA") {
                 document.getElementById("entrada_salida").classList.remove("d-none");
+            }else if(tipo_movimiento === "PRESTAMO"){
+                document.getElementById("id_recibe").classList.remove("d-none");
+                document.getElementById("nombre_recibe").classList.remove("d-none");
             }
         }
     </script>
