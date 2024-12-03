@@ -169,9 +169,10 @@ function menu_desplegable($user)
     $resultado = mysqli_stmt_get_result($stmt);
     if ($resultado->num_rows > 0) {
         while ($row = $resultado->fetch_assoc()) {
-            echo '<li><a class="dropdown-item" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a></li>';
+            $menu_items .= '<li><a class="dropdown-item" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a></li>';
         }
     }
+    return $menu_items;
 }
 
 function tiempoCierreSesion()
