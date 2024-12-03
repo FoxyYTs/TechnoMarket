@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 tiempoCierreSesion();
-if (isset($_GET['tipoT']) && isset($_GET['id_transaccion'])) {
+if (isset($_GET['tipoT']) || isset($_GET['id_transaccion'])) {
     $tipoT = $_GET['tipoT'];
     $id_transaccion = $_GET['id_transaccion'];
 
