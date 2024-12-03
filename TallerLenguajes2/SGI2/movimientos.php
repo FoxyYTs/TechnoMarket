@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: 50px;
         }
 
-        .justify-text-start{
+        .justify-text-start {
             background: rgba(255, 255, 255, 0.5);
         }
 
@@ -188,19 +188,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
     <div class="container content-center">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
-            <i class="fas fa-plus"></i> Registrar movimiento</a>
+            <i class="fas fa-plus"></i> Registrar Prestamo</a>
         <div class="container justify-text-start">
             <div class="collapse" id="formulario_movimiento">
-                <h2 class="mb-4">Registro de movimientos</h2>
+                <h2 class="mb-4">Registro de prestamos</h2>
                 <form action="movimientos.php" method="POST">
-                    <div class="form-group">
-                        <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                        <select class="form-control" name="tipo_movimiento" required>
-                            <option selected disabled>Seleccionar tipo</option>
-                            <option value="PRESTAMO">Prestamo</option>
-                            <option value="DEVOLUCION">Devolución</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="implemento">Implemento:</label>
                         <select class="select2" name="implemento" required>
