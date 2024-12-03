@@ -229,6 +229,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="fecha_hora">Fecha y hora:</label>
                         <input type="datetime-local" class="form-control" name="fecha_hora" required>
                     </div>
+                    <!-- Campo adicional para Entrada -->
+                    <div class="form-group" id="entrada">
+                        <label for="proovedor" class="form-label">Nombre del Proveedor</label>
+                        <option selected disabled>Seleccionar Proveedor</option>
+                        <?php
+                        include_once("db.php");
+                        $sql = "SELECT id_proveedor FROM proveedor ORDER BY id_proveedor ASC";
+                        $conectar = conn(); //crear la conexión a la b.d.
+                        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['id_proveedor'] . "'>" . $row['nombre_proveedor'] . "</option>";
+                        }
+                        ?>
+                        </select>
+                    </div>
+                    <!-- Campo adicional para Entrada y Salida -->
+                    <div class="form-group" id="entrada_salida">
+                        <label for="Observaciones" class="form-label">Observaciones</label>
+                        <input type="text" class="form-control" name="observaciones" required>
+                    </div>
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </form>
             </div>
@@ -274,6 +294,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </tbody>
         </table>
     </div>
+    <script>
+        function mostrarOpciones() {
+            const tipo_movimiento = document.getElementById("tipo_movimiento").value;
+            document.getElementById("entrada").classList.add("d-none");
+            document.getElementById("entrada_salida").classList.add("d-none");
+
+            if (tipo_movimiento === "ENTRADA") {
+                document.getElementById("entrada").classList.remove("d-none");
+            } else if (tipo_movimiento === "ENTRADA" || tipo_movimiento === "SALIDA") {
+                document.getElementById("entrada_salida").classList.remove("d-none");
+            }
+        }
+    </script>
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
