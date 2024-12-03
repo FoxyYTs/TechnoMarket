@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container text-center">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
             <i class="fas fa-plus"></i> Registrar movimiento</a>
-        <div class="container justify-content-start">
+        <div class="row justify-content-start">
             <div class="collapse" id="formulario_movimiento">
                 <h2 class="mb-4">Registro de movimientos</h2>
                 <form action="movimientos.php" method="POST">
@@ -238,7 +238,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Tipo de movimiento</th>
                     <th>Implemento</th>
                     <th>Cantidad</th>
                     <th>Fecha y hora</th>
@@ -255,7 +254,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
-                    echo "<td>" . $row['tipo_transaccion'] . "</td>";
                     echo "<td>" . $row['nombre_implemento'] . "</td>";
                     echo "<td>" . $row['cantidad'] . "</td>";
                     echo "<td>" . $row['fecha_hora'] . "</td>";
