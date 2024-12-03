@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="movimientos.php" method="POST">
                     <div class="form-group">
                         <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                        <select class="form-control" name="tipo_movimiento" required>
+                        <select class="form-control" id="tipo_movimiento" name="tipo_movimiento" required>
                             <option selected disabled>Seleccionar tipo</option>
                             <option value="PRESTAMO">Prestamo</option>
                             <option value="ENTRADA">Entrada</option>
