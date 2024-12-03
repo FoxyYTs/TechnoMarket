@@ -9,31 +9,33 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 tiempoCierreSesion();
+if (isset($_GET['tipoT']) && isset($_GET['id_transaccion'])) {
+    $tipoT = $_GET['tipoT'];
+    $id_transaccion = $_GET['id_transaccion'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoger datos del formulario
-    $tipoT = $_POST["tipoT"];
-    $implemento_fk = $_POST["implemento"];
-    $cantidadP = $_POST["cantidadP"];
-    $id_recibe = $_POST["id_recibe"];
-    $nombre_recibe = $_POST["nombre_recibe"];
-    $fecha_hora = $_POST["fecha_hora"];
-    $user = $_SESSION['user'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Recoger datos del formulario
+        $implemento_fk = $_POST["implemento"];
+        $cantidadP = $_POST["cantidadP"];
+        $id_recibe = $_POST["id_recibe"];
+        $nombre_recibe = $_POST["nombre_recibe"];
+        $fecha_hora = $_POST["fecha_hora"];
+        $user = $_SESSION['user'];
 
-    $id_transaccion = $_POST["id_transaccion"];
-    $cantidadD = $_POST["cantidadD"];
+        $cantidadD = $_POST["cantidadD"];
 
-    if ($tipoT == "PRESTAMO") {
-        prestamo($cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $implemento_fk, $user);
-    } else {
-        $conectar = conn();
-        $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
-        $stmt = $conectar->prepare($sql_devolucion);
-        $stmt->bind_param("i", $id_transaccion);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        $row = $resultado->fetch_assoc();
-        devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
+        if ($tipoT == "PRESTAMO") {
+            prestamo($cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $implemento_fk, $user);
+        } else {
+            $conectar = conn();
+            $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
+            $stmt = $conectar->prepare($sql_devolucion);
+            $stmt->bind_param("i", $id_transaccion);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $row = $resultado->fetch_assoc();
+            devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
+        }
     }
 }
 ?>
