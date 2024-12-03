@@ -207,9 +207,9 @@ function busquedaInformes($busqueda, $dato)
             WHERE i.nombre_implemento LIKE '$dato%'";
             break;
         case '3': #Implementos de determinada guia
-            return "SELECT i.nombre_implemento
+            return "SELECT i.nombre_implemento, ip.cantidad
             FROM implemento AS i
-            JOIN practica AS ip ON i.id_implemento = ip.implemento_fk
+            JOIN practica AS ip ON i.id_implemento = ip.implemento_fk 
             JOIN guia AS g ON g.id_guia = ip.guia_fk
             WHERE g.nombre_guia LIKE '$dato%'";
             break;
