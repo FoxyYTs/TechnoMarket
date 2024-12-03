@@ -232,16 +232,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Campo adicional para Entrada -->
                     <div class="form-group-none" id="entrada">
                         <label for="proovedor" class="form-label">Nombre del Proveedor</label>
-                        <option selected disabled>Seleccionar Proveedor</option>
-                        <?php
-                        include_once("db.php");
-                        $sqlP = "SELECT * FROM proveedor ORDER BY id_proveedor ASC";
-                        $conectar = conn(); //crear la conexión a la b.d.
-                        $result = mysqli_query($conectar, $sqlP) or trigger_error("Error:", mysqli_error($conectar));
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<option value='" . $row['id_proveedor'] . "'>" . $row['nombre_proveedor'] . "</option>";
-                        }
-                        ?>
+                        <select class="select" name="proveedor" required>
+                            <option selected disabled>Seleccionar Proveedor</option>
+                            <?php
+                            include_once("db.php");
+                            $sqlP = "SELECT * FROM proveedor ORDER BY id_proveedor ASC";
+                            $conectar = conn(); //crear la conexión a la b.d.
+                            $result = mysqli_query($conectar, $sqlP) or trigger_error("Error:", mysqli_error($conectar));
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['id_proveedor'] . "'>" . $row['nombre_proveedor'] . "</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <!-- Campo adicional para Entrada y Salida -->
