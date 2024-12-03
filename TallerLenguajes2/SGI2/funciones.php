@@ -132,7 +132,7 @@ function menu($user)
         JOIN roles ON acceso.roles_fk = roles.id_rol
         JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
         JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
-        WHERE acceso.user = ?";
+        WHERE acceso.user = ? AND permisos.archivo NOT LIKE 'gestion%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
@@ -149,6 +149,10 @@ function menu($user)
             echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
             echo '</li>';
         }
+        echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestionar</a>
+        <ul class="dropdown-menu">' .
+            menu_desplegable($user) . '
+        </ul></li>';
         echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
         echo '  </li>
                 <li class="nav-item">
@@ -167,7 +171,7 @@ function menu_desplegable($user)
         JOIN roles ON acceso.roles_fk = roles.id_rol
         JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
         JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
-        WHERE acceso.user = ?";
+        WHERE acceso.user = ? AND permisos.archivo LIKE 'gestion%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
@@ -181,15 +185,9 @@ function menu_desplegable($user)
                 $nombre_usuario = $row['nombre_usuario']; // Guardar el nombre de usuario solo una vez
             }
             echo '<li class="nav-item">';
-            echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
+            echo '<a class="dropdown-item" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
             echo '</li>';
         }
-        echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
-        echo '  </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Cerrar sesión</a>
-                </li>
-            </ul>';
     }
 }
 
