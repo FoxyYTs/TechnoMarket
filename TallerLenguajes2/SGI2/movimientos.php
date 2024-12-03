@@ -257,12 +257,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<td>" . $row['fecha_hora'] . "</td>";
                     echo "<td>" . $row['nombre_recibe'] . "</td>";
                     echo "<td>" . $row['user_fk'] . "</td>";
-                }
                 ?>
                 <td>
                     <form action="movimientos.php?user=<?php echo $row['tipo_transaccion']; ?>" method="POST">
                         <input name="cantidadD" type="number" class="form-control" required>
                         <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                    </form>
+                </td>
+                <?php
+                    echo "</tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
