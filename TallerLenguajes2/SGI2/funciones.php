@@ -291,5 +291,4 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         $conectar->close();
     }
 }
-
 ?>

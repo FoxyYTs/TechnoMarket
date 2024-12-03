@@ -245,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <tbody>
                 <?php
                 include_once("db.php");
-                $sql = "SELECT tipo_transaccion,i.nombre_implemento,cantidad,fecha_hora,nombre_recibe,user_fk FROM `transaccion`JOIN implemento AS i ON implemento_transa_fk=id_implemento WHERE tipo_transaccion='PRESTAMO'";
+                $sql = "SELECT *, i.nombre_implemento FROM `transaccion`JOIN implemento AS i ON implemento_transa_fk=id_implemento WHERE tipo_transaccion='PRESTAMO'";
                 $conectar = conn(); //crear la conexión a la b.d.
                 $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
                 while ($row = mysqli_fetch_array($result)) {
@@ -257,7 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<td>" . $row['user_fk'] . "</td>";
                 ?>
                     <td>
-                        <form action="movimientos.php?user=<?php echo $row['tipo_transaccion']; ?>" method="POST">
+                        <form action="movimientos.php?user=<?php echo $row['id_transaccion']; ?>" method="POST">
                             <input name="cantidadD" type="number" class="form-control" required>
                             <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
                         </form>
