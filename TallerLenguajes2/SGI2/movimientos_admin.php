@@ -230,14 +230,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="datetime-local" class="form-control" name="fecha_hora" required>
                     </div>
                     <!-- Campo adicional para Entrada -->
-                    <div class="form-group" id="entrada">
+                    <div class="form-group-none" id="entrada">
                         <label for="proovedor" class="form-label">Nombre del Proveedor</label>
                         <option selected disabled>Seleccionar Proveedor</option>
                         <?php
                         include_once("db.php");
-                        $sql = "SELECT id_proveedor FROM proveedor ORDER BY id_proveedor ASC";
+                        $sqlP = "SELECT * FROM proveedor ORDER BY id_proveedor ASC";
                         $conectar = conn(); //crear la conexión a la b.d.
-                        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                        $result = mysqli_query($conectar, $sqlP) or trigger_error("Error:", mysqli_error($conectar));
                         while ($row = mysqli_fetch_array($result)) {
                             echo "<option value='" . $row['id_proveedor'] . "'>" . $row['nombre_proveedor'] . "</option>";
                         }
@@ -245,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <!-- Campo adicional para Entrada y Salida -->
-                    <div class="form-group" id="entrada_salida">
+                    <div class="form-group-none" id="entrada_salida">
                         <label for="Observaciones" class="form-label">Observaciones</label>
                         <input type="text" class="form-control" name="observaciones" required>
                     </div>
