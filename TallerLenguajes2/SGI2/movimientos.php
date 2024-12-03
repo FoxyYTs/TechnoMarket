@@ -182,56 +182,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </span>
         </div>
     </nav>
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
-                <i class="fas fa-plus"></i> Registrar movimiento</a>
-            <div class="collapse" id="formulario_movimiento">
-                <h2 class="mb-4">Registro de movimientos</h2>
-                <form action="movimientos.php" method="POST">
-                    <div class="form-group">
-                        <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                        <select class="form-control" name="tipo_movimiento" required>
-                            <option selected disabled>Seleccionar tipo</option>
-                            <option value="PRESTAMO">Prestamo</option>
-                            <option value="DEVOLUCION">Devolución</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="implemento">Implemento:</label>
-                        <select class="select2" name="implemento" required>
-                            <option selected disabled>Seleccionar Implemento</option>
-                            <?php
-                            include_once("db.php");
-                            $sql = "SELECT * FROM implemento";
-                            $conectar = conn(); //crear la conexión a la b.d.
-                            $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
-                            while ($rowI = mysqli_fetch_array($result)) {
-                                echo "<option value='" . $rowI['id_implemento'] . "'>" . $rowI['nombre_implemento'] . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="cantidadP">Cantidad:</label>
-                        <input type="number" class="form-control" name="cantidadP" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_recibe">Identificación de quien recibe:</label>
-                        <input type="text" class="form-control" name="id_recibe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre_recibe">Nombre de quien recibe:</label>
-                        <input type="text" class="form-control" name="nombre_recibe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fecha_hora">Fecha y hora:</label>
-                        <input type="datetime-local" class="form-control" name="fecha_hora" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
+        <i class="fas fa-plus"></i> Registrar movimiento</a>
+    <div class="collapse" id="formulario_movimiento">
+        <h2 class="mb-4">Registro de movimientos</h2>
+        <form action="movimientos.php" method="POST">
+            <div class="form-group">
+                <label for="tipo_movimiento">Tipo de Transaccion:</label>
+                <select class="form-control" name="tipo_movimiento" required>
+                    <option selected disabled>Seleccionar tipo</option>
+                    <option value="PRESTAMO">Prestamo</option>
+                    <option value="DEVOLUCION">Devolución</option>
+                </select>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="implemento">Implemento:</label>
+                <select class="select2" name="implemento" required>
+                    <option selected disabled>Seleccionar Implemento</option>
+                    <?php
+                    include_once("db.php");
+                    $sql = "SELECT * FROM implemento";
+                    $conectar = conn(); //crear la conexión a la b.d.
+                    $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                    while ($rowI = mysqli_fetch_array($result)) {
+                        echo "<option value='" . $rowI['id_implemento'] . "'>" . $rowI['nombre_implemento'] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cantidadP">Cantidad:</label>
+                <input type="number" class="form-control" name="cantidadP" required>
+            </div>
+            <div class="form-group">
+                <label for="id_recibe">Identificación de quien recibe:</label>
+                <input type="text" class="form-control" name="id_recibe" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre_recibe">Nombre de quien recibe:</label>
+                <input type="text" class="form-control" name="nombre_recibe" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_hora">Fecha y hora:</label>
+                <input type="datetime-local" class="form-control" name="fecha_hora" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
     </div>
     <div class="container mt-5">
         <h2 class="mb-4">Listado de movimientos</h2>
@@ -274,8 +270,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
