@@ -251,6 +251,8 @@ function prestamo($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,$u
         } else {
             echo '<div class="alert alert-danger" role="alert">Error al registrar movimiento</div>';
         }
+        $stmt->close();
+        $conectar->close();
     }
 }
 function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,$user,$id_prestamo){
@@ -285,6 +287,8 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         } else {
             echo '<div class="alert alert-danger" role="alert">Error al registrar movimiento</div>';
         }
+        $stmt->close();
+        $conectar->close();
     }
 }
 

@@ -18,68 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_recibe = $_POST["nombre_recibe"];
     $fecha_hora = $_POST["fecha_hora"];
     $user = $_SESSION['user'];
-
-    if ($tipoT == "PRESTAMO") {
-        include_once("db.php");
-        $sqlI = "SELECT id_implemento, stock_implemento FROM implemento";
-        $conectar = conn(); //crear la conexión a la b.d.
-        $result = mysqli_query($conectar, $sqlI) or trigger_error("Error:", mysqli_error($conectar));
-        $row = mysqli_fetch_array($result);
-        if ($cantidadP > $row['stock_implemento']) {
-            echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
-        } else {
-            // Conectar a la base de datos
-            include_once("db.php");
-            $conectar = conn(); //conexion a la base de datos
-            $sql = "INSERT INTO transaccion (tipo_transaccion, implemento_transa_fk, cantidad, id_recibe, nombre_recibe, fecha_hora, user_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
-            $stmt = $conectar->prepare($sql);
-            //bind
-            $stmt->bind_param("siissss", $tipoT, $implemento_fk, $cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $user);
-            $sql2 = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
-            // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
-            $stmt = $conectar->prepare($sql);
-            $stmt2 = $conectar->prepare($sql2);
-            //bind
-            $cant = $row['stock_implemento']-$cantidadP;
-            $stmt2->bind_param("ii", $cant, $implemento_fk);
-            // Ejecutar la sentencia SQL
-            if ($stmt->execute() && $stmt2->execute()) {
-                header("Location: movimientos.php");
-                echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
-            } else {
-                header("Location: movimientos.php");
-                echo '<div class="alert alert-warning" role="alert"> Error al registrar movimiento </div>' . $stmt->error;
-            }
-            $stmt->close();
-            $conectar->close();
-        }
-    } else {
-        $cantidadD = $_POST["cantidadD"];
-        // Conectar a la base de datos
-        include_once("db.php");
-        $conectar = conn(); //conexion a la base de datos
-        $sql = "UPDATE transaccion (tipo_transaccion, cantidad, user_fk) VALUES (?, ?, ?)";
-        // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
-        $stmt = $conectar->prepare($sql);
-        $tipo="";
-        if ($cantidadD==$cantidadP) {
-            //bind
-            $stmt->bind_param("sis", $tipoT, $cantidadD, $user);
-            // Ejecutar la sentencia SQL
-            if ($stmt->execute()) {
-                header("Location: movimientos.php");
-                echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
-            } else {
-                header("Location: movimientos.php");
-                echo '<div class="alert alert-warning" role="alert">Error al registrar movimiento </div>' . $stmt->error;
-            }
-        } else {
-            
-        }
-        $stmt->close();
-        $conectar->close();
-    }
 }
 ?>
 <!DOCTYPE html>
