@@ -367,3 +367,40 @@ function Entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor
     $stmt->close();
     $conectar->close();
 }
+
+function Salida($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user)
+{//INSERT INTO reg_salida(cantidad_sale, fecha_salida, observaciones, implemento_sale_fk,user_fk) VALUES (?,?,?,?,?)
+    include_once("db.php");
+    $conectar = conn(); //conexion a la base de datos
+    //Extraer el stock del implemento a prestar
+    $sql_stock = "SELECT id_implemento, stock_implemento FROM implemento WHERE id_implemento = ?";
+    $stmt = $conectar->prepare($sql_stock);
+    $stmt->bind_param("i", $implemento);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_assoc();
+    // Obtener el stock del implemento y compararlo con la cantidad a prestar
+    $stock = $row['stock_implemento'];
+    if ($cantidad > $stock) {
+        echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
+    } else {
+        $sql = generarConsultaMovimientos("PRESTAMO");
+        // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+        $stmt = $conectar->prepare($sql);
+        //bind
+        $stmt->bind_param("isssis", $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user);
+        // Ejecutar la sentencia SQL
+        if ($stmt->execute()) {
+            echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+            // Actualizar el stock del implemento
+            $nuevo_stock = $stock - $cantidad;
+            $sql_stock = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
+            $stmt = $conectar->prepare($sql_stock);
+            $stmt->bind_param("ii", $nuevo_stock, $implemento);
+            $stmt->execute();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Error al registrar movimiento</div>';
+        }
+        $stmt->close();
+        $conectar->close();
+    }

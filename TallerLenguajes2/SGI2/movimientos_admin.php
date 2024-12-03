@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row justify-text-start">
             <div class="collapse" id="formulario_movimiento">
                 <h2 class="mb-4">Registro de movimientos</h2>
-                <form action="movimientos.php" method="POST">
+                <form action="movimientos_admin.php" method="POST">
                     <div class="form-group">
                         <label for="tipo_movimiento">Tipo de Transaccion:</label>
                         <select class="form-control" id="tipo_movimiento" name="tipo_movimiento" required onchange="mostrarCampos()">
