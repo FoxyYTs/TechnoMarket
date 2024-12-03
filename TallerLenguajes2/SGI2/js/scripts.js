@@ -37,5 +37,8 @@ document.getElementById('search-input').addEventListener('keyup', function () {
         })
         .catch(error => console.error('Error:', error));
 });
-
-
+const collapseElementList = document.querySelectorAll('.collapse')
+const collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl))
+const bsCollapse = new bootstrap.Collapse('#formulario_movimiento', {
+    toggle: false
+  })
