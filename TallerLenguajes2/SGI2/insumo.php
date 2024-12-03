@@ -126,7 +126,7 @@ tiempoCierreSesion();
         $id_implemento = isset($_GET['id_implemento']) ? $_GET['id_implemento'] : $_POST['id_implemento'];
 
         $conectar = conn(); // Conexión a la base de datos
-        $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida = implemento.und_medida_fk WHERE id_implemento = '$id_implemento'";
+        $sql = "SELECT * FROM implemento JOIN unidad_medida ON unidad_medida.id_medida = implemento.und_medida_fk WHERE id_implemento = '$id_implemento' OR nombre_implemento LIKE '%$id_implemento%'";
 
         $result = mysqli_query($conectar, $sql) or trigger_error("Error: ", mysqli_error($conectar));
 
