@@ -215,7 +215,7 @@ function busquedaInformes($busqueda, $dato)
             WHERE g.nombre_guia LIKE '$dato%'";
             break;
         case '4': #Movimientos
-            return "SELECT fecha_hora, tipo_transaccion, i.nombre_implemento, cantidad, user_fk, nombre_recibe, prestamo_fk FROM transaccion
+            return "SELECT id_transaccion, fecha_hora, tipo_transaccion, i.nombre_implemento, cantidad, user_fk, nombre_recibe, prestamo_fk FROM transaccion
             JOIN implemento AS i ON transaccion.implemento_transa_fk = i.id_implemento";
             break;
         default:
