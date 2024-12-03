@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </span>
         </div>
     </nav>
-    <div class="row g-3">
+    <div class="container text-center">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
             <i class="fas fa-plus"></i> Registrar movimiento</a>
         <div class="collapse" id="formulario_movimiento">
