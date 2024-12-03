@@ -368,8 +368,8 @@ function Entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor
     $conectar->close();
 }
 
-function Salida($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user)
-{//INSERT INTO reg_salida(cantidad_sale, fecha_salida, observaciones, implemento_sale_fk,user_fk) VALUES (?,?,?,?,?)
+function Salida($cantidad, $fecha_hora, $observaciones, $implemento, $user)
+{ //INSERT INTO reg_salida(cantidad_sale, fecha_salida, observaciones, implemento_sale_fk,user_fk) VALUES (?,?,?,?,?)
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
     //Extraer el stock del implemento a prestar
@@ -404,3 +404,4 @@ function Salida($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor,
         $stmt->close();
         $conectar->close();
     }
+}
