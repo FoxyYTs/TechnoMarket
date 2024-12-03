@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="movimientos.php" method="POST">
                     <div class="form-group">
                         <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                        <select class="form-control" id="tipo_movimiento" name="tipo_movimiento" required>
+                        <select class="form-control" id="tipo_movimiento" name="tipo_movimiento" required onchange="mostrarCampos()">
                             <option selected disabled>Seleccionar tipo</option>
                             <option value="PRESTAMO">Prestamo</option>
                             <option value="ENTRADA">Entrada</option>
@@ -296,7 +296,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </table>
     </div>
     <script>
-        function mostrarOpciones() {
+        function mostrarCampos() {
             const tipo_movimiento = document.getElementById("tipo_movimiento").value;
             document.getElementById("entrada").classList.add("d-none");
             document.getElementById("entrada_salida").classList.add("d-none");
