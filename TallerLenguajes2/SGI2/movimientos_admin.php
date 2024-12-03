@@ -303,13 +303,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             document.getElementById("nombre_recibe").classList.add("d-none");
             document.getElementById("id_recibe").classList.add("d-none");
 
-            if (tipo_movimiento === "ENTRADA") {
+            if (tipo_movimiento === "ENTRADA" || tipo_movimiento === "SALIDA") {
+                document.getElementById("entrada_salida").classList.remove("d-none");
+            } else if (tipo_movimiento === "ENTRADA") {
                 document.getElementById("entrada").classList.remove("d-none");
             }else if(tipo_movimiento === "PRESTAMO"){
                 document.getElementById("id_recibe").classList.remove("d-none");
                 document.getElementById("nombre_recibe").classList.remove("d-none");
-            }else{
-                document.getElementById("entrada_salida").classList.remove("d-none");
             }
         }
     </script>
