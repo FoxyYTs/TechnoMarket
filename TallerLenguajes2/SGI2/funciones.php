@@ -127,12 +127,7 @@ function menu($user)
 {
     include_once("db.php");
     $conectar = conn();
-    $sql = "SELECT acceso.user AS nombre_usuario, roles.nombre_rol, permisos.nombre_permiso, permisos.archivo
-        FROM acceso
-        JOIN roles ON acceso.roles_fk = roles.id_rol
-        JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
-        JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
-        WHERE acceso.user = ? AND permisos.archivo NOT LIKE 'gestion%'";
+    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.archivo NOT LIKE 'gestion%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
@@ -151,7 +146,7 @@ function menu($user)
         }
         echo '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestionar</a>
         <ul class="dropdown-menu">' .
-            menu_desplegable($user) . '
+            menu_desplegable($nombre_usuario) . '
         </ul></li>';
         echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
         echo '  </li>
@@ -166,27 +161,15 @@ function menu_desplegable($user)
 {
     include_once("db.php");
     $conectar = conn();
-    $sql = "SELECT acceso.user AS nombre_usuario, roles.nombre_rol, permisos.nombre_permiso, permisos.archivo
-        FROM acceso
-        JOIN roles ON acceso.roles_fk = roles.id_rol
-        JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
-        JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
-        WHERE acceso.user = ? AND permisos.archivo LIKE 'gestion%'";
+    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.archivo LIKE 'gestion%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
     mysqli_stmt_execute($stmt);
     $resultado = mysqli_stmt_get_result($stmt);
     if ($resultado->num_rows > 0) {
-        $nombre_usuario = ''; // Para guardar el nombre del usuario solo una vez
-
         while ($row = $resultado->fetch_assoc()) {
-            if (empty($nombre_usuario)) {
-                $nombre_usuario = $row['nombre_usuario']; // Guardar el nombre de usuario solo una vez
-            }
-            echo '<li class="nav-item">';
-            echo '<a class="dropdown-item" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
-            echo '</li>';
+            echo '<li><a class="dropdown-item" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a></li>';
         }
     }
 }
