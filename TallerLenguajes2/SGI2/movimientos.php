@@ -96,6 +96,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
         .navbar {
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -112,6 +118,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .nav-link.active {
             color: #007bff !important;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
         }
 
         .background-section {

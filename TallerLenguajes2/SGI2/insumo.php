@@ -48,26 +48,6 @@ tiempoCierreSesion();
             margin-top: 50px;
         }
 
-        .table-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .table thead th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .table-responsive {
-            margin-top: 20px;
-        }
-
         .form-group label {
             font-weight: bold;
         }
