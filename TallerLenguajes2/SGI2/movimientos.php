@@ -182,52 +182,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </span>
         </div>
     </nav>
-    <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
-        <i class="fas fa-plus"></i> Registrar movimiento</a>
-    <div class="collapse" id="formulario_movimiento">
-        <h2 class="mb-4">Registro de movimientos</h2>
-        <form action="movimientos.php" method="POST">
-            <div class="form-group">
-                <label for="tipo_movimiento">Tipo de Transaccion:</label>
-                <select class="form-control" name="tipo_movimiento" required>
-                    <option selected disabled>Seleccionar tipo</option>
-                    <option value="PRESTAMO">Prestamo</option>
-                    <option value="DEVOLUCION">Devolución</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="implemento">Implemento:</label>
-                <select class="select2" name="implemento" required>
-                    <option selected disabled>Seleccionar Implemento</option>
-                    <?php
-                    include_once("db.php");
-                    $sql = "SELECT * FROM implemento";
-                    $conectar = conn(); //crear la conexión a la b.d.
-                    $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
-                    while ($rowI = mysqli_fetch_array($result)) {
-                        echo "<option value='" . $rowI['id_implemento'] . "'>" . $rowI['nombre_implemento'] . "</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="cantidadP">Cantidad:</label>
-                <input type="number" class="form-control" name="cantidadP" required>
-            </div>
-            <div class="form-group">
-                <label for="id_recibe">Identificación de quien recibe:</label>
-                <input type="text" class="form-control" name="id_recibe" required>
-            </div>
-            <div class="form-group">
-                <label for="nombre_recibe">Nombre de quien recibe:</label>
-                <input type="text" class="form-control" name="nombre_recibe" required>
-            </div>
-            <div class="form-group">
-                <label for="fecha_hora">Fecha y hora:</label>
-                <input type="datetime-local" class="form-control" name="fecha_hora" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
+    <div class="row g-3">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
+            <i class="fas fa-plus"></i> Registrar movimiento</a>
+        <div class="collapse" id="formulario_movimiento">
+            <h2 class="mb-4">Registro de movimientos</h2>
+            <form action="movimientos.php" method="POST">
+                <div class="form-group">
+                    <label for="tipo_movimiento">Tipo de Transaccion:</label>
+                    <select class="form-control" name="tipo_movimiento" required>
+                        <option selected disabled>Seleccionar tipo</option>
+                        <option value="PRESTAMO">Prestamo</option>
+                        <option value="DEVOLUCION">Devolución</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="implemento">Implemento:</label>
+                    <select class="select2" name="implemento" required>
+                        <option selected disabled>Seleccionar Implemento</option>
+                        <?php
+                        include_once("db.php");
+                        $sql = "SELECT * FROM implemento";
+                        $conectar = conn(); //crear la conexión a la b.d.
+                        $result = mysqli_query($conectar, $sql) or trigger_error("Error:", mysqli_error($conectar));
+                        while ($rowI = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $rowI['id_implemento'] . "'>" . $rowI['nombre_implemento'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cantidadP">Cantidad:</label>
+                    <input type="number" class="form-control" name="cantidadP" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_recibe">Identificación de quien recibe:</label>
+                    <input type="text" class="form-control" name="id_recibe" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre_recibe">Nombre de quien recibe:</label>
+                    <input type="text" class="form-control" name="nombre_recibe" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_hora">Fecha y hora:</label>
+                    <input type="datetime-local" class="form-control" name="fecha_hora" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
     </div>
     <div class="container mt-5">
         <h2 class="mb-4">Listado de movimientos</h2>
@@ -258,12 +260,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<td>" . $row['nombre_recibe'] . "</td>";
                     echo "<td>" . $row['user_fk'] . "</td>";
                 ?>
-                <td>
-                    <form action="movimientos.php?user=<?php echo $row['tipo_transaccion']; ?>" method="POST">
-                        <input name="cantidadD" type="number" class="form-control" required>
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
-                    </form>
-                </td>
+                    <td>
+                        <form action="movimientos.php?user=<?php echo $row['tipo_transaccion']; ?>" method="POST">
+                            <input name="cantidadD" type="number" class="form-control" required>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                        </form>
+                    </td>
                 <?php
                     echo "</tr>";
                 }
