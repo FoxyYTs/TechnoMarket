@@ -20,9 +20,18 @@ tiempoCierreSesion();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        th,
-        td {
-            vertical-align: middle !important;
+    
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin-bottom: 10px;
+            width: 200px; /* Ajusta el ancho según tus necesidades */
+            height: 50px; /* Ajusta el alto según tus necesidades */
+            
         }
     </style>
 </head>
@@ -43,12 +52,12 @@ tiempoCierreSesion();
         </div>
     </nav>
 
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="button"><a href="reg_area.php">Nueva área</a></button>
-        <button class="btn btn-primary" type="button"><a href="reg_permisos.php">Nuevo permiso</a></button>
-        <button class="btn btn-primary" type="button"><a href="reg_roles.php">Nuevo rol</a></button>
-        <button class="btn btn-primary" type="button"><a href="reg_ubicacion.php">Nueva ubicación</a></button>
-        <button class="btn btn-primary" type="button"><a href="reg_und_medida.php">Nueva Unidad de Medida</a></button>
+    <div class="button-container">
+        <button class="btn btn-primary" type="button"><a href="reg_area.php" style="color: white;">Nueva área</a></button>
+        <button class="btn btn-primary" type="button"><a href="reg_permisos.php" style="color: white;">Nuevo permiso</a></button>
+        <button class="btn btn-primary" type="button"><a href="reg_roles.php" style="color: white;">Nuevo rol</a></button>
+        <button class="btn btn-primary" type="button"><a href="reg_ubicacion.php" style="color: white;">Nueva ubicación</a></button>
+        <button class="btn btn-primary" type="button"><a href="reg_und_medida.php" style="color: white;">Nueva Unidad de Medida</a></button>
     </div>
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
