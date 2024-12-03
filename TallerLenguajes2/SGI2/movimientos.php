@@ -202,9 +202,6 @@ $id_transaccion = isset($_GET['id_transaccion']) ? $_GET['id_transaccion'] : nul
                 menu($_SESSION['user']);
                 ?>
             </ul>
-            <span class="navbar-text">
-                <?php echo $_SESSION['user']; ?>
-            </span>
         </div>
     </nav>
     <div class="container content-center">
