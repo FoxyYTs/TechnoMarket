@@ -215,6 +215,8 @@ function busquedaInformes($busqueda, $dato)
             WHERE g.nombre_guia LIKE '$dato%'";
             break;
         case '4': #Movimientos
+            return "SELECT fecha_hora, tipo_transaccion, implemento_transa_fk, cantidad, user_fk, nombre_recibe, prestamo_fk FROM transaccion";
+            break;
         default:
             return 0;
             break;

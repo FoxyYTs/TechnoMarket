@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tabla = array("Nombre del implemento", "Cantidad" );
     } else if ($informeTipo == "4") {
         $dato = 0;
-        $tabla = array("Fecha","Estado","Nombre Implemento", "Cantidad", "Usuario Prestador", "Usuario Recibe");
+        $tabla = array("Fecha y Hora","Tipo","Nombre Implemento", "Cantidad", "Usuario Prestador", "Usuario Recibe", "Prestamo Asociado");
     } else {
         $dato = 0;
         $tabla = array("Nombre", "Stock", "Stock Minimo", "Estado");
@@ -72,7 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                         // Verificación de stock y color
                         if ($informeTipo == "1") {
-                            $color = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "red" : "green";
+                            if ($row["stock_implemento"] < $row["stock_minimo"]) {
+                                $color = "red"; // Por debajo del mínimo
+                            } elseif ($row["stock_implemento"] <= ($row["stock_minimo"] + 2)) {
+                                $color = "yellow"; // En el mínimo o faltan 2 para llegar al mínimo
+                            } else {
+                                $color = "green"; // Por encima del mínimo
+                            }
                             $icon = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "exclamation-circle" : "check-circle";
                             $message = ($row["stock_implemento"] <= $row["stock_minimo"]) ? "Bajo stock" : "En stock";
 
