@@ -157,13 +157,50 @@ function menu($user)
             </ul>';
     }
 }
-function tiempoCierreSesion(){
+
+function menu_desplegable($user)
+{
+    include_once("db.php");
+    $conectar = conn();
+    $sql = "SELECT acceso.user AS nombre_usuario, roles.nombre_rol, permisos.nombre_permiso, permisos.archivo
+        FROM acceso
+        JOIN roles ON acceso.roles_fk = roles.id_rol
+        JOIN permiso_rol ON roles.id_rol = permiso_rol.rol_fk
+        JOIN permisos ON permisos.id_permisos = permiso_rol.permiso_fk
+        WHERE acceso.user = ?";
+
+    $stmt = mysqli_prepare($conectar, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $user);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    if ($resultado->num_rows > 0) {
+        $nombre_usuario = ''; // Para guardar el nombre del usuario solo una vez
+
+        while ($row = $resultado->fetch_assoc()) {
+            if (empty($nombre_usuario)) {
+                $nombre_usuario = $row['nombre_usuario']; // Guardar el nombre de usuario solo una vez
+            }
+            echo '<li class="nav-item">';
+            echo '<a class="nav-link" href="' . $row['archivo'] . '">' . $row['nombre_permiso'] . '</a>';
+            echo '</li>';
+        }
+        echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
+        echo '  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                </li>
+            </ul>';
+    }
+}
+
+function tiempoCierreSesion()
+{
 
     date_default_timezone_set('America/Bogota'); // Zona horaria
 
     $hora_actual = date("H:i");
 
-    $hora_cierre = "23:59"; 
+    $hora_cierre = "23:59";
 
     if ($hora_actual >= $hora_cierre) {
         session_unset();
@@ -174,37 +211,39 @@ function tiempoCierreSesion(){
     $_SESSION['LAST_ACTIVITY'] = time();
 }
 
-function busquedaInformes($busqueda,$dato){
+function busquedaInformes($busqueda, $dato)
+{
     switch ($busqueda) {
-        case '1':#Inventario
+        case '1': #Inventario
             return "SELECT nombre_implemento, stock_implemento, stock_minimo FROM implemento";
             break;
-        case '2':#Practicas donde se usa determinado insumo
+        case '2': #Practicas donde se usa determinado insumo
             return "SELECT p.id_practica, g.nombre_guia
             FROM practica p
             JOIN guia g ON p.guia_fk = g.id_guia
             JOIN implemento i ON p.implemento_fk = i.id_implemento
             WHERE i.nombre_implemento LIKE '$dato%'";
             break;
-        case '3':#Implementos de determinada guia
+        case '3': #Implementos de determinada guia
             return "SELECT i.nombre_implemento
             FROM implemento AS i
             JOIN practica AS ip ON i.id_implemento = ip.implemento_fk
             JOIN guia AS g ON g.id_guia = ip.guia_fk
             WHERE g.nombre_guia LIKE '$dato%'";
             break;
-        case '4':#Movimientos
+        case '4': #Movimientos
         default:
             return 0;
             break;
     }
 }
-function generarConsultaMovimientos($opcion){
+function generarConsultaMovimientos($opcion)
+{
     switch ($opcion) {
-        case 'PRESTAMO'://isssis
+        case 'PRESTAMO': //isssis
             return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk) VALUES ('PRESTAMO',?,?,?,?,?,?)";
             break;
-        case 'DEVOLUCION'://isssisi
+        case 'DEVOLUCION': //isssisi
             return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk, prestamo_fk) VALUES ('DEVOLUCION',?,?,?,?,?,?,?)";
             //UPDATE transaccion SET devolucion_fk=? WHERE id_transaccion=?
             break;
@@ -219,7 +258,8 @@ function generarConsultaMovimientos($opcion){
             break;
     }
 }
-function prestamo($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,$user){
+function prestamo($cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user)
+{
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
     //Extraer el stock del implemento a prestar
@@ -255,9 +295,18 @@ function prestamo($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,$u
         $conectar->close();
     }
 }
-function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,$user,$id_prestamo){
+function devolucion($cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user, $id_prestamo)
+{
     include_once("db.php");
     $conectar = conn(); //conexion a la base de datos
+    //Estraer info de prestamo
+    $sql_pres_dev = "SELECT cantidad FROM transaccion WHERE id_transaccion = ?";
+    $stmt = $conectar->prepare($sql_pres_dev);
+    $stmt->bind_param("i", $id_prestamo);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_assoc();
+    $canPrest = $row['cantidad'];
     //Extraer el stock del implemento a prestar
     $sql_stock = "SELECT id_implemento, stock_implemento FROM implemento WHERE id_implemento = ?";
     $stmt = $conectar->prepare($sql_stock);
@@ -267,8 +316,8 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
     $row = $resultado->fetch_assoc();
     // Obtener el stock del implemento
     $stock = $row['stock_implemento'];
-    if ($cantidad > $stock) {
-        echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
+    if ($cantidad > $canPrest) {
+        echo '<div class="alert alert-success" role="alert">La cantidad a devolver es mayor a la cantidad prestada</div>';
     } else {
         $sql = generarConsultaMovimientos("DEVOLUCION");
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
@@ -279,15 +328,7 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         if ($stmt->execute()) {
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
             // Actualizar el stock del implemento
-
-            $sql_pres_dev = "SELECT cantidad FROM transaccion WHERE id_transaccion = ?";
-            $stmt = $conectar->prepare($sql_pres_dev);
-            $stmt->bind_param("i", $id_prestamo);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
-            $row = $resultado->fetch_assoc();
-            $canPrest = $row['cantidad'];
-            $cantidad_actual = $canPrest-$cantidad;
+            $cantidad_actual = $canPrest - $cantidad;
             $sql_prestamo = "UPDATE transaccion SET cantidad = ? WHERE id_transaccion = ?";
             $stmt = $conectar->prepare($sql_prestamo);
             $stmt->bind_param("ii", $cantidad_actual, $id_prestamo);
@@ -305,4 +346,3 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         $conectar->close();
     }
 }
-?>
