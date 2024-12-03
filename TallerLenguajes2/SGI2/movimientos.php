@@ -5,7 +5,7 @@ session_start();
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 tiempoCierreSesion();
@@ -211,7 +211,7 @@ if (isset($_GET['tipoT']) || isset($_GET['id_transaccion'])) {
         <div class="container justify-text-start">
             <div class="collapse" id="formulario_movimiento">
                 <h2 class="mb-4">Registro de prestamos</h2>
-                <form action="movimientos.php?tipoT='PRESTAMO'" method="POST">
+                <form action="movimientos.php?tipoT=PRESTAMO" method="POST">
                     <div class="form-group">
                         <label for="implemento">Implemento:</label>
                         <select class="select2" name="implemento" required>

@@ -279,7 +279,7 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
         if ($stmt->execute()) {
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
             // Actualizar el stock del implemento
-            $nuevo_stock = $stock - $cantidad;
+            $nuevo_stock = $stock + $cantidad;
             $sql_stock = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
             $stmt = $conectar->prepare($sql_stock);
             $stmt->bind_param("ii", $nuevo_stock, $implemento);
