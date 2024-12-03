@@ -185,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container content-center">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#formulario_movimiento" role="button" aria-expanded="false" aria-controls="formulario_movimiento">
             <i class="fas fa-plus"></i> Registrar movimiento</a>
-        <div class="row justify-text-start">
+        <div class="container justify-text-start">
             <div class="collapse" id="formulario_movimiento">
                 <h2 class="mb-4">Registro de movimientos</h2>
                 <form action="movimientos.php" method="POST">
