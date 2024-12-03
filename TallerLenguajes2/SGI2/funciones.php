@@ -204,8 +204,8 @@ function generarConsultaMovimientos($opcion){
         case 'PRESTAMO'://isssis
             return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk) VALUES ('PRESTAMO',?,?,?,?,?,?)";
             break;
-        case 'DEVOLUCION':
-            return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk) VALUES ('DEVOLUCION',?,?,?,?,?,?)";
+        case 'DEVOLUCION'://isssisi
+            return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk, prestamo_fk) VALUES ('DEVOLUCION',?,?,?,?,?,?,?)";
             //UPDATE transaccion SET devolucion_fk=? WHERE id_transaccion=?
             break;
         case 'INGRESO':
@@ -263,7 +263,29 @@ function devolucion($cantidad,$id_recibe,$nombre_recibe,$fecha_hora,$implemento,
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_assoc();
-    // Obtener el stock del implemento y compararlo con la cantidad a prestar
+    // Obtener el stock del implemento
     $stock = $row['stock_implemento'];
+    if ($cantidad > $stock) {
+        echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
+    } else {
+        $sql = generarConsultaMovimientos("DEVOLUCION");
+        // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+        $stmt = $conectar->prepare($sql);
+        //bind
+        $stmt->bind_param("isssisi", $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user, $id_prestamo);
+        // Ejecutar la sentencia SQL
+        if ($stmt->execute()) {
+            echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+            // Actualizar el stock del implemento
+            $nuevo_stock = $stock - $cantidad;
+            $sql_stock = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
+            $stmt = $conectar->prepare($sql_stock);
+            $stmt->bind_param("ii", $nuevo_stock, $implemento);
+            $stmt->execute();
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Error al registrar movimiento</div>';
+        }
+    }
+}
 
 ?>
