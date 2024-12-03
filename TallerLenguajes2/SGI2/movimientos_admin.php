@@ -9,16 +9,45 @@ if (!isset($_SESSION['user'])) {
 }
 tiempoCierreSesion();
 
+
+// Recoger datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoger datos del formulario
     $tipoT = $_POST["tipo_movimiento"];
-    $implemento_fk = $_POST["implemento"];
-    $cantidadP = $_POST["cantidadP"];
-    $id_recibe = $_POST["id_recibe"];
-    $nombre_recibe = $_POST["nombre_recibe"];
-    $fecha_hora = $_POST["fecha_hora"];
+    $id_transaccion = isset($_GET['id_transaccion']) ? $_GET['id_transaccion'] : null;
     $user = $_SESSION['user'];
+
+    if ($tipoT == "PRESTAMO") {
+        // Recoger datos del formulario
+        $implemento_fk = $_POST["implemento"];
+        $cantidadP = $_POST["cantidad"];
+        $id_recibe = $_POST["id_recibe"];
+        $nombre_recibe = $_POST["nombre_recibe"];
+        $fecha_hora = $_POST["fecha_hora"];
+        prestamo($cantidadP, $id_recibe, $nombre_recibe, $fecha_hora, $implemento_fk, $user);
+    } elseif ($tipoT == "ENTRADA") {
+        // Recoger datos del formulario
+        $implemento = $_POST["implemento"];
+        $cantidad = $_POST["cantidad"];
+        $observaciones = $_POST["observaciones"];
+        $proveedor = $_POST["proveedor"];
+        $fecha_hora = $_POST["fecha_hora"];
+        entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user);
+    } else {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Recoger datos del formulario
+            $cantidadD = $_POST["cantidadD"];
+            $conectar = conn();
+            $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
+            $stmt = $conectar->prepare($sql_devolucion);
+            $stmt->bind_param("i", $id_transaccion);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $row = $resultado->fetch_assoc();
+            devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
+        }
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -211,8 +240,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="cantidadP">Cantidad:</label>
-                        <input type="number" class="form-control" name="cantidadP" required>
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" class="form-control" name="cantidad" required>
                     </div>
                     <div class="form-group d-none" id="id_recibe">
                         <label for="id_recibe">Identificación de quien recibe:</label>
@@ -305,7 +334,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (tipo_movimiento === "ENTRADA") {
                     document.getElementById("entrada").classList.remove("d-none");
                 }
-            }else if(tipo_movimiento === "PRESTAMO"){
+            } else if (tipo_movimiento === "PRESTAMO") {
                 document.getElementById("id_recibe").classList.remove("d-none");
                 document.getElementById("nombre_recibe").classList.remove("d-none");
             }

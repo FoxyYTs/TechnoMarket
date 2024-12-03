@@ -233,11 +233,11 @@ function generarConsultaMovimientos($opcion)
             return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk, prestamo_fk) VALUES ('DEVOLUCION',?,?,?,?,?,?,?)";
             //UPDATE transaccion SET devolucion_fk=? WHERE id_transaccion=?
             break;
-        case 'ENTRADA':
-            return "INSERT INTO reg_entrada(cantidad_entra, fecha_entrada, observaciones, proveedor_fk, implemento_entra_fk) VALUES (?,?,?,?,?)";
+        case 'ENTRADA': //isssis
+            return "INSERT INTO reg_entrada(cantidad_entra, fecha_entrada, observaciones, proveedor_fk, implemento_entra_fk, user_fk) VALUES (?,?,?,?,?,?)";
             break;
         case 'SALIDA':
-            return "INSERT INTO reg_salida(cantidad_sale, fecha_salida, observaciones, implemento_sale_fk) VALUES (?,?,?,?)";
+            return "INSERT INTO reg_salida(cantidad_sale, fecha_salida, observaciones, implemento_sale_fk,user_fk) VALUES (?,?,?,?,?)";
             break;
         default:
             return 0;
@@ -331,4 +331,39 @@ function devolucion($cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $impleme
         $stmt->close();
         $conectar->close();
     }
+}
+function Entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user)
+{
+    include_once("db.php");
+    $conectar = conn(); //conexion a la base de datos
+    //Extraer el stock del implemento a prestar
+    $sql_stock = "SELECT id_implemento, stock_implemento FROM implemento WHERE id_implemento = ?";
+    $stmt = $conectar->prepare($sql_stock);
+    $stmt->bind_param("i", $implemento);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_assoc();
+    // Obtener el stock del implemento
+    $stock = $row['stock_implemento'];
+
+    $sql = generarConsultaMovimientos("ENTRADA");
+    // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
+    $stmt = $conectar->prepare($sql);
+    //bind
+    //cantidad_entra, fecha_entrada, observaciones, proveedor_fk, implemento_entra_fk, user_fk
+    $stmt->bind_param("isssis", $cantidad, $fecha_hora, $observaciones, $proveedor, $implemento, $user);
+    // Ejecutar la sentencia SQL
+    if ($stmt->execute()) {
+        echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
+        // Actualizar el stock del implemento
+        $nuevo_stock = $stock + $cantidad;
+        $sql_stock = "UPDATE implemento SET stock_implemento = ? WHERE id_implemento = ?";
+        $stmt = $conectar->prepare($sql_stock);
+        $stmt->bind_param("ii", $nuevo_stock, $implemento);
+        $stmt->execute();
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Error al registrar movimiento</div>';
+    }
+    $stmt->close();
+    $conectar->close();
 }

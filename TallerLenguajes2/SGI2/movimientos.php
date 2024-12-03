@@ -9,8 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 tiempoCierreSesion();
-// Validar tipo de transacción
-
+// Recoger datos del formulario
 $tipoT = isset($_GET['tipoT']) ? $_GET['tipoT'] : null;
 $id_transaccion = isset($_GET['id_transaccion']) ? $_GET['id_transaccion'] : null;
 
