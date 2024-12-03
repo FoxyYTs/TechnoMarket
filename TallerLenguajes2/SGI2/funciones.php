@@ -127,7 +127,7 @@ function menu($user)
 {
     include_once("db.php");
     $conectar = conn();
-    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.archivo NOT LIKE 'gestion%'";
+    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.nombre_permiso NOT LIKE 'GESTION%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
@@ -148,7 +148,7 @@ function menu($user)
         <ul class="dropdown-menu">' .
             menu_desplegable($nombre_usuario) . '
         </ul></li>';
-        echo '<span class="navbar-text">' . $nombre_usuario . '</span>';
+        echo '<span class="navbar-text">' . $user . '</span>';
         echo '  </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Cerrar sesión</a>
@@ -162,7 +162,7 @@ function menu_desplegable($user)
     $menu_items = '';
     include_once("db.php");
     $conectar = conn();
-    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.archivo LIKE 'gestion%'";
+    $sql = "SELECT a.user AS nombre_usuario, r.nombre_rol, p.nombre_permiso, p.archivo FROM acceso AS a JOIN roles AS r ON a.roles_fk = r.id_rol JOIN permiso_rol AS pr ON r.id_rol = pr.rol_fk JOIN permisos AS p ON p.id_permisos = pr.permiso_fk WHERE a.user = ? AND p.nombre_permiso LIKE 'GESTION%'";
 
     $stmt = mysqli_prepare($conectar, $sql);
     mysqli_stmt_bind_param($stmt, "s", $user);
