@@ -33,19 +33,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $proveedor = $_POST["proveedor"];
         $fecha_hora = $_POST["fecha_hora"];
         entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user);
+    } elseif ($tipoT == "SALIDA") {
+        // Recoger datos del formulario
+        $implemento = $_POST["implemento"];
+        $cantidad = $_POST["cantidad"];
+        $observaciones = $_POST["observaciones"];
+        $fecha_hora = $_POST["fecha_hora"];
+        salida($cantidad, $fecha_hora, $implemento, $observaciones, $user);
     } else {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Recoger datos del formulario
-            $cantidadD = $_POST["cantidadD"];
-            $conectar = conn();
-            $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
-            $stmt = $conectar->prepare($sql_devolucion);
-            $stmt->bind_param("i", $id_transaccion);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
-            $row = $resultado->fetch_assoc();
-            devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
-        }
+        // Recoger datos del formulario
+        $cantidadD = $_POST["cantidadD"];
+        $conectar = conn();
+        $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
+        $stmt = $conectar->prepare($sql_devolucion);
+        $stmt->bind_param("i", $id_transaccion);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $row = $resultado->fetch_assoc();
+        devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
     }
 }
 
