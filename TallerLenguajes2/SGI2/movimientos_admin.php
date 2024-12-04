@@ -268,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <option selected disabled>Seleccionar Proveedor</option>
                             <?php
                             include_once("db.php");
-                            $sqlP = "SELECT * FROM proveedor ORDER BY id_proveedor ASC";
+                            $sqlP = "SELECT * FROM proveedor ORDER BY nombre_proveedor ASC";
                             $conectar = conn(); //crear la conexión a la b.d.
                             $result = mysqli_query($conectar, $sqlP) or trigger_error("Error:", mysqli_error($conectar));
                             while ($row = mysqli_fetch_array($result)) {
