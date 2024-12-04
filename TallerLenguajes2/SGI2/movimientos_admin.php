@@ -1,10 +1,11 @@
 <?php
 require 'funciones.php';
+include_once("db.php");
 session_start();
-// Verifica si hay una sesión iniciada
+// Verifica si hay una sesión iniciadas
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 tiempoCierreSesion();
@@ -276,7 +277,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="Observaciones" class="form-label">Observaciones</label>
                         <input type="text" class="form-control" name="observaciones" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
                 </form>
             </div>
         </div>

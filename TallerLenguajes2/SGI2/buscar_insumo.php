@@ -1,11 +1,12 @@
 <?php
+include_once("db.php");
 require 'funciones.php';
 session_start();
 
 // Verifica si hay una sesión iniciada
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 tiempoCierreSesion();
@@ -169,8 +170,8 @@ tiempoCierreSesion();
                             <td>{$row['nombre_medida']}</td>";
                     ?>
                             <td>
-                                <a href="registrar_entrada.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus-fill"></i>Nueva Entrada</a>
-                                <a href="registrar_salida.php?id_implemento=<?php echo $row['id_implemento']; ?>" class="btn btn-danger btn-sm"><i class="bi bi-cart-dash-fill"></i>Salida</a>
+                                <a href="movimientos_admin.php" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus-fill"></i>Nueva Entrada</a>
+                                <a href="movimientos_admin.php?" class="btn btn-danger btn-sm"><i class="bi bi-cart-dash-fill"></i>Salida</a>
                             </td>
                     <?php
                         }

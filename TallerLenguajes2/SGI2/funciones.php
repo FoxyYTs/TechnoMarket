@@ -384,11 +384,11 @@ function Salida($cantidad, $fecha_hora, $observaciones, $implemento, $user)
     if ($cantidad > $stock) {
         echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
     } else {
-        $sql = generarConsultaMovimientos("PRESTAMO");
+        $sql = generarConsultaMovimientos("SALIDA");
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
         //bind
-        $stmt->bind_param("isssis", $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user);
+        $stmt->bind_param("issii", $cantidad, $fecha_hora, $observaciones, $implemento, $user);
         // Ejecutar la sentencia SQL
         if ($stmt->execute()) {
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
