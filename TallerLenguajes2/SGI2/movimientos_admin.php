@@ -1,10 +1,11 @@
 <?php
 require 'funciones.php';
+include_once("db.php");
 session_start();
-// Verifica si hay una sesión iniciada
+// Verifica si hay una sesión iniciadas
 if (!isset($_SESSION['user'])) {
     // Redirige a la página de inicio de sesión si no hay sesión
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 tiempoCierreSesion();
@@ -32,19 +33,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $proveedor = $_POST["proveedor"];
         $fecha_hora = $_POST["fecha_hora"];
         entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor, $user);
+    } elseif ($tipoT == "SALIDA") {
+        // Recoger datos del formulario
+        $implemento = $_POST["implemento"];
+        $cantidad = $_POST["cantidad"];
+        $observaciones = $_POST["observaciones"];
+        $fecha_hora = $_POST["fecha_hora"];
+        salida($cantidad, $fecha_hora, $implemento, $observaciones, $user);
     } else {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Recoger datos del formulario
-            $cantidadD = $_POST["cantidadD"];
-            $conectar = conn();
-            $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
-            $stmt = $conectar->prepare($sql_devolucion);
-            $stmt->bind_param("i", $id_transaccion);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
-            $row = $resultado->fetch_assoc();
-            devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
-        }
+        // Recoger datos del formulario
+        $cantidadD = $_POST["cantidadD"];
+        $conectar = conn();
+        $sql_devolucion = "SELECT * FROM transaccion WHERE id_transaccion = ?";
+        $stmt = $conectar->prepare($sql_devolucion);
+        $stmt->bind_param("i", $id_transaccion);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $row = $resultado->fetch_assoc();
+        devolucion($cantidadD, $row["id_recibe"], $row["nombre_recibe"], $row["fecha_hora"], $row["implemento_transa_fk"], $row["user_fk"], $id_transaccion);
     }
 }
 
@@ -276,7 +282,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="Observaciones" class="form-label">Observaciones</label>
                         <input type="text" class="form-control" name="observaciones" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -233,7 +233,7 @@ function generarConsultaMovimientos($opcion)
             return "INSERT INTO transaccion(tipo_transaccion, cantidad, id_recibe, nombre_recibe, fecha_hora, implemento_transa_fk, user_fk, prestamo_fk) VALUES ('DEVOLUCION',?,?,?,?,?,?,?)";
             //UPDATE transaccion SET devolucion_fk=? WHERE id_transaccion=?
             break;
-        case 'ENTRADA': //isssis
+        case 'ENTRADA': //issiis
             return "INSERT INTO reg_entrada(cantidad_entra, fecha_entrada, observaciones, proveedor_fk, implemento_entra_fk, user_fk) VALUES (?,?,?,?,?,?)";
             break;
         case 'SALIDA':
@@ -351,7 +351,7 @@ function Entrada($cantidad, $fecha_hora, $implemento, $observaciones, $proveedor
     $stmt = $conectar->prepare($sql);
     //bind
     //cantidad_entra, fecha_entrada, observaciones, proveedor_fk, implemento_entra_fk, user_fk
-    $stmt->bind_param("isssis", $cantidad, $fecha_hora, $observaciones, $proveedor, $implemento, $user);
+    $stmt->bind_param("issiis", $cantidad, $fecha_hora, $observaciones, $proveedor, $implemento, $user);
     // Ejecutar la sentencia SQL
     if ($stmt->execute()) {
         echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
@@ -384,11 +384,11 @@ function Salida($cantidad, $fecha_hora, $observaciones, $implemento, $user)
     if ($cantidad > $stock) {
         echo '<div class="alert alert-success" role="alert">No hay existencias sificientes</div>';
     } else {
-        $sql = generarConsultaMovimientos("PRESTAMO");
+        $sql = generarConsultaMovimientos("SALIDA");
         // Preparar la sentencia SQL para insertar una nueva reserva en la base de datos
         $stmt = $conectar->prepare($sql);
         //bind
-        $stmt->bind_param("isssis", $cantidad, $id_recibe, $nombre_recibe, $fecha_hora, $implemento, $user);
+        $stmt->bind_param("issii", $cantidad, $fecha_hora, $observaciones, $implemento, $user);
         // Ejecutar la sentencia SQL
         if ($stmt->execute()) {
             echo '<div class="alert alert-success" role="alert">Movimiento registrado correctamente</div>';
