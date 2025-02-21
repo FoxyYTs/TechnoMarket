@@ -1,0 +1,7 @@
+cada movimiento debe alterar el inventario
+
+Un prestamo además de comparar son lo disponible, cuando se preste, debe reducir el inventario
+Se mostrará una tabla de prestamos y ahí un boton que diga generar devolucion y llenar la cantidad 
+entregada, si queda a deber se registra sino desaparece
+
+Para entradas se elige el elemento y se aumenta el inventario
